@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layout_title"
+        layout="@layout/layout_title" />
+
+    <ListView
+        android:id="@+id/list_care"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="46dp"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1px"
+        android:focusableInTouchMode="true"
+        android:listSelector="@color/transparent"
+        android:minHeight="80dp"
+        android:paddingLeft="5dp"
+        android:scrollbarFadeDuration="0"
+        android:scrollbars="none" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorLine" />
+
+    <RelativeLayout
+        android:id="@+id/relative_noData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="46dp"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image_noData"
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:layout_marginTop="63dp"
+            android:background="@mipmap/image_nodata"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/text_noData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/image_noData"
+            android:layout_marginTop="33dp"
+            android:textColor="#CCC"
+            android:text="没有数据"/>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_banner"
+        android:layout_width="fill_parent"
+        android:layout_height="78dp"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <com.tdr.wisdome.view.ViewFlow
+            android:id="@+id/view_pic"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:padding="3dip">
+
+            <com.tdr.wisdome.view.CircleFlowIndicator
+                android:id="@+id/indicator_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:padding="2dip"
+                android:visibility="gone"
+                app:activeColor="@color/white"
+                app:activeType="fill"
+                app:circleSeparation="20dip"
+                app:inactiveColor="#ffffff"
+                app:inactiveType="fill"
+                app:radius="4dp" />
+        </FrameLayout>
+    </FrameLayout>
+
+</FrameLayout>

@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tdr.wisdome">
+
+    <permission
+        android:name="com.tdr.wisdome.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.tdr.wisdome.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />f
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
+    <!-- 二维码扫描相关权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <!-- 手机震动 权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- GPS定位权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:name=".base.MyApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".actvitiy.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+
+        <!-- 主界面 -->
+        <activity
+            android:name="com.kingja.cardpackage.activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="jp.app"
+                    android:pathPrefix="/openwith/"
+                    android:scheme="TDRCard" />
+            </intent-filter>
+
+        </activity>
+        <!-- 设置密码 -->
+        <activity
+            android:name=".actvitiy.SetPwdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 选择城市 -->
+        <activity
+            android:name=".actvitiy.CityPickerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize|adjustUnspecified">
+
+        </activity>
+        <!-- 忘记密码 -->
+        <activity
+            android:name=".actvitiy.ForgetPwdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 完善资料 -->
+        <activity
+            android:name=".actvitiy.PerfectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 个人中心 -->
+        <activity
+            android:name=".actvitiy.PersonalActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 实名认证 -->
+        <activity
+            android:name=".actvitiy.RealNameActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 个人信息 -->
+        <activity
+            android:name=".actvitiy.UploadIdentityActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 设置昵称 -->
+        <activity
+            android:name=".actvitiy.SetNickNameActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 我的卡包 -->
+        <activity
+            android:name=".actvitiy.PackageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <activity
+            android:name=".actvitiy.AddManagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 个人信息 -->
+        <activity
+            android:name=".actvitiy.PersonInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 我的信息 -->
+        <activity
+            android:name=".actvitiy.MsgActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 亲情关爱主页面 -->
+        <activity
+            android:name=".actvitiy.MainCareActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 关爱老人 -->
+        <activity
+            android:name=".actvitiy.AddOlderActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 关爱老人-监护人 -->
+        <activity
+            android:name=".actvitiy.AddGuardianActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 关爱老人-二维码 -->
+        <activity
+            android:name=".actvitiy.QrCodeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"></activity>
+        <!-- 关爱老人-选项卡 -->
+        <activity
+            android:name=".actvitiy.OlderSelectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 人员配置 -->
+        <activity
+            android:name=".actvitiy.OlderShareActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 人员配置-修改 -->
+        <activity
+            android:name=".actvitiy.ModifyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 人员配置-病情 -->
+        <activity
+            android:name=".actvitiy.HealthActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 人员配置-新增监护人 -->
+        <activity
+            android:name=".actvitiy.GuardianActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 老人-设备配置 -->
+        <activity
+            android:name=".actvitiy.DeviceConfigActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 老人-丢失报警 -->
+        <activity
+            android:name=".actvitiy.LostAlarmActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 我的车-主页面 -->
+        <activity
+            android:name=".actvitiy.MainCarActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- URL -->
+        <activity
+            android:name=".actvitiy.UrlActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+
+        <!-- 车辆绑定 -->
+        <activity
+            android:name=".actvitiy.CarBindingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+
+        <!-- 车辆预登记 -->
+        <activity
+            android:name=".actvitiy.PreRegistrationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+
+        <!-- 车辆报警列表 -->
+        <activity
+            android:name=".actvitiy.CarAlarmActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+
+        <!-- 预登记车辆二维码 -->
+        <activity
+            android:name=".actvitiy.CarQrActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+
+        <!-- 车辆预登记信息修改 -->
+        <activity
+            android:name=".actvitiy.ModifyPreActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+
+        <!-- 高德地图 -->
+        <activity
+            android:name=".amap.MapActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <!-- 二维码扫描 -->
+        <activity
+            android:name=".zbar.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+
+        <!--OCR-->
+        <activity
+            android:name="com.yunmai.android.idcard.ACamera"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.yunmai.android.idcard.ARecognize"
+            android:configChanges="orientation|keyboard|keyboardHidden">
+
+        </activity>
+
+        <!--高德地图定位-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="968cd882509bd5c4219e3899d1893dc3" />
+        <!-- 测试 4c2c5ec8c900ea26f26e03270d176b92-->
+        <!-- 正式 59723c7a02dde422f9791ce39f411ed7-->
+        <!-- 申报 968cd882509bd5c4219e3899d1893dc3-->
+
+
+        <!--极光推送-->
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="com.tdr.wisdome" />
+            </intent-filter>
+
+        </service>
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   <!--Required  显示通知栏 -->
+                <category android:name="com.tdr.wisdome" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+
+        </receiver>
+
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:exported="false" />
+
+        <!-- User defined.  For test only  用户自定义的广播接收器-->
+        <receiver
+            android:name=".jpush.MyReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.tdr.wisdome" />
+            </intent-filter>
+        </receiver>
+
+        <!--===========================================================KingJA===========================================================-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.RentActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" /><!--我家出租屋列表-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.HouseActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" /><!--我的家列表-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.ShopActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" /><!--我的店列表-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.DetailHouseActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" /><!--我的家详情-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.DetailRentActivity"
+            android:screenOrientation="portrait" /><!--我家出租屋详情-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.DetailShopActivity"
+            android:screenOrientation="portrait" /><!--店铺详情-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.RoomListActivity"
+            android:screenOrientation="portrait" /><!--房间列表-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.PersonManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.kingja.cardpackage.activity.PersonManagerActivity2"
+            android:screenOrientation="portrait" /><!--人员管理-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.RoomManagerActivity"
+            android:screenOrientation="portrait" /><!--房屋管理-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.EditNumberActivity"
+            android:screenOrientation="portrait" /><!--数字编辑-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.EditTextActivity"
+            android:screenOrientation="portrait" /><!--数字编辑-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.EditRoomActivity"
+            android:screenOrientation="portrait" /><!--房间编辑-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.EditTextAreaActivity"
+            android:screenOrientation="portrait" /><!--标题，备注编辑-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.EditGvActivity"
+            android:screenOrientation="portrait" /><!--选择编辑-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.RentDeviceInfoActivity"
+            android:screenOrientation="portrait" /><!--设备信息-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.PersonApplyActivity"
+            android:screenOrientation="portrait" /><!--人员申报-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.AlarmRentActivity"
+            android:screenOrientation="portrait" /><!--出租房预警信息-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.RentAdminActivity"
+            android:screenOrientation="portrait" /><!--管理员列表信息-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.AdminQRCodeActivity"
+            android:screenOrientation="portrait" /><!--出租房二维码-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.DetailAgentActivity"
+            android:screenOrientation="portrait" /><!--出租房代管详情页-->
+
+        <activity
+            android:name="com.kingja.cardpackage.activity.KCamera"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:screenOrientation="landscape" />><!--OCR界面-->
+        <!--  ========== ========== ========== 我的住房 ========== ========== ==========-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.HouseDeviceInfoActivity"
+            android:screenOrientation="portrait" /><!--设备信息-->
+
+        <!--  ========== ========== ========== 出租房代管 ========== ========== ==========-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.AgentActivity"
+            android:screenOrientation="portrait" /><!--出租房代管列表-->
+        <!--  ========== ========== ========== 我的店 ========== ========== ==========-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.AddShopActivity"
+            android:screenOrientation="portrait" /><!--添加店铺-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.ShopPersonActivity"
+            android:screenOrientation="portrait" /><!--店铺员工管理-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.ShopManagerActivity"
+            android:screenOrientation="portrait" /><!--店铺信息-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.EditLvActivity"
+            android:screenOrientation="portrait" /><!--编辑列表-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.ShopPersonQRCodeActivity"
+            android:screenOrientation="portrait" /><!--店铺二维码-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.ShopDeviceActivity"
+            android:screenOrientation="portrait" /><!--店铺设备列表-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.ShopDeviceBindActivity"
+            android:screenOrientation="portrait" /><!--店铺设备绑定-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.AlarmShopActivity"
+            android:screenOrientation="portrait" /><!--店铺预警信息-->
+
+        <activity
+            android:name="com.kingja.cardpackage.activity.AddedShopActivity"
+            android:screenOrientation="portrait" /><!--已加店铺-->
+
+        <activity
+            android:name="com.kingja.cardpackage.activity.TransferShopQRCodeActivity"
+            android:screenOrientation="portrait" /><!--店铺转让-->
+
+        <activity
+            android:name=".actvitiy.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.kingja.cardpackage.activity.EditPwdActivity"
+            android:screenOrientation="portrait" /><!--修改密码-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.HomeActivity"
+            android:screenOrientation="portrait" /><!--主界面-->
+
+        <!--闪屏页面-->
+        <!--
+            <activity
+                    android:name="com.kingja.cardpackage.activity.HomeActivity"
+                    android:screenOrientation="portrait" />&lt;!&ndash;闪屏页面&ndash;&gt;-->
+
+
+        <service android:name="com.kingja.cardpackage.service.JPushDispathService" /><!--推送分发服务-->
+
+    </application>
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_TASKS" />//判断应用是否在前台
+</manifest>

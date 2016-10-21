@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:orientation="vertical"
+        android:paddingLeft="37.5dp"
+        android:paddingRight="37.5dp">
+
+        <com.tdr.wisdome.view.material.MaterialEditText
+            android:id="@+id/material_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="验证码"
+            android:inputType="number"
+            android:textSize="15sp"
+            app:met_baseColor="@color/colorInput"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal"
+            app:met_hideUnderline="true"
+            app:met_primaryColor="@color/colorLine"
+            app:met_singleLineEllipsis="true" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="-10dp"
+            android:background="@color/colorLine" />
+
+        <com.tdr.wisdome.view.material.MaterialEditText
+            android:id="@+id/material_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12.5dp"
+            android:hint="密码（长度6-16位）"
+            android:inputType="textPassword"
+            android:textSize="15sp"
+            app:met_baseColor="@color/colorInput"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal"
+            app:met_hideUnderline="true"
+            app:met_maxCharacters="16"
+            app:met_minCharacters="6"
+            app:met_primaryColor="@color/colorLine"
+            app:met_singleLineEllipsis="true" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="-18dp"
+            android:background="@color/colorLine" />
+
+        <com.tdr.wisdome.view.material.MaterialEditText
+            android:id="@+id/material_confirmPwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12.5dp"
+            android:hint="确认密码"
+            android:inputType="textPassword"
+            android:textSize="15sp"
+            app:met_baseColor="@color/colorInput"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal"
+            app:met_hideUnderline="true"
+            app:met_maxCharacters="16"
+            app:met_minCharacters="6"
+            app:met_primaryColor="@color/colorLine"
+            app:met_singleLineEllipsis="true" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="-18dp"
+            android:background="@color/colorLine" />
+
+        <Button
+            android:id="@+id/btn_complete"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/btnlogin_change"
+            android:text="完成"
+            android:textColor="@drawable/textlogin_change"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_waiting"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/btnlogin_change"
+            android:text="等待60秒"
+            android:textColor="@drawable/textlogin_change"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

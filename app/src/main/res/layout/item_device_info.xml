@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="@color/bg_white">
+
+    <ImageView
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_cycle_off"
+        android:id="@+id/iv_status"
+        android:layout_width="5dp"
+        android:layout_height="5dp" />
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/iv_status"
+        android:id="@+id/tv_device_info"
+        style="@style/font_3_15"
+        android:text="设备编号"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+       android:id="@+id/tv_device_type"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        style="@style/font_9_15"
+        android:text="设备类型"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

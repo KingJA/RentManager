@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="23dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="100dp"
+            android:src="@mipmap/image_arrow" />
+
+        <LinearLayout
+            android:id="@+id/linear_carBinding"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@mipmap/image_poptop"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="19dp"
+                android:layout_height="13dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="19dp"
+                android:src="@mipmap/image_carbinding" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12.7dp"
+                android:gravity="center_vertical"
+                android:text="车辆绑定"
+                android:textColor="@color/colorInput"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorLine" />
+
+        <LinearLayout
+            android:id="@+id/linear_preRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@mipmap/image_popbottom"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="19dp"
+                android:background="@mipmap/image_preregistration" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12.7dp"
+                android:gravity="center_vertical"
+                android:text="自主预登记"
+                android:textColor="@color/colorInput"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_light"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/bg_white"
+        android:padding="12dp">
+
+        <com.kingja.ui.RequiredTextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="店铺名称" />
+
+
+        <EditText
+            android:id="@+id/et_addShop_shopName"
+            style="@style/edit_cursor_blue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="3"
+
+            android:hint="请输入店铺名称" />
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
+
+    <LinearLayout
+        android:id="@+id/ll_addShop_shopType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <com.kingja.ui.RequiredTextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="店铺类型" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="3">
+
+            <TextView
+                android:id="@+id/tv_addShop_shopType"
+                style="@style/font_9_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:hint="请选择店铺类型" />
+
+            <ImageView
+                android:id="@+id/iv_shop_type"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/arrow_right" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
+
+    <LinearLayout
+        android:id="@+id/ll_addShop_shopAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <com.kingja.ui.RequiredTextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="详细地址" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="3">
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_search_white" />
+
+            <TextView
+                android:id="@+id/tv_addShop_shopAddress"
+                style="@style/font_9_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_search"
+                android:hint="请搜索店铺地址" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <com.kingja.ui.RequiredTextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="姓名" />
+
+
+        <TextView
+            android:id="@+id/tv_addShop_name"
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="3"
+            android:background="@null"
+            android:hint="自动获取中..." />
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <com.kingja.ui.RequiredTextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="身份证号" />
+
+
+        <TextView
+            android:id="@+id/tv_addShop_idcard"
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="3"
+            android:background="@null"
+            android:hint="自动获取中..." />
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <com.kingja.ui.RequiredTextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="手机号码" />
+
+
+        <TextView
+            android:id="@+id/tv_addShop_phone"
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="3"
+            android:background="@null"
+            android:hint="自动获取中..." />
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <com.kingja.ui.RequiredTextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="经度" />
+
+
+        <TextView
+            android:id="@+id/tv_addShop_lng"
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="3"
+            android:background="@null"
+            android:hint="自动获取中..." />
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <com.kingja.ui.RequiredTextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="纬度" />
+
+
+        <TextView
+            android:id="@+id/tv_addShop_lat"
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="3"
+            android:background="@null"
+            android:hint="自动获取中..." />
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_white"
+        android:padding="12dp">
+
+        <com.kingja.ui.RequiredTextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="店铺图片" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3">
+
+            <GridView
+                android:id="@+id/gv_addShop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:clipToPadding="false"
+                android:horizontalSpacing="18dp"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="18dp" />
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

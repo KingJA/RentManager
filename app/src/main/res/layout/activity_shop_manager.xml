@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_light">
+
+    <RelativeLayout
+        android:layout_marginTop="12dp"
+        android:background="@color/bg_white"
+        android:id="@+id/rl_shop_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <com.kingja.ui.RequiredTextView
+            android:id="@+id/rtv_shopName"
+            style="@style/font_3_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="店铺名称" />
+
+        <ImageView
+            android:id="@+id/iv_shop_name"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/arrow_right" />
+
+        <TextView
+            android:id="@+id/tv_shop_name"
+            style="@style/font_9_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:gravity="end"
+            android:layout_marginLeft="8dp"
+            android:layout_toLeftOf="@id/iv_shop_name"
+            android:layout_toRightOf="@id/rtv_shopName"
+            android:text="" />
+    </RelativeLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
+
+    <RelativeLayout
+        android:background="@color/bg_white"
+        android:id="@+id/rl_shop_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <com.kingja.ui.RequiredTextView
+            android:id="@+id/rtv_shopType"
+            style="@style/font_3_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="店铺类型" />
+
+        <ImageView
+            android:id="@+id/iv_shop_type"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/arrow_right" />
+
+        <TextView
+            android:id="@+id/tv_shop_type"
+            style="@style/font_9_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:gravity="end"
+            android:layout_marginLeft="8dp"
+            android:layout_toLeftOf="@id/iv_shop_type"
+            android:layout_toRightOf="@id/rtv_shopType"
+            android:text="" />
+    </RelativeLayout>
+
+</LinearLayout>

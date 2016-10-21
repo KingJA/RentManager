@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:minHeight="105dp"
+    android:orientation="vertical">
+
+
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/sample"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:tag="Bottom1">
+
+            <TextView
+                android:id="@+id/text_read"
+                android:layout_width="65dp"
+                android:layout_height="105dp"
+                android:layout_gravity="center"
+                android:background="@color/colorDel"
+                android:gravity="center"
+                android:text="已读"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp">
+
+                <ImageView
+                    android:id="@+id/image_state"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@mipmap/image_circle" />
+
+                <TextView
+                    android:id="@+id/text_msgType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="预警"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="65dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/text_msg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="我的出租房"
+                        android:textColor="@color/colorInput"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/text_loc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="温州"
+                        android:textColor="@color/colorHint"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="·"
+                        android:textColor="@color/colorHint"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/text_msgTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="7月5日"
+                        android:textColor="@color/colorHint"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/text_msgContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:maxLines="2"
+                        android:text="您的房间在2016/08/09 11：33遭遇入侵您的房间在2016/08/09 11：33遭遇入侵您的房间在2016/08/09 11：33遭遇入侵"
+                        android:textColor="@color/colorHint" />
+
+                    <com.tdr.wisdome.view.drop.WaterDrop
+                        android:id="@+id/drop"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginRight="15dp"
+                        android:gravity="center_vertical"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </com.daimajia.swipe.SwipeLayout>
+
+
+</RelativeLayout>

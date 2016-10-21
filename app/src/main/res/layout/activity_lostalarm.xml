@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title" />
+
+    <EditText
+        android:id="@+id/edit_lostAlarm"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:maxLength="200"
+        android:padding="15dp"
+        android:hint="请简单描述下老人性别、年龄、身高、体重和明显的外形特征等信息，最好可以提供老人走失的大致地点，、时间以及走失时所传穿的衣服特征，方便寻找老人"
+        android:textColor="@color/colorInput"
+        android:textColorHint="@color/colorHint"
+        android:textSize="15sp" />
+
+</LinearLayout>

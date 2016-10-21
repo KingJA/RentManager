@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#999999</color>
+
+    <!-- 部分界面需要用的状态栏颜色 -->
+    <color name="colorStatus">#4285F4</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent1">#40FFFFFF</color>
+
+    <color name="colorBggray">#FFE3E3E7</color>
+    <color name="grey">#ACACAC</color>
+
+    <!-- 按钮的颜色 -->
+    <color name="colorBtnon">#E67B08</color>
+    <color name="colorBtnoff">#FF8400</color>
+
+    <!-- 弹出框颜色 -->
+    <color name="colorPop">#FF008AFF</color>
+
+    <!-- 登陆界面颜色 -->
+    <color name="colorLine">#E7E7E7</color>
+    <color name="colorSelected">#94C2F6</color>
+    <color name="colorInput">#333333</color>
+    <color name="colorHint">#999999</color>
+    <color name="colorBg">#F9F9F9</color>
+    <color name="transparent4">#33000000</color>
+
+    <color name="colorSearch">#666666</color>
+    
+    <color name="colorBattery">#FD584D</color>
+
+    <!-- 按钮颜色 -->
+    <drawable name="colorBtnOn">#4285F4</drawable>
+    <drawable name="colorBtnOff">#D4E2F8</drawable>
+
+    <!-- 卡片颜色 -->
+    <color name="colorHouse">#6980B5</color>
+    <color name="colorRental">#2B6451</color>
+    <color name="colorCar">#AB560B</color>
+    <color name="colorShop">#52ABB7</color>
+    <color name="colorEnterprise">#52ABB7</color>
+
+    <color name="colorDel">#FF563F</color>
+    <color name="colorShare">#FE9A38</color>
+
+    <!-- 城市列表所需的颜色 -->
+    <color name="colorDivider">#E5E5E5</color>
+    <color name="colorShadow">#AAEBEBEB</color>
+    <color name="colorCommonBg">#FAFAFA</color>
+    <color name="colorContentBg">#F3F3F3</color>
+    <color name="colorGray">#8c8c8c</color>
+    <color name="colorGrayDeep">#5c5c5c</color>
+    <color name="colorAlphaGray">#CC646464</color>
+    <color name="colorThemeGray">#646464</color>
+    <color name="colorCityName">#D9D9D9</color>
+
+    <color name="radio_button_selected_color">#ff33b5e5</color>
+    <color name="radio_button_unselected_color">#e0e0e0</color>
+
+</resources>

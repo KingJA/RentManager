@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:background="@mipmap/package_bg"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_cardName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="13dp"
+        android:layout_toRightOf="@id/iv_icon"
+        android:text="卡类型"
+        android:textColor="@color/colorInput"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="62dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:background="@mipmap/card_bg"
+        android:text="删除"
+        android:textColor="@color/colorStatus"/>
+
+</RelativeLayout>

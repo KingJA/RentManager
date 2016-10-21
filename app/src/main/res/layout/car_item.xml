@@ -1,0 +1,105 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:minHeight="105dp"
+    android:orientation="vertical">
+
+
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/sample"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:layout_centerVertical="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:tag="Bottom1">
+
+            <TextView
+                android:id="@+id/text_del"
+                android:layout_width="65dp"
+                android:layout_height="105dp"
+                android:layout_gravity="center"
+                android:background="@color/colorDel"
+                android:gravity="center"
+                android:text="删除"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp">
+
+                <ImageView
+                    android:id="@+id/image_state"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@mipmap/image_circle" />
+
+
+                <TextView
+                    android:id="@+id/text_msgType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="车辆"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/image_point"
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:layout_gravity="right"
+                    android:background="@mipmap/red_point"/>
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="65dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_bikeNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="YC000001"
+                    android:textColor="@color/colorInput"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/btn_defenceState"
+                    android:layout_width="62dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@mipmap/image_unprotection"
+                    android:text="撤布防"
+                    android:textColor="@color/colorStatus"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </com.daimajia.swipe.SwipeLayout>
+
+
+</RelativeLayout>

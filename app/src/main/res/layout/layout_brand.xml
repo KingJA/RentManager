@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/relative_title"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/searchbox_bg">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:scaleType="center"
+                android:src="@mipmap/image_search" />
+
+            <EditText
+                android:id="@+id/edit_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入电动车名或拼音"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/colorInput"
+                android:textColorHint="@color/colorSearch"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/image_searchClear"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:src="@mipmap/image_searchclear"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_brandsearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="搜索"
+            android:textColor="@color/colorHint"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="50dp"
+        android:background="@color/colorLine" />
+
+    <ListView
+        android:id="@+id/list_brand"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@id/relative_title"
+        android:layout_gravity="center_horizontal"
+        android:cacheColorHint="@color/transparent"
+        android:dividerHeight="1dp"
+        android:divider="@drawable/list_divider"
+        android:listSelector="@color/transparent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:minHeight="50dp"
+        android:scrollbarFadeDuration="0"
+        android:scrollbars="none"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/progress_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="250dp"
+        android:layout_below="@id/relative_title"
+        android:gravity="center_horizontal"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

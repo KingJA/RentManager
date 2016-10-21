@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="被关爱的人"
+            android:textColor="@color/colorHint"
+            android:textSize="15dp" />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relative_olderName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="姓名"
+            android:textColor="@color/colorInput" />
+
+        <TextView
+            android:id="@+id/text_olderName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="27dp"
+            android:text="黄真传"
+            android:textColor="@color/colorHint"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/image_more" />
+
+    </RelativeLayout>
+
+    <!--Staffing_halfpic-->
+    <RelativeLayout
+        android:id="@+id/relative_bodyPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1px"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="半身照"
+            android:textColor="@color/colorInput" />
+
+        <ImageView
+            android:id="@+id/image_bodyPhoto"
+            android:layout_width="38dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="27dp"
+            android:background="@mipmap/image_userphoto" />
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/image_more" />
+
+    </RelativeLayout>
+    <!--Staffing_selfnum-->
+    <RelativeLayout
+        android:id="@+id/relative_olderPhone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1px"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="电话号码"
+            android:textColor="@color/colorInput" />
+
+        <TextView
+            android:id="@+id/text_olderPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="27dp"
+            android:text="15688895475"
+            android:textColor="@color/colorHint"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/image_more" />
+
+    </RelativeLayout>
+
+    <!--Staffing_ID-->
+    <RelativeLayout
+        android:id="@+id/relative_olderIdentity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1px"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="身份证号"
+            android:textColor="@color/colorInput"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/text_odlerIdentity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="27dp"
+            android:text="33030021996458843687"
+            android:textColor="@color/colorHint" />
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/image_more" />
+
+    </RelativeLayout>
+    <!--Staffing_address-->
+    <RelativeLayout
+        android:id="@+id/relative_olderAddress"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1px"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="联系地址"
+            android:textColor="@color/colorInput"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/text_olderAddress"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="27dp"
+            android:gravity="right"
+            android:singleLine="true"
+            android:text="温州市龙湾机场大道...."
+            android:textColor="@color/colorHint" />
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/image_more" />
+
+    </RelativeLayout>
+
+    <!--Staffing_sick-->
+    <RelativeLayout
+        android:id="@+id/relative_olderHealth"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1px"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="病情描述"
+            android:textColor="@color/colorInput"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/text_olderHealth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="27dp"
+            android:text="高血压"
+            android:textColor="@color/colorHint"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/image_more" />
+
+    </RelativeLayout>
+
+    <!--Staffing_note-->
+    <RelativeLayout
+        android:id="@+id/relative_olderRemarks"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1px"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="备注"
+            android:textColor="@color/colorInput"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/text_olderRemarks"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="27dp"
+            android:gravity="right"
+            android:singleLine="true"
+            android:text="无"
+            android:textColor="@color/colorHint" />
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/image_more" />
+
+    </RelativeLayout>
+
+</LinearLayout>
+

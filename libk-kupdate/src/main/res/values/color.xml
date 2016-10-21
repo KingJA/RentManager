@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_white">#FFFFFF</color>
+    <color name="bg_gray_kj">#F5F5F5</color>
+    <color name="gray_divider">#CFCFCF</color>
+    <color name="bg_transparent">#00000000</color>
+    <color name="font_blue">#5890FF</color>
+    <color name="font_gray">#999999</color>
+    <color name="font_content">#434343</color>
+</resources>

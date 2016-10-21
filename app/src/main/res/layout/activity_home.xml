@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:background="@color/bg_white"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_home_menu"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_menu" />
+        </RelativeLayout>
+
+        <TextView
+            style="@style/font_0_20"
+            android:layout_centerInParent="true"
+            android:text="首页"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/rl_home_msg"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_msg" />
+
+            <TextView
+                android:id="@+id/tv_home_count"
+                android:layout_margin="2dp"
+                style="@style/font_f_12"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/shape_cycler_tip"
+                android:gravity="center"
+                android:text="99" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <View style="@style/divider_nomal_horizontal"/>
+
+    <ListView
+        android:id="@+id/lv_home_menu"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:dividerHeight="10dp"
+        android:divider="@color/bg_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_home"
+        >
+
+
+    </ListView>
+</LinearLayout>

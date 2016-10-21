@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="test_attr_unselected_text_color">#4285F4</color>
+    <color name="test_attr_selected_text_color">#FFFFFF</color>
+    <color name="test_attr_selected_color">#4285F4</color>
+    <color name="test_attr_unselected_color">#FFFFFF</color>
+    <string-array name="three_state_option">
+        <item>信息</item>
+        <item>预警</item>
+        <item>配置</item>
+    </string-array>
+</resources>
