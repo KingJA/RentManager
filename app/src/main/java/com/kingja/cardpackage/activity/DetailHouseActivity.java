@@ -138,7 +138,7 @@ public class DetailHouseActivity extends BackTitleActivity implements View.OnCli
                 break;
             //预警信息
             case R.id.rl_info:
-                AlarmRentActivity.goActivity(this, entiy.getHOUSEID());
+                AlarmHouseActivity.goActivity(this, entiy.getHOUSEID(),entiy.getROOMID());
                 break;
             //点击关闭
             case R.id.iv_close:

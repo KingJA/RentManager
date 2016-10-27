@@ -455,6 +455,12 @@
         <activity
             android:name="com.kingja.cardpackage.activity.HomeActivity"
             android:screenOrientation="portrait" /><!--主界面-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.AlarmHouseActivity"
+            android:screenOrientation="portrait" /><!--我的住房预警界面-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.AlarmMineActivity"
+            android:screenOrientation="portrait" /><!--我的消息-->
 
         <!--闪屏页面-->
         <!--

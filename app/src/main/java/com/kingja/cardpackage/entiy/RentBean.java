@@ -12,6 +12,7 @@ import java.util.List;
 public class RentBean implements Serializable {
 
     private String HOUSEID;
+    private String ROOMID;
     private String HOUSENAME;
     private String ADDRESS;
     private String OWNERNAME;
@@ -128,6 +129,14 @@ public class RentBean implements Serializable {
 
     public void setRoomList(List<RoomListBean> RoomList) {
         this.RoomList = RoomList;
+    }
+
+    public String getROOMID() {
+        return ROOMID;
+    }
+
+    public void setROOMID(String ROOMID) {
+        this.ROOMID = ROOMID;
     }
 
     public static class RoomListBean implements Serializable{

@@ -37,19 +37,19 @@ import java.util.Map;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class AddedShopActivity extends BackTitleActivity implements AddedShopAdapter.OnShopDeliteListener,SwipeRefreshLayout.OnRefreshListener{
+public class AddedShopActivity extends BackTitleActivity implements AddedShopAdapter.OnShopDeliteListener, SwipeRefreshLayout.OnRefreshListener {
     private LinearLayout mLlEmpty;
     private SwipeRefreshLayout mSrl;
     private RecyclerView mRv;
-    private List<ShangPu_ListByEmp.ContentBean> mAddedShopList=new ArrayList<>();
+    private List<ShangPu_ListByEmp.ContentBean> mAddedShopList = new ArrayList<>();
     private AddedShopAdapter mAddedShopAdapter;
     private NormalDialog deleteDialog;
 
 
     @Override
     protected void initVariables() {
-
     }
+
 
     @Override
     protected void initContentView() {

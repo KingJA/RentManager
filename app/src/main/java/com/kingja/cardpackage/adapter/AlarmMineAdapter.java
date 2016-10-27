@@ -3,10 +3,11 @@ package com.kingja.cardpackage.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.AlarmList;
-import com.kingja.cardpackage.util.TimeUtil;
+import com.kingja.cardpackage.entiy.GetUserMessage;
 import com.tdr.wisdome.R;
 
 import java.util.List;
@@ -17,10 +18,10 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class AlarmAdapter extends BaseLvAdapter<AlarmList.ContentBean> {
+public class AlarmMineAdapter extends BaseLvAdapter<GetUserMessage.ContentBean> {
     private String cardName;
 
-    public AlarmAdapter(Context context, List<AlarmList.ContentBean> list, String cardName) {
+    public AlarmMineAdapter(Context context, List<GetUserMessage.ContentBean> list, String cardName) {
         super(context, list);
         this.cardName = cardName;
     }
@@ -30,17 +31,36 @@ public class AlarmAdapter extends BaseLvAdapter<AlarmList.ContentBean> {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = View
-                    .inflate(context, R.layout.item_alarm, null);
+                    .inflate(context, R.layout.item_alarm_mine, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tvalarmtype.setText(cardName);
-        viewHolder.tvalarmtime.setText(list.get(position).getDEVICETIME());
-        viewHolder.tvalarmmsg.setText(list.get(position).getMESSAGETEXT());
-
+        viewHolder.tvalarmtype.setText(getCardName( list.get(position).getCardCode()));
+        viewHolder.tvalarmtime.setText(list.get(position).getCreateTime());
+        viewHolder.tvalarmmsg.setText(list.get(position).getMessage());
+        viewHolder.iv_readed.setVisibility("1".equals(list.get(position).getIsRead())?View.GONE:View.VISIBLE);
         return convertView;
+    }
+
+    private String getCardName(String cardCode) {
+        String result="";
+        switch (cardCode) {
+            case "1001" :
+                result="我的住房";
+                break;
+             case "1002" :
+                 result="我的出租房";
+                break;
+             case "1007" :
+                 result="出租房代管";
+                break;
+            default:
+                result="cardCode";
+                break;
+        }
+        return result;
     }
 
     public void reset() {
@@ -51,12 +71,14 @@ public class AlarmAdapter extends BaseLvAdapter<AlarmList.ContentBean> {
         public final TextView tvalarmtype;
         public final TextView tvalarmtime;
         public final TextView tvalarmmsg;
+        public final ImageView iv_readed;
         public final View root;
 
         public ViewHolder(View root) {
             tvalarmtype = (TextView) root.findViewById(R.id.tv_alarm_type);
             tvalarmtime = (TextView) root.findViewById(R.id.tv_alarm_time);
             tvalarmmsg = (TextView) root.findViewById(R.id.tv_alarm_msg);
+            iv_readed = (ImageView) root.findViewById(R.id.iv_readed);
             this.root = root;
         }
     }

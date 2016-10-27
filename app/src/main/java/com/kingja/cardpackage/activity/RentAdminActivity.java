@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.widget.NormalDialog;
 import com.kingja.cardpackage.adapter.AdminRvAdapter;
 import com.kingja.cardpackage.adapter.DividerItemDecoration;
 import com.kingja.cardpackage.entiy.ChuZuWu_AdminList;
@@ -18,6 +20,7 @@ import com.kingja.cardpackage.net.WebServiceCallBack;
 import com.kingja.cardpackage.util.AppUtil;
 import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
+import com.kingja.cardpackage.util.DialogUtil;
 import com.kingja.cardpackage.util.TempConstants;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.tdr.wisdome.R;
@@ -129,7 +132,24 @@ public class RentAdminActivity extends BackTitleActivity implements BackTitleAct
     }
 
     @Override
-    public void onDeliteItem(String cardId, final int position) {
+    public void onDeliteItem(final String cardId, final int position) {
+        final NormalDialog deleteAdminDialog = DialogUtil.getDoubleDialog(this, "是否确定删除该管理员", "取消", "确定");
+        deleteAdminDialog.setOnBtnClickL(new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                deleteAdminDialog.dismiss();
+            }
+        }, new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                deleteAdminDialog.dismiss();
+                uploadDelete(cardId, position);
+            }
+        });
+        deleteAdminDialog.show();
+    }
+
+    private void uploadDelete(String cardId, final int position) {
         mSrl.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);

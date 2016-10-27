@@ -16,9 +16,9 @@ android {
         }
 
         manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
+                JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "24ffdda01813c5207f7c654e", //JPush上注册的包名对应的appkey. 卡包97ccdb4a376dd6a4d8cfe102
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
     buildTypes {
@@ -28,6 +28,15 @@ android {
         }
         debug {
             debuggable false
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = "出租房申报V${defaultConfig.versionName}-${releaseTime()}_debug.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
     lintOptions {
@@ -65,6 +74,7 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':libk-kupdate')
 }
+
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }

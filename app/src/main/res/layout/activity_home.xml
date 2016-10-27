@@ -44,6 +44,7 @@
                 android:background="@drawable/bg_msg" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_home_count"
                 android:layout_margin="2dp"
                 style="@style/font_f_12"

@@ -111,5 +111,7 @@ public class Constants {
     public static final String ShangPu_Transfer = "ShangPu_Transfer";
    /*接收店铺*/
     public static final String ShangPu_TakeOver = "ShangPu_TakeOver";
+   /*我的消息*/
+    public static final String GetUserMessage = "GetUserMessage";
 
 }

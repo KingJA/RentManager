@@ -108,7 +108,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 mBottomListPop.showPopupWindow();
                 break;
             case R.id.rl_home_msg:
-                ToastUtil.showToast("消息");
+               GoUtil.goActivity(this,AlarmMineActivity.class);
                 break;
             default:
                 break;
@@ -160,7 +160,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     private boolean checkInfoCompletely() {
         if (TextUtils.isEmpty(DataManager.getToken())) {
-            GoUtil.goActivity(this, LoginActivity.class);
+            GoUtil.goActivityAndFinish(this, LoginActivity.class);
             return false;
         }
         if (TextUtils.isEmpty(DataManager.getIdCard())) {
@@ -182,6 +182,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     private void exitApp() {
+        DataManager.putToken("");
         finish();
         System.exit(0);
     }
