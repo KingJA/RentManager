@@ -3,6 +3,7 @@ package com.kingja.cardpackage.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.ChuZuWu_MenPaiAuthorizationList;
@@ -45,16 +46,14 @@ public class PersonManagerLvAdapter extends BaseLvAdapter<ChuZuWu_MenPaiAuthoriz
         public final TextView tvname;
         public final TextView tvcardId;
         public final TextView tvphone;
-        public final TextView tvdelete;
-        public final DrawHelperLayout mDrawHelperLayout;
+        public final ImageView iv_delete;
         public final View root;
 
         public ViewHolder(View root) {
             tvname = (TextView) root.findViewById(R.id.tv_name);
             tvcardId = (TextView) root.findViewById(R.id.tv_cardId);
             tvphone = (TextView) root.findViewById(R.id.tv_phone);
-            tvdelete = (TextView) root.findViewById(R.id.tv_delete);
-            mDrawHelperLayout = (DrawHelperLayout) root.findViewById(R.id.mDrawHelperLayout);
+            iv_delete = (ImageView) root.findViewById(R.id.iv_delete);
             this.root = root;
         }
     }

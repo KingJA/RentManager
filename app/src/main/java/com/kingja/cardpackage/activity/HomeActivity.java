@@ -31,8 +31,8 @@ import java.util.Arrays;
  * Email:kingjavip@gmail.com
  */
 public class HomeActivity extends BaseActivity implements AdapterView.OnItemClickListener, View.OnClickListener ,BottomListPop.OnPopItemClickListener{
-    private String mLargeTexts[] = {"我是房东", "我是租客", "出租房代管"};
-    private String mSmallTexts[] = {"我的出租房", "我的住房", "代管出租"};
+    private String mLargeTexts[] = {"我是房东", "我是租客", "我是管理员"};
+    private String mSmallTexts[] = {"我的出租房", "我的住房", "出租房代管"};
     private int mHouseImgs[] = {R.drawable.home_rent, R.drawable.home_house, R.drawable.home_agent};
     private RelativeLayout mRlHomeMenu;
     private RelativeLayout mRlHomeMsg;
@@ -191,9 +191,17 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     public void onPopItemClick(int position, String tag) {
         switch (position) {
             case 0://完善资料
+                if (TextUtils.isEmpty(DataManager.getToken())) {
+                    GoUtil.goActivityAndFinish(this, LoginActivity.class);
+                    break;
+                }
                 GoUtil.goActivity(HomeActivity.this, PerfectActivity.class);
                 break;
             case 1://修改密码
+                if (TextUtils.isEmpty(DataManager.getToken())) {
+                    GoUtil.goActivityAndFinish(this, LoginActivity.class);
+                    break;
+                }
                 GoUtil.goActivity(HomeActivity.this, EditPwdActivity.class);
                 break;
             case 2://退出登录

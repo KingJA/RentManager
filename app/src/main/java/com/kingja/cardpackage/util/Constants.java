@@ -113,5 +113,7 @@ public class Constants {
     public static final String ShangPu_TakeOver = "ShangPu_TakeOver";
    /*我的消息*/
     public static final String GetUserMessage = "GetUserMessage";
+   /*我的消息-全读*/
+    public static final String SetUserMessageAll = "SetUserMessageAll";
 
 }

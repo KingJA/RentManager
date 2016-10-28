@@ -2,10 +2,12 @@ package com.kingja.cardpackage.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.ShangPu_DeviceLists;
 import com.kingja.cardpackage.entiy.ShangPu_ListByEmp;
+import com.kingja.cardpackage.ui.NoDoubleClickListener;
 import com.kingja.cardpackage.util.DeviceTypeUtil;
 import com.kingja.cardpackage.util.TempConstants;
 import com.tdr.wisdome.R;
@@ -43,9 +45,9 @@ public class AddedShopAdapter extends BaseRvAdaper<ShangPu_ListByEmp.ContentBean
         holder.tv_shopAddress.setText(bean.getADDRESS());
 
 
-        holder.tv_addedShop_delete.setOnClickListener(new View.OnClickListener() {
+        holder.iv_delete.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 if (onShopDeliteListener != null) {
                     onShopDeliteListener.onShopDelite(position, list.get(position).getSHOPID());
                 }
@@ -71,13 +73,13 @@ public class AddedShopAdapter extends BaseRvAdaper<ShangPu_ListByEmp.ContentBean
     class PersonManagerViewHolder extends ViewHolder {
         public TextView tv_shopName;
         public TextView tv_shopAddress;
-        public TextView tv_addedShop_delete;
+        public ImageView iv_delete;
 
         public PersonManagerViewHolder(View itemView) {
             super(itemView);
             tv_shopName = (TextView) itemView.findViewById(R.id.tv_shopName);
             tv_shopAddress = (TextView) itemView.findViewById(R.id.tv_shopAddress);
-            tv_addedShop_delete = (TextView) itemView.findViewById(R.id.tv_addedShop_delete);
+            iv_delete = (ImageView) itemView.findViewById(R.id.iv_delete);
         }
     }
 }

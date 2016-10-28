@@ -1,0 +1,9 @@
+ext {
+    android = [compileSdkVersion: 23,
+               appName          : "出租房申报"
+
+    ]
+    dependencies = [
+                    "supportVersion"          : '24.2.0',
+                 ]
+}

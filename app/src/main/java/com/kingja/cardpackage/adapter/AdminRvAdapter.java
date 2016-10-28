@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.ChuZuWu_AdminList;
 import com.kingja.cardpackage.entiy.ChuZuWu_MenPaiAuthorizationList;
+import com.kingja.cardpackage.ui.NoDoubleClickListener;
 import com.tdr.wisdome.R;
 
 import java.util.List;
@@ -39,9 +40,9 @@ public class AdminRvAdapter extends BaseRvAdaper<ChuZuWu_AdminList.ContentBean.A
         PersonManagerViewHolder holder = (PersonManagerViewHolder) baseHolder;
         holder.tv_name.setText(bean.getNAME());
         holder.tv_cardId.setText("身份证号: " + bean.getIDENTITYCARD());
-        holder.iv_delete.setOnClickListener(new View.OnClickListener() {
+        holder.iv_delete.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 if (onDeliteItemListener != null) {
                     onDeliteItemListener.onDeliteItem(list.get(position).getIDENTITYCARD(),position);
                 }

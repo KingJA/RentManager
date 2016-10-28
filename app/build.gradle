@@ -21,22 +21,24 @@ android {
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
+    signingConfigs {
+        release {
+            storeFile file("tendency_android.keystore")
+            storePassword "tendency2011,tdr"
+            keyAlias "tendency_android.keystore"
+            keyPassword "tendency2011,tdr"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources true
+            signingConfig signingConfigs.release
+            buildApkByType("release")
         }
         debug {
-            debuggable false
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        def fileName = "出租房申报V${defaultConfig.versionName}-${releaseTime()}_debug.apk"
-                        output.outputFile = new File(outputFile.parent, fileName)
-                    }
-                }
-            }
+            buildApkByType("debug")
         }
     }
     lintOptions {
@@ -77,4 +79,16 @@ dependencies {
 
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+def buildApkByType(type) {
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && variant.buildType.name.equals(type)) {
+                def fileName = rootProject.ext.android.appName + "V${android.defaultConfig.versionName}_${releaseTime()}-" + type + ".apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
 }

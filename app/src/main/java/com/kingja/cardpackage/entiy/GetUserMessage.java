@@ -1,6 +1,5 @@
 package com.kingja.cardpackage.entiy;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,45 +12,38 @@ public class GetUserMessage {
 
     /**
      * ResultCode : 0
-     * ResultText : 操作成功
-     * DataTypeCode : AlarmList
-     * TaskID :  1
-     * Content : [{"OTHERID":"00112233445566778899AABBCCDDEEFF","ROOMID":"00112233445566778899AABBCCDDEEEE","OTHERTYPE":2,"MESSAGETEXT":"门戒触发报警","DEVICEID":"XXX","DEVICETYPE":"1088","DEVICECODE":"1234","DEVICENAME":"门戒","PARAM1":"XXX","PARAM2":"XXX","PARAM3":"XXX","PARAM4":"XXX","PARAM5":"XXX","PARAM6":"XXX","PARAM7":"XXX","PARAM8":"XXX","PARAM9":"XXX","PARAM10":"XXX","DEVICETIME":"2016-5-4 7:02:23"},{"OTHERID":"00112233445566778899AABBCCDDEE00","ROOMID":"00112233445566778899AABBCCDDEE11","OTHERTYPE":2,"MESSAGETEXT":"门戒触发报警","DEVICEID":"XXX","DEVICETYPE":"1088","DEVICECODE":"1234","DEVICENAME":"门戒","PARAM1":"XXX","PARAM2":"XXX","PARAM3":"XXX","PARAM4":"XXX","PARAM5":"XXX","PARAM6":"XXX","PARAM7":"XXX","PARAM8":"XXX","PARAM9":"XXX","PARAM10":"XXX","DEVICETIME":"2016-5-4 6:02:23"}]
+     * ResultText : 获取用户消息列表成功
+     * DataTypeCode : null
+     * TaskID : null
+     * Content : [{"MessageID":"0fd89a4aad794ef28c0e07f5c0b6f60d","CardCode":"1004","CityCode":"3303","CMD":null,"Message":"九点半酒吧（道南路分店）,智慧栅栏（社区版）（602）,触发报警,请确认安全","UserID":"dea3b307-907e-4dcb-859b-c7b603f793b3","URL":"122.228.89.67","CreateTime":"2016-10-09 00:00:00","OperateTime":"2016-10-10 00:00:00","IsRead":1,"MessageType":2,"CityName":"温州市"}]
      */
 
-    private int ResultCode;
+    private String ResultCode;
     private String ResultText;
-    private String DataTypeCode;
-    private String TaskID;
+    private Object DataTypeCode;
+    private Object TaskID;
     /**
-     * OTHERID : 00112233445566778899AABBCCDDEEFF
-     * ROOMID : 00112233445566778899AABBCCDDEEEE
-     * OTHERTYPE : 2
-     * MESSAGETEXT : 门戒触发报警
-     * DEVICEID : XXX
-     * DEVICETYPE : 1088
-     * DEVICECODE : 1234
-     * DEVICENAME : 门戒
-     * PARAM1 : XXX
-     * PARAM2 : XXX
-     * PARAM3 : XXX
-     * PARAM4 : XXX
-     * PARAM5 : XXX
-     * PARAM6 : XXX
-     * PARAM7 : XXX
-     * PARAM8 : XXX
-     * PARAM9 : XXX
-     * PARAM10 : XXX
-     * DEVICETIME : 2016-5-4 7:02:23
+     * MessageID : 0fd89a4aad794ef28c0e07f5c0b6f60d
+     * CardCode : 1004
+     * CityCode : 3303
+     * CMD : null
+     * Message : 九点半酒吧（道南路分店）,智慧栅栏（社区版）（602）,触发报警,请确认安全
+     * UserID : dea3b307-907e-4dcb-859b-c7b603f793b3
+     * URL : 122.228.89.67
+     * CreateTime : 2016-10-09 00:00:00
+     * OperateTime : 2016-10-10 00:00:00
+     * IsRead : 1
+     * MessageType : 2
+     * CityName : 温州市
      */
 
     private List<ContentBean> Content;
 
-    public int getResultCode() {
+    public String getResultCode() {
         return ResultCode;
     }
 
-    public void setResultCode(int ResultCode) {
+    public void setResultCode(String ResultCode) {
         this.ResultCode = ResultCode;
     }
 
@@ -63,19 +55,19 @@ public class GetUserMessage {
         this.ResultText = ResultText;
     }
 
-    public String getDataTypeCode() {
+    public Object getDataTypeCode() {
         return DataTypeCode;
     }
 
-    public void setDataTypeCode(String DataTypeCode) {
+    public void setDataTypeCode(Object DataTypeCode) {
         this.DataTypeCode = DataTypeCode;
     }
 
-    public String getTaskID() {
+    public Object getTaskID() {
         return TaskID;
     }
 
-    public void setTaskID(String TaskID) {
+    public void setTaskID(Object TaskID) {
         this.TaskID = TaskID;
     }
 
@@ -87,125 +79,114 @@ public class GetUserMessage {
         this.Content = Content;
     }
 
-    public class ContentBean implements Serializable {
+    public static class ContentBean {
+        private String MessageID;
+        private String CardCode;
+        private String CityCode;
+        private Object CMD;
+        private String Message;
+        private String UserID;
+        private String URL;
+        private String CreateTime;
+        private String OperateTime;
+        private int IsRead;
+        private int MessageType;
+        private String CityName;
 
-        private String messageId;
-        private String cardCode;
-        private String cityCode;
-        private String cityName;
-        private String cmd;
-        private String message;
-        private String userId;
-        private String url;
-        private String createTime;
-        private String operateTime;
-        private String state;
-        private String messageType;//默认是1
-
-        public String getIsRead() {
-            return isRead;
+        public String getMessageID() {
+            return MessageID;
         }
 
-        public void setIsRead(String isRead) {
-            this.isRead = isRead;
-        }
-
-        private String isRead;
-
-        public String getMessageId() {
-            return messageId;
-        }
-
-        public void setMessageId(String messageId) {
-            this.messageId = messageId;
+        public void setMessageID(String MessageID) {
+            this.MessageID = MessageID;
         }
 
         public String getCardCode() {
-            return cardCode;
+            return CardCode;
         }
 
-        public void setCardCode(String cardCode) {
-            this.cardCode = cardCode;
+        public void setCardCode(String CardCode) {
+            this.CardCode = CardCode;
         }
 
         public String getCityCode() {
-            return cityCode;
+            return CityCode;
         }
 
-        public void setCityCode(String cityCode) {
-            this.cityCode = cityCode;
+        public void setCityCode(String CityCode) {
+            this.CityCode = CityCode;
         }
 
-        public String getCityName() {
-            return cityName;
+        public Object getCMD() {
+            return CMD;
         }
 
-        public void setCityName(String cityName) {
-            this.cityName = cityName;
-        }
-
-        public String getCmd() {
-            return cmd;
-        }
-
-        public void setCmd(String cmd) {
-            this.cmd = cmd;
+        public void setCMD(Object CMD) {
+            this.CMD = CMD;
         }
 
         public String getMessage() {
-            return message;
+            return Message;
         }
 
-        public void setMessage(String message) {
-            this.message = message;
+        public void setMessage(String Message) {
+            this.Message = Message;
         }
 
-        public String getUserId() {
-            return userId;
+        public String getUserID() {
+            return UserID;
         }
 
-        public void setUserId(String userId) {
-            this.userId = userId;
+        public void setUserID(String UserID) {
+            this.UserID = UserID;
         }
 
-        public String getUrl() {
-            return url;
+        public String getURL() {
+            return URL;
         }
 
-        public void setUrl(String url) {
-            this.url = url;
+        public void setURL(String URL) {
+            this.URL = URL;
         }
 
         public String getCreateTime() {
-            return createTime;
+            return CreateTime;
         }
 
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
+        public void setCreateTime(String CreateTime) {
+            this.CreateTime = CreateTime;
         }
 
         public String getOperateTime() {
-            return operateTime;
+            return OperateTime;
         }
 
-        public void setOperateTime(String operateTime) {
-            this.operateTime = operateTime;
+        public void setOperateTime(String OperateTime) {
+            this.OperateTime = OperateTime;
         }
 
-        public String getState() {
-            return state;
+        public int getIsRead() {
+            return IsRead;
         }
 
-        public void setState(String state) {
-            this.state = state;
+        public void setIsRead(int IsRead) {
+            this.IsRead = IsRead;
         }
 
-        public String getMessageType() {
-            return messageType;
+        public int getMessageType() {
+            return MessageType;
         }
 
-        public void setMessageType(String messageType) {
-            this.messageType = messageType;
+        public void setMessageType(int MessageType) {
+            this.MessageType = MessageType;
+        }
+
+        public String getCityName() {
+            return CityName;
+        }
+
+        public void setCityName(String CityName) {
+            this.CityName = CityName;
         }
     }
 }

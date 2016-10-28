@@ -156,7 +156,7 @@ public class ApplyListFragment extends BaseFragment implements OnOperItemClickL,
 
     @Override
     public void onDeliteItem(String listId, final int position) {
-        mSrlApplyList.setRefreshing(true);
+        setProgressDialog(true);
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, "1");
         param.put("LISTID", listId);
@@ -170,14 +170,14 @@ public class ApplyListFragment extends BaseFragment implements OnOperItemClickL,
                 .setCallBack(new WebServiceCallBack<ChuZuWu_LKSelfReportingOut>() {
                     @Override
                     public void onSuccess(ChuZuWu_LKSelfReportingOut bean) {
-                        mSrlApplyList.setRefreshing(false);
+                        setProgressDialog(false);
                         mPersonApplyRvAdapter.deleteItem(position);
 
                     }
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-                        mSrlApplyList.setRefreshing(false);
+                        setProgressDialog(false);
                     }
                 }).build().execute();
     }

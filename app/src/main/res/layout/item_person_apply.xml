@@ -2,19 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:padding="20dp"
+    android:gravity="center_vertical">
 
 
-    <com.kingja.cardpackage.ui.DrawHelperLayout
-        android:id="@+id/mDrawHelperLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
 
         <LinearLayout
-            android:padding="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="vertical"
             >
@@ -52,24 +49,14 @@
 
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="64dp"
-            android:layout_height="match_parent"
-            android:gravity="end">
-
-            <TextView
-                android:id="@+id/tv_delete"
-                style="@style/font_f_15"
-                android:layout_width="64dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:background="@color/bg_red"
-                android:gravity="center"
-                android:text="删除" />
-        </LinearLayout>
-
-    </com.kingja.cardpackage.ui.DrawHelperLayout>
+    <ImageView
+        android:layout_marginLeft="8dp"
+        android:id="@+id/iv_delete"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_clear"
+        android:layout_width="15dp"
+        android:layout_height="15dp" />
 
 </LinearLayout>
 

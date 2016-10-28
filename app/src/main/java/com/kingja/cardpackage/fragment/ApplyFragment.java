@@ -166,6 +166,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
 //        param.put("PCSCODE", entiy.getPCSCODE());
 //        param.put("JWHCODE", entiy.getJWHCODE());
 //        param.put("OPERATORPHONE", "0");
+        setProgressDialog(true);
         ChuZuWu_LKSelfReportingInParam bean = new ChuZuWu_LKSelfReportingInParam();
         bean.setTaskID("1");
         bean.setHOUSEID(entiy.getHOUSEID());
@@ -196,6 +197,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
                 .setCallBack(new WebServiceCallBack<ChuZuWu_LKSelfReportingIn>() {
                     @Override
                     public void onSuccess(ChuZuWu_LKSelfReportingIn bean) {
+                        setProgressDialog(false);
                         final NormalDialog doubleDialog = DialogUtil.getDoubleDialog(getActivity(), "是否要继续进行人员申报", "离开", "继续");
                         doubleDialog.show();
                         doubleDialog.setOnBtnClickL(new OnBtnClickL() {
@@ -218,6 +220,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
+                        setProgressDialog(false);
                     }
                 }).build().execute();
     }

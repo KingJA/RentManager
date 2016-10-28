@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kingja.cardpackage.util.ZeusManager;
+import com.tdr.wisdome.view.ZProgressHUD;
+
 /**
  * Description：TODO
  * Create Time：2016/8/19 13:57
@@ -17,6 +20,7 @@ import android.view.ViewGroup;
 public abstract class BaseFragment extends Fragment {
 
     protected BaseActivity mActivity;
+    private ZProgressHUD mProgressDialog;
 
     @Override
     public void onAttach(Context context) {
@@ -35,6 +39,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initConmonView();
         initFragmentVariables();
         initFragmentNet();
         initFragmentData();
@@ -47,4 +52,17 @@ public abstract class BaseFragment extends Fragment {
     public abstract void initFragmentNet();
     public abstract void initFragmentData();
     public abstract void setFragmentData();
+
+    private void initConmonView() {
+        mProgressDialog = new ZProgressHUD(getActivity());
+        mProgressDialog.setMessage("加载中...");
+        mProgressDialog.setSpinnerType(ZProgressHUD.SIMPLE_ROUND_SPINNER);
+    }
+    protected void setProgressDialog(boolean show) {
+        if (show) {
+            mProgressDialog.show();
+        } else {
+            mProgressDialog.dismiss();
+        }
+    }
 }

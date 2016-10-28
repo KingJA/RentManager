@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.AlarmList;
 import com.kingja.cardpackage.entiy.GetUserMessage;
+import com.kingja.cardpackage.util.TimeUtil;
 import com.tdr.wisdome.R;
 
 import java.util.List;
@@ -38,13 +39,16 @@ public class AlarmMineAdapter extends BaseLvAdapter<GetUserMessage.ContentBean> 
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvalarmtype.setText(getCardName( list.get(position).getCardCode()));
-        viewHolder.tvalarmtime.setText(list.get(position).getCreateTime());
+        viewHolder.tvalarmtime.setText(getTime(list.get(position).getCreateTime()));
         viewHolder.tvalarmmsg.setText(list.get(position).getMessage());
-        viewHolder.iv_readed.setVisibility("1".equals(list.get(position).getIsRead())?View.GONE:View.VISIBLE);
+        viewHolder.iv_readed.setVisibility(list.get(position).getIsRead()==1?View.INVISIBLE:View.VISIBLE);
         return convertView;
     }
 
     private String getCardName(String cardCode) {
+        if (cardCode == null) {
+            cardCode="";
+        }
         String result="";
         switch (cardCode) {
             case "1001" :
@@ -57,7 +61,7 @@ public class AlarmMineAdapter extends BaseLvAdapter<GetUserMessage.ContentBean> 
                  result="出租房代管";
                 break;
             default:
-                result="cardCode";
+                result=cardCode;
                 break;
         }
         return result;
@@ -81,5 +85,11 @@ public class AlarmMineAdapter extends BaseLvAdapter<GetUserMessage.ContentBean> 
             iv_readed = (ImageView) root.findViewById(R.id.iv_readed);
             this.root = root;
         }
+    }
+    public String getTime(String time) {
+        if (TimeUtil.getFormatDate().equals(time.substring(0, 10))) {
+            return time.substring(time.length() - 9);
+        }
+        return time;
     }
 }

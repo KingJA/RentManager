@@ -2,9 +2,11 @@ package com.kingja.cardpackage.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.ShangPu_EmployeeList;
+import com.kingja.cardpackage.ui.NoDoubleClickListener;
 import com.tdr.wisdome.R;
 
 import java.util.List;
@@ -38,9 +40,9 @@ public class ShopPersonAdapter extends BaseRvAdaper<ShangPu_EmployeeList.Content
         holder.tv_name.setText(bean.getNAME());
         holder.tv_cardId.setText("身份证号: " + bean.getIDENTITYCARD());
         holder.tv_phone.setText(bean.getPHONENUM());
-        holder.tv_delete.setOnClickListener(new View.OnClickListener() {
+        holder.iv_delete.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 if (onShopPersonDeliteListener != null) {
                     onShopPersonDeliteListener.OnShopPersonDelite(list.get(position).getLISTID(),position);
                 }
@@ -67,14 +69,14 @@ public class ShopPersonAdapter extends BaseRvAdaper<ShangPu_EmployeeList.Content
         public TextView tv_cardId;
         public TextView tv_phone;
         public TextView tv_name;
-        public TextView tv_delete;
+        public ImageView iv_delete;
 
         public PersonManagerViewHolder(View itemView) {
             super(itemView);
             tv_cardId = (TextView) itemView.findViewById(R.id.tv_cardId);
             tv_phone = (TextView) itemView.findViewById(R.id.tv_phone);
             tv_name = (TextView) itemView.findViewById(R.id.tv_name);
-            tv_delete = (TextView) itemView.findViewById(R.id.tv_delete);
+            iv_delete = (ImageView) itemView.findViewById(R.id.iv_delete);
         }
     }
 }

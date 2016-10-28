@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="姓名" />
+            android:text="" />
 
         <TextView
             android:layout_marginTop="8dp"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="13888888888" />
+            android:text="" />
 
         <TextView
             android:id="@+id/tv_cardId"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_name"
             android:layout_marginTop="8dp"
-            android:text="330333333333333333" />
+            android:text="" />
 
         <TextView
             android:id="@+id/tv_code"
@@ -46,12 +46,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_name"
             android:layout_marginTop="8dp"
-            android:text="215452" />
+            android:text="" />
 
 
     </LinearLayout>
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/iv_delete"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"

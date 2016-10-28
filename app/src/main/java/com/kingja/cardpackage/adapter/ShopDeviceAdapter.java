@@ -2,9 +2,11 @@ package com.kingja.cardpackage.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.ShangPu_DeviceLists;
+import com.kingja.cardpackage.ui.NoDoubleClickListener;
 import com.kingja.cardpackage.util.DeviceTypeUtil;
 import com.kingja.cardpackage.util.TempConstants;
 import com.tdr.wisdome.R;
@@ -45,9 +47,9 @@ public class ShopDeviceAdapter extends BaseRvAdaper<ShangPu_DeviceLists.ContentB
         holder.tv_deviceCode.setText(bean.getDEVICECODE());
 
 
-        holder.tv_delete.setOnClickListener(new View.OnClickListener() {
+        holder.iv_delete.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 if (onShopDeviceDeliteListener != null) {
                     onShopDeviceDeliteListener.onShopDeviceDelite(position, list.get(position).getDEVICEID(), list.get(position).getDEVICETYPE(), list.get(position).getDEVICECODE());
                 }
@@ -74,14 +76,14 @@ public class ShopDeviceAdapter extends BaseRvAdaper<ShangPu_DeviceLists.ContentB
         public TextView tv_deviceName;
         public TextView tv_deviceType;
         public TextView tv_deviceCode;
-        public TextView tv_delete;
+        public ImageView iv_delete;
 
         public PersonManagerViewHolder(View itemView) {
             super(itemView);
             tv_deviceName = (TextView) itemView.findViewById(R.id.tv_deviceName);
             tv_deviceType = (TextView) itemView.findViewById(R.id.tv_deviceType);
             tv_deviceCode = (TextView) itemView.findViewById(R.id.tv_deviceCode);
-            tv_delete = (TextView) itemView.findViewById(R.id.tv_delete);
+            iv_delete = (ImageView) itemView.findViewById(R.id.iv_delete);
         }
     }
 }

@@ -125,6 +125,7 @@ public class AlarmRentActivity extends BackTitleActivity implements SwipeRefresh
 
     @Override
     public void onRefresh() {
+        mAlarmAdapter.reset();
         loadNet(0);
     }
 

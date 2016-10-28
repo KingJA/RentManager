@@ -37,7 +37,7 @@ public class AlarmAdapter extends BaseLvAdapter<AlarmList.ContentBean> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvalarmtype.setText(cardName);
-        viewHolder.tvalarmtime.setText(list.get(position).getDEVICETIME());
+        viewHolder.tvalarmtime.setText(getTime(list.get(position).getDEVICETIME()));
         viewHolder.tvalarmmsg.setText(list.get(position).getMESSAGETEXT());
 
         return convertView;
@@ -59,5 +59,12 @@ public class AlarmAdapter extends BaseLvAdapter<AlarmList.ContentBean> {
             tvalarmmsg = (TextView) root.findViewById(R.id.tv_alarm_msg);
             this.root = root;
         }
+    }
+
+    public String getTime(String time) {
+        if (TimeUtil.getFormatDate().equals(time.substring(0, 10))) {
+            return time.substring(time.length() - 9);
+        }
+        return time;
     }
 }
