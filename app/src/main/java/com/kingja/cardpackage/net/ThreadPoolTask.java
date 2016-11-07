@@ -73,17 +73,21 @@ public class ThreadPoolTask implements Runnable {
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtil.showToast(errorResult.getResultText());
                             callBack.onErrorResult(errorResult);
                             if (resultCode == 3) {
+                                ToastUtil.showToast("登录失效，请重新登录");
                                 Log.e(TAG, "resultCode == 3");
                                 ActivityManager.getAppManager().finishAllActivity();
                                 Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 MyApplication.getContext().startActivity(intent);
 //                                android.os.Process.killProcess(android.os.Process.myPid());
+                            } else if (resultCode == 1) {
+
+                            } else {
+                                ToastUtil.showToast(errorResult.getResultText());
                             }
-                            ToastUtil.showToast(errorResult.getResultText());
+
                         }
                     });
                 }

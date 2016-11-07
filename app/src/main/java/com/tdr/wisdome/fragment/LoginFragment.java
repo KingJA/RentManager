@@ -73,7 +73,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
 
     private void initProgressHUD() {
         mProgressHUD = new ZProgressHUD(mActivity);
-        mProgressHUD.setMessage("登陆中...");
+        mProgressHUD.setMessage("登录中...");
         mProgressHUD.setSpinnerType(ZProgressHUD.SIMPLE_ROUND_SPINNER);
     }
 
@@ -99,7 +99,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                     jsonObject.put("Phone", material_loginName.getText().toString());
                     jsonObject.put("UserPassword", MD5.getMD5(material_loginPwd.getText().toString()));
                     jsonObject.put("channelid", JPushInterface.getRegistrationID(mActivity));
-                    Log.e("ChannelId", ExampleUtil.getAppKey(mActivity));
+                    Log.e("channelid", ExampleUtil.getAppKey(mActivity));
                     jsonObject.put("channeltype", "1");
                     jsonObject.put("LoginIP", "");
                     jsonObject.put("IMEI", imei);

@@ -6,23 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.kingja.cardpackage.Event.ClearMsgEvent;
+import com.kingja.cardpackage.Event.RefreshMsgEvent;
 import com.kingja.cardpackage.activity.AgentActivity;
+import com.kingja.cardpackage.activity.AlarmMineActivity;
 import com.kingja.cardpackage.activity.HouseActivity;
 import com.kingja.cardpackage.activity.RentActivity;
 import com.kingja.cardpackage.activity.ShopActivity;
-import com.kingja.cardpackage.service.JPushDispathService;
-import com.kingja.cardpackage.util.AppUtil;
 import com.kingja.cardpackage.util.GoUtil;
-import com.tdr.wisdome.actvitiy.IndicatorFragmentActivity;
-import com.tdr.wisdome.actvitiy.LoginActivity;
-import com.tdr.wisdome.actvitiy.MainActivity;
-import com.tdr.wisdome.actvitiy.MainCarActivity;
-import com.tdr.wisdome.actvitiy.MainCareActivity;
 import com.tdr.wisdome.actvitiy.MsgActivity;
-import com.tdr.wisdome.actvitiy.PerfectActivity;
 import com.tdr.wisdome.base.MyApplication;
 import com.tdr.wisdome.util.Utils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,8 +55,10 @@ public class MyReceiver extends BroadcastReceiver {
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-            processCustomMessage(context, bundle);
-            sendMsgToChild(context, bundle);
+//            processCustomMessage(context, bundle);
+//            sendMsgToChild(context, bundle);
+            EventBus.getDefault().post(new RefreshMsgEvent());
+
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
 
@@ -74,6 +72,7 @@ public class MyReceiver extends BroadcastReceiver {
                 String cardCode = json.getString("CardCode");
                 String data = Utils.initNullStr(json.getString("data"));
                 String sourceId = json.getString("data");
+                GoUtil.goActivityOutOfActivity(MyApplication.getContext(), AlarmMineActivity.class);
                 //  switch (cardCode) {
                 //      case "1001"://我的住房
                 //     case "1002"://我的出租房
@@ -100,16 +99,16 @@ public class MyReceiver extends BroadcastReceiver {
                 //              }
 
 
-                Log.e("卡片ID：", cardCode);
-                if (cardCode.equals("1003")) {
-                    Intent intent1003 = new Intent(context, MainCarActivity.class);
-                    intent1003.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(intent1003);
-                } else if (cardCode.equals("1005")) {
-                    Intent intent1005 = new Intent(context, MainCareActivity.class);
-                    intent1005.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(intent1005);
-                }
+//                Log.e("卡片ID：", cardCode);
+//                if (cardCode.equals("1003")) {
+//                    Intent intent1003 = new Intent(context, MainCarActivity.class);
+//                    intent1003.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    context.startActivity(intent1003);
+//                } else if (cardCode.equals("1005")) {
+//                    Intent intent1005 = new Intent(context, MainCareActivity.class);
+//                    intent1005.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    context.startActivity(intent1005);
+//                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }

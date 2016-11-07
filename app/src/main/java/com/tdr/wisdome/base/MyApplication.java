@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import com.kingja.cardpackage.db.DatebaseManager;
 import com.kingja.cardpackage.db.DownloadDbManager;
 import com.kingja.cardpackage.net.PoolManager;
+import com.kingja.cardpackage.util.CrashHandler;
 
 import net.tsz.afinal.FinalDb;
 
@@ -33,7 +34,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
-
+        CrashHandler.getInstance().init(this);
         db = FinalDb.create(context, "WisdomE.db", false);
 
         JPushInterface.setDebugMode(true);// 设置开启日志,发布时请关闭日志

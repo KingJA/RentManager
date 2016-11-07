@@ -2,6 +2,7 @@ package com.kingja.cardpackage.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,6 +29,7 @@ import com.kingja.cardpackage.util.CheckUtil;
 import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.DialogUtil;
+import com.kingja.cardpackage.util.OCRUtil;
 import com.kingja.cardpackage.util.StringUtil;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.tdr.wisdome.R;
@@ -61,6 +63,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
     private LinearLayout mLlOcrCamera;
     private Intent mICardData;
     private String imgBase64="";
+    private ImageView mIvIdcard;
 
     public static ApplyFragment newInstance(RentBean bean) {
         ApplyFragment mApplyFragment = new ApplyFragment();
@@ -85,6 +88,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         mEtApplyCardId = (EditText) view.findViewById(R.id.et_apply_cardId);
         mEtApplyPhone = (EditText) view.findViewById(R.id.et_apply_phone);
         mLlOcrCamera = (LinearLayout) view.findViewById(R.id.ll_ocr_camera);
+        mIvIdcard = (ImageView) view.findViewById(R.id.iv_idcard);
     }
 
 
@@ -147,25 +151,6 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
      * 自主申报
      */
     private void onApply() {
-
-//        Map<String, Object> param = new HashMap<>();
-//        param.put(TempConstants.TaskID, "1");
-//        param.put(TempConstants.HOUSEID, entiy.getHOUSEID());
-//        param.put(TempConstants.ROOMID, mRoomId);
-//        param.put("LISTID", StringUtil.getUUID());
-//        /*通过OCR获取*/
-//        param.put("NAME", name);
-//        param.put("IDENTITYCARD", cardId);
-//        param.put("PHONE", phone);
-//        /**/
-//        param.put("REPORTERROLE", "2");
-//        param.put("OPERATOR", DataManager.getUserId());
-//        param.put("STANDARDADDRCODE", entiy.getSTANDARDADDRCODE());
-//        param.put("TERMINAL", "2");
-//        param.put("XQCODE", entiy.getXQCODE());
-//        param.put("PCSCODE", entiy.getPCSCODE());
-//        param.put("JWHCODE", entiy.getJWHCODE());
-//        param.put("OPERATORPHONE", "0");
         setProgressDialog(true);
         ChuZuWu_LKSelfReportingInParam bean = new ChuZuWu_LKSelfReportingInParam();
         bean.setTaskID("1");
@@ -213,7 +198,8 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
                                 mEtApplyCardId.setText("");
                                 mEtApplyPhone.setText("");
                                 doubleDialog.dismiss();
-
+                                imgBase64="";
+                                mIvIdcard.setImageResource(R.drawable.transparency_full);
                             }
                         });
                     }
@@ -249,7 +235,8 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
                     if (name != null) {
                         mTvApplyName.setText(name);
                     }
-//                    Bitmap bitmap = BitmapFactory.decodeFile(data.getStringExtra("img"));
+                    Bitmap bitmap = OCRUtil.base64ToBitmap(imgBase64);
+                    mIvIdcard.setImageBitmap(bitmap);
                 }
                 break;
         }

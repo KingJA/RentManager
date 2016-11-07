@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorBg"
+    android:orientation="vertical"
     tools:context=".actvitiy.LoginActivity">
 
 
-    <include
-        layout="@layout/layout_title" />
+    <include layout="@layout/layout_title" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,21 +20,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/bg_logo_text" />
+            android:background="@drawable/bg_logo_login" />
 
+        <com.tdr.wisdome.view.TitleIndicator
+            android:id="@+id/titleIndicator_choose"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            app:footerColor="@color/white"
+            app:footerLineHeight="2dp"
+            app:footerTriangleHeight="3.0dp"
+            app:textColor="@drawable/indicator_change"
+            app:textSizeNormal="@dimen/common_text_size_middle"
+            app:textSizeSelected="@dimen/common_text_size_middle" />
     </RelativeLayout>
 
-    <com.tdr.wisdome.view.TitleIndicator
-        android:id="@+id/titleIndicator_choose"
-        android:layout_width="fill_parent"
-        android:layout_height="45dp"
-        android:background="@color/colorStatus"
-        app:footerColor="@color/white"
-        app:footerLineHeight="2dp"
-        app:footerTriangleHeight="3.0dp"
-        app:textColor="@drawable/indicator_change"
-        app:textSizeNormal="@dimen/common_text_size_middle"
-        app:textSizeSelected="@dimen/common_text_size_middle" />
 
     <com.tdr.wisdome.view.ViewPagerCompat
         android:id="@+id/pager_compat"

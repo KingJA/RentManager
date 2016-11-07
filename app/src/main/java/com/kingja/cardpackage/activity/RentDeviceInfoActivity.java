@@ -44,6 +44,7 @@ public class RentDeviceInfoActivity extends BackTitleActivity implements Adapter
     private List<ChuZuWu_DeviceLists.ContentBean> mDeviceList;
     private DeviceInfoAdapter mDeviceInfoAdapter;
     private LinearLayout ll_root;
+    private LinearLayout ll_empty;
 
 
     @Override
@@ -57,8 +58,11 @@ public class RentDeviceInfoActivity extends BackTitleActivity implements Adapter
         ll_root = (LinearLayout) findViewById(R.id.ll_root);
 //        mSrlTopContent = (SwipeRefreshLayout) findViewById(R.id.srl);
         mLvTopContent = (ListView) findViewById(R.id.lv);
+        ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
 
         mDeviceRoomAdapter = new DeviceRoomAdapter(this, roomList);
+
+        ll_empty.setVisibility(roomList.size()>0?View.GONE:View.VISIBLE);
         mLvTopContent.setAdapter(mDeviceRoomAdapter);
         mDeviceRoomAdapter.setOnExplandListener(this);
 

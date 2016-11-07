@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kingja.cardpackage.activity.HomeActivity;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.util.CloseActivityUtil;
 import com.tdr.wisdome.util.Constants;
@@ -221,7 +222,8 @@ public class PerfectActivity extends Activity implements View.OnClickListener {
                                     } else {
                                         Constants.setUserIdentitycard(material_identity.getText().toString().trim());
                                         Constants.setRealName(material_realName.getText().toString().trim());
-                                        Intent intent = new Intent(mContext, PersonalActivity.class);
+                                        Constants.setPermanentAddr(material_permanentAddress.getText().toString().trim());
+                                        Intent intent = new Intent(mContext, HomeActivity.class);
                                         startActivity(intent);
                                         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                                         CloseActivityUtil.activityFinish(PerfectActivity.this);

@@ -290,6 +290,7 @@
             android:padding="16dp">
 
             <TextView
+                android:id="@+id/tv_hint_houseTitle"
                 style="@style/font_3_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -305,6 +306,9 @@
                 android:background="@drawable/arrow_right" />
 
             <TextView
+                android:gravity="end"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/tv_hint_houseTitle"
                 android:id="@+id/tv_houseTitle"
                 style="@style/font_9_15"
                 android:layout_width="wrap_content"

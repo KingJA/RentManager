@@ -24,7 +24,6 @@ public class SplashActivity extends BaseActivity {
     private final long DELAYED_MILLS = 2000;
     private Handler handler=new Handler();
     private TextView tv_version;
-    private TextView tv_skip;
 
     @Override
     protected void initVariables() {
@@ -39,12 +38,10 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initView() {
         tv_version = (TextView) findViewById(R.id.tv_version);
-        tv_skip = (TextView) findViewById(R.id.tv_skip);
     }
 
     @Override
     protected void initNet() {
-
     }
 
     @Override
@@ -57,13 +54,6 @@ public class SplashActivity extends BaseActivity {
         tv_version.setText("当前版本:"+ AppInfoUtil.getVersionName());
         copyDb();
         handler.postDelayed(skipRunnable,DELAYED_MILLS);
-        tv_skip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handler.removeCallbacks(skipRunnable);
-                GoUtil.goActivityAndFinish(SplashActivity.this, HomeActivity.class);
-            }
-        });
     }
 
     private void copyDb() {
@@ -78,7 +68,7 @@ public class SplashActivity extends BaseActivity {
     private Runnable skipRunnable = new Runnable() {
         @Override
         public void run() {
-            GoUtil.goActivityAndFinish(SplashActivity.this, HomeActivity.class);
+            GoUtil.goActivityAndFinish(SplashActivity.this, LoginActivity.class);
         }
     };
 

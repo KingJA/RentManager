@@ -164,7 +164,7 @@ public class ShopActivity extends BackTitleActivity implements SwipeRefreshLayou
                     public void onErrorResult(ErrorResult errorResult) {
                         setProgressDialog(false);
                         finish();
-                        ToastUtil.showToast("卡包登录失败");
+                        ToastUtil.showToast("登录失败");
                     }
                 }).build().execute();
     }

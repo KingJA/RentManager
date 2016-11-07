@@ -36,7 +36,7 @@ public class PersonManagerRvAdapter extends BaseRvAdaper<ChuZuWu_MenPaiAuthoriza
     @Override
     protected void bindHolder(ViewHolder baseHolder, ChuZuWu_MenPaiAuthorizationList.ContentBean.PERSONNELINFOLISTBean bean, final int position) {
         PersonManagerViewHolder holder = (PersonManagerViewHolder) baseHolder;
-        holder.tv_name.setText("姓名: " +bean.getNAME());
+        holder.tv_name.setText(bean.getNAME());
         holder.tv_phone.setText("手机号码: " +bean.getPHONENUM());
         holder.tv_cardId.setText("身份证号: " + bean.getIDENTITYCARD());
         holder.tv_code.setText("识别码: " + bean.getCARDID());

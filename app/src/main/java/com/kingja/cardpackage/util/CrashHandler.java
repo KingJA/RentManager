@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.tdr.wisdome.actvitiy.LoginActivity;
@@ -26,7 +27,7 @@ import java.util.Date;
  */
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private static CrashHandler mCrashHandler;
-    public static final String LOG_DIR = "CLogs";
+    public static final String LOG_DIR = "RMLogs";
     public static final String LOG_FILENAME = "CrashLogs.txt";
     private Thread.UncaughtExceptionHandler mDefaultHandler;
     private Context context;
@@ -55,7 +56,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(final Thread thread, final Throwable ex) {
-        Log.e("###CrashHandler###", "全局异常捕捉");
+        Log.e("uncaughtException: ", "uncaughtException: ");
         ex.printStackTrace();
         savaToSdCard(ex);
         uploadToService(ex);
@@ -65,16 +66,14 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        skipToActivity();
-        android.os.Process.killProcess(android.os.Process.myPid());
-    }
 
-    private void skipToActivity() {
         ActivityManager.getAppManager().finishAllActivity();//避免前台的其他APP被关闭
         Intent intent = new Intent(context, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
+
 
 
     /**
@@ -120,6 +119,40 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         }
     }
 
+    /**
+     * 获取异常信息
+     *
+     * @param ex
+     * @return
+     */
+    @NonNull
+    private String getExceptionInfo(Throwable ex) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getFormaTime() + "\n");
+        sb.append("===================" + "\n");
+        sb.append("Phone Model: " + android.os.Build.MODEL + ","
+                + android.os.Build.VERSION.SDK_INT + ","
+                + android.os.Build.VERSION.RELEASE + ","
+                + android.os.Build.CPU_ABI + "\n");
+        sb.append("Thread:  " + Thread.currentThread().getName() + "\n");
+        sb.append(getVersionInfo(context) + "\n");
+        sb.append(ex.toString() + "\n");
+        StackTraceElement[] stackTrace = ex.getStackTrace();
+        if (stackTrace != null) {
+            for (int i = 0; i < stackTrace.length; i++) {
+                sb.append("\tat  " + stackTrace[i].toString() + "\n");
+            }
+        }
+        Throwable causeThrowable = ex.getCause();
+        if (causeThrowable != null) {
+            StackTraceElement[] causeElement = causeThrowable.getStackTrace();
+            sb.append("\tCaused by: " + causeThrowable.toString() + "\n");
+            for (int i = 0; i < causeElement.length; i++) {
+                sb.append("\tat  " + causeElement[i].toString() + "\n");
+            }
+        }
+        return sb.toString();
+    }
 
     /**
      * 获取版本号

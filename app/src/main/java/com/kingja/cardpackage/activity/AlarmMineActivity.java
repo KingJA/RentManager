@@ -1,7 +1,5 @@
 package com.kingja.cardpackage.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
@@ -9,9 +7,8 @@ import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.kingja.cardpackage.adapter.AlarmAdapter;
+import com.kingja.cardpackage.Event.ClearMsgEvent;
 import com.kingja.cardpackage.adapter.AlarmMineAdapter;
-import com.kingja.cardpackage.entiy.AlarmList;
 import com.kingja.cardpackage.entiy.ErrorResult;
 import com.kingja.cardpackage.entiy.GetUserMessage;
 import com.kingja.cardpackage.entiy.SetUserMessageAll;
@@ -23,6 +20,8 @@ import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.TempConstants;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.tdr.wisdome.R;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,7 +89,7 @@ public class AlarmMineActivity extends BackTitleActivity implements SwipeRefresh
                         mSrlTopContent.setRefreshing(false);
                         mAlarmList = bean.getContent();
                         mLlEmpty.setVisibility(mAlarmList.size() > 0 ? View.GONE : View.VISIBLE);
-                        mAlarmAdapter.addData(filter(mAlarmList));
+                        mAlarmAdapter.setData(filter(mAlarmList));
                         Log.e(TAG, "mAlarmList.size: " + mAlarmList.size());
                         hasMore = mAlarmList.size() == LOADSIZE;
                     }
@@ -115,7 +114,6 @@ public class AlarmMineActivity extends BackTitleActivity implements SwipeRefresh
     @Override
     protected void initData() {
         mSrlTopContent.setOnRefreshListener(this);
-        mLvTopContent.setOnScrollListener(onScrollListener);
 
     }
 
@@ -127,35 +125,8 @@ public class AlarmMineActivity extends BackTitleActivity implements SwipeRefresh
 
     @Override
     public void onRefresh() {
-        mAlarmAdapter.reset();
         loadNet(0);
     }
-
-    private AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(AbsListView view, int scrollState) {
-            switch (scrollState) {
-                case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-                    if (mLvTopContent.getLastVisiblePosition() == (mLvTopContent.getCount() - 1)) {
-                        Log.e("log", "滑到底部");
-                        if (mSrlTopContent.isRefreshing()) {
-                            return;
-                        }
-                        if (hasMore) {
-                            loadNet(++loadIndex);
-                        } else {
-                            ToastUtil.showToast("已经没有更多数据");
-                        }
-                    }
-                    break;
-            }
-        }
-
-        @Override
-        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-        }
-    };
 
     private void readAll() {
         Map<String, Object> param = new HashMap<>();
@@ -167,6 +138,7 @@ public class AlarmMineActivity extends BackTitleActivity implements SwipeRefresh
                     @Override
                     public void onSuccess(SetUserMessageAll bean) {
                         Log.e(TAG, "onSuccess: "+"信息全读" );
+
                     }
 
                     @Override
@@ -178,6 +150,7 @@ public class AlarmMineActivity extends BackTitleActivity implements SwipeRefresh
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().post(new ClearMsgEvent());
         readAll();
     }
 }

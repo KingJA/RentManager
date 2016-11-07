@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Description：出租屋代管
+ * Description：出租房代管
  * Create Time：2016/8/4 16:20
  * Author:KingJA
  * Email:kingjavip@gmail.com
@@ -120,7 +120,7 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
 
     @Override
     protected void setData() {
-        setTitle("出租屋代管");
+        setTitle("出租房代管");
         setTopColor(TopColor.WHITE);
         setOnRightClickListener(this, "加入");
     }
@@ -166,7 +166,7 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
                     public void onErrorResult(ErrorResult errorResult) {
                         setProgressDialog(false);
                         finish();
-                       ToastUtil.showToast("卡包登录失败");
+                       ToastUtil.showToast("登录失败");
                     }
                 }).build().execute();
     }

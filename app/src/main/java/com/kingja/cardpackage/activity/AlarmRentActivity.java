@@ -32,16 +32,16 @@ import java.util.Map;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class AlarmRentActivity extends BackTitleActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class AlarmRentActivity extends BackTitleActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private String mHouseId;
     private LinearLayout mLlEmpty;
     private SwipeRefreshLayout mSrlTopContent;
     private ListView mLvTopContent;
-    private List<AlarmList.ContentBean> mAlarmList=new ArrayList<>();
+    private List<AlarmList.ContentBean> mAlarmList = new ArrayList<>();
     private AlarmAdapter mAlarmAdapter;
-    private  int LOADSIZE=200;
-    private  int loadIndex=0;
+    private int LOADSIZE = 200;
+    private int loadIndex = 0;
     private boolean hasMore;
 
 
@@ -57,7 +57,7 @@ public class AlarmRentActivity extends BackTitleActivity implements SwipeRefresh
         mSrlTopContent = (SwipeRefreshLayout) findViewById(R.id.srl);
         mLvTopContent = (ListView) findViewById(R.id.lv);
 
-        mAlarmAdapter = new AlarmAdapter(this, mAlarmList,"出租房");
+        mAlarmAdapter = new AlarmAdapter(this, mAlarmList, "出租房");
         mLvTopContent.setAdapter(mAlarmAdapter);
 
         mSrlTopContent.setColorSchemeResources(R.color.bg_black);
@@ -90,10 +90,10 @@ public class AlarmRentActivity extends BackTitleActivity implements SwipeRefresh
                     public void onSuccess(AlarmList bean) {
                         mSrlTopContent.setRefreshing(false);
                         mAlarmList = bean.getContent();
-                        mLlEmpty.setVisibility(mAlarmList.size()>0? View.GONE:View.VISIBLE);
+                        mLlEmpty.setVisibility(mAlarmList.size() > 0 ? View.GONE : View.VISIBLE);
                         mAlarmAdapter.addData(mAlarmList);
-                        Log.e(TAG, "mAlarmList.size: "+mAlarmList.size());
-                        hasMore=mAlarmList.size()==LOADSIZE;
+                        Log.e(TAG, "mAlarmList.size: " + mAlarmList.size());
+                        hasMore = mAlarmList.size() == LOADSIZE;
 
                     }
 
@@ -141,7 +141,7 @@ public class AlarmRentActivity extends BackTitleActivity implements SwipeRefresh
                         }
                         if (hasMore) {
                             loadNet(++loadIndex);
-                        }else{
+                        } else {
                             ToastUtil.showToast("已经没有更多数据");
                         }
                     }

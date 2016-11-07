@@ -122,7 +122,7 @@ public class CheckUtil {
             ToastUtil.showToast(target+"密码不能为空");
             return false;
         }
-        String reg="[a-zA-Z0-9]{"+min+","+max+"}";
+        String reg=".{"+min+","+max+"}";
         if (!Pattern.matches(reg, password)) {
             ToastUtil.showToast(target+"密码须为"+min+"-"+max+"位字母或数字组合");
             return false;

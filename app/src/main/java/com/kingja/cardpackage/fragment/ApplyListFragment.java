@@ -9,7 +9,9 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.listener.OnOperItemClickL;
+import com.flyco.dialog.widget.NormalDialog;
 import com.flyco.dialog.widget.NormalListDialog;
 import com.kingja.cardpackage.adapter.DividerItemDecoration;
 import com.kingja.cardpackage.adapter.PersonApplyRvAdapter;
@@ -155,7 +157,25 @@ public class ApplyListFragment extends BaseFragment implements OnOperItemClickL,
     }
 
     @Override
-    public void onDeliteItem(String listId, final int position) {
+    public void onDeliteItem(final String listId, final int position) {
+        final NormalDialog deleteDialog = DialogUtil.getDoubleDialog(getActivity(), "确定要删除该申报？", "取消", "确定");
+        deleteDialog.setOnBtnClickL(new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                deleteDialog.dismiss();
+            }
+        }, new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                deleteDialog.dismiss();
+                loadDelete(listId, position);
+            }
+        });
+        deleteDialog.show();
+
+    }
+
+    private void loadDelete(String listId, final int position) {
         setProgressDialog(true);
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, "1");

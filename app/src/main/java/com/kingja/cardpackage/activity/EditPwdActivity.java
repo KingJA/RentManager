@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.CheckElder;
 import com.kingja.cardpackage.entiy.ErrorResult;
@@ -35,6 +36,7 @@ public class EditPwdActivity extends Activity {
     private MaterialEditText mEtRepeatPwd;
     private Button mBtnConfirm;
     private ImageView fl_menu;
+    private TextView text_title;
 
 
     @Override
@@ -47,6 +49,7 @@ public class EditPwdActivity extends Activity {
 
     private void initView() {
         mProgressHUD = new ZProgressHUD(this);
+        text_title = (TextView) findViewById(R.id.text_title);
         fl_menu = (ImageView) findViewById(R.id.image_back);
         mEtOldPwd = (MaterialEditText) findViewById(R.id.et_oldPwd);
         mEtNewPwd = (MaterialEditText) findViewById(R.id.et_newPwd);
@@ -64,6 +67,7 @@ public class EditPwdActivity extends Activity {
                 finish();
             }
         });
+        text_title.setText("修改密码");
     }
 
     /**
@@ -112,6 +116,7 @@ public class EditPwdActivity extends Activity {
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
+                        ToastUtil.showToast(errorResult.getResultText());
                         mProgressHUD.dismiss();
                     }
                 }).build().execute();

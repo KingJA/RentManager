@@ -32,17 +32,17 @@ import java.util.Map;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class AlarmHouseActivity extends BackTitleActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class AlarmHouseActivity extends BackTitleActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private String mHouseId;
     private String mRoomId;
     private LinearLayout mLlEmpty;
     private SwipeRefreshLayout mSrlTopContent;
     private ListView mLvTopContent;
-    private List<AlarmList.ContentBean> mAlarmList=new ArrayList<>();
+    private List<AlarmList.ContentBean> mAlarmList = new ArrayList<>();
     private AlarmAdapter mAlarmAdapter;
-    private  int LOADSIZE=200;
-    private  int loadIndex=0;
+    private int LOADSIZE = 200;
+    private int loadIndex = 0;
     private boolean hasMore;
 
 
@@ -58,7 +58,7 @@ public class AlarmHouseActivity extends BackTitleActivity implements SwipeRefres
         mSrlTopContent = (SwipeRefreshLayout) findViewById(R.id.srl);
         mLvTopContent = (ListView) findViewById(R.id.lv);
 
-        mAlarmAdapter = new AlarmAdapter(this, mAlarmList,"出租房");
+        mAlarmAdapter = new AlarmAdapter(this, mAlarmList, "我的住房");
         mLvTopContent.setAdapter(mAlarmAdapter);
 
         mSrlTopContent.setColorSchemeResources(R.color.bg_black);
@@ -92,10 +92,10 @@ public class AlarmHouseActivity extends BackTitleActivity implements SwipeRefres
                     public void onSuccess(AlarmList bean) {
                         mSrlTopContent.setRefreshing(false);
                         mAlarmList = bean.getContent();
-                        mLlEmpty.setVisibility(mAlarmList.size()>0? View.GONE:View.VISIBLE);
+                        mLlEmpty.setVisibility(mAlarmList.size() > 0 ? View.GONE : View.VISIBLE);
                         mAlarmAdapter.addData(mAlarmList);
-                        Log.e(TAG, "mAlarmList.size: "+mAlarmList.size());
-                        hasMore=mAlarmList.size()==LOADSIZE;
+                        Log.e(TAG, "mAlarmList.size: " + mAlarmList.size());
+                        hasMore = mAlarmList.size() == LOADSIZE;
 
                     }
 
@@ -118,7 +118,7 @@ public class AlarmHouseActivity extends BackTitleActivity implements SwipeRefres
         setTitle("预警信息");
     }
 
-    public static void goActivity(Activity activity, String houseId,String roomId) {
+    public static void goActivity(Activity activity, String houseId, String roomId) {
         Intent intent = new Intent(activity, AlarmHouseActivity.class);
         intent.putExtra(TempConstants.HOUSEID, houseId);
         intent.putExtra(TempConstants.ROOMID, roomId);
@@ -144,7 +144,7 @@ public class AlarmHouseActivity extends BackTitleActivity implements SwipeRefres
                         }
                         if (hasMore) {
                             loadNet(++loadIndex);
-                        }else{
+                        } else {
                             ToastUtil.showToast("已经没有更多数据");
                         }
                     }

@@ -3,10 +3,10 @@
     package="com.tdr.wisdome">
 
     <permission
-        android:name="com.tdr.wisdome.permission.JPUSH_MESSAGE"
+        android:name="com.tdr.rentmanager.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.tdr.wisdome.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="com.tdr.rentmanager.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />f
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
 
@@ -282,7 +282,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
-                <category android:name="com.tdr.wisdome" />
+                <category android:name="com.tdr.rentmanager" />
             </intent-filter>
 
         </service>
@@ -293,7 +293,7 @@
             android:exported="false">
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   <!--Required  显示通知栏 -->
-                <category android:name="com.tdr.wisdome" />
+                <category android:name="com.tdr.rentmanager" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -326,7 +326,7 @@
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
                 <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
                 <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.tdr.wisdome" />
+                <category android:name="com.tdr.rentmanager" />
             </intent-filter>
         </receiver>
 
@@ -468,7 +468,8 @@
                     android:name="com.kingja.cardpackage.activity.HomeActivity"
                     android:screenOrientation="portrait" />&lt;!&ndash;闪屏页面&ndash;&gt;-->
 
-
+        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="24ffdda01813c5207f7c654e" /> <!--  </>值来自开发者平台取得的AppKey-->
         <service android:name="com.kingja.cardpackage.service.JPushDispathService" /><!--推送分发服务-->
 
     </application>

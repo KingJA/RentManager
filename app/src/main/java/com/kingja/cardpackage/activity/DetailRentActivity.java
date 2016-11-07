@@ -2,7 +2,6 @@ package com.kingja.cardpackage.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.test.ActivityUnitTestCase;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -11,7 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.RentBean;
-import com.kingja.cardpackage.util.GoUtil;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.tdr.wisdome.R;
 
@@ -44,10 +42,12 @@ public class DetailRentActivity extends BackTitleActivity implements View.OnClic
     private final int PERSON_MANAGER = 0;
     private final int ROOM_MANAGER = 1;
     private RelativeLayout mRlAdmin;
+    private int roomCount;
 
     @Override
     protected void initVariables() {
         entiy = (RentBean) getIntent().getSerializableExtra("ENTIY");
+        roomCount = entiy.getRoomList().size();
     }
 
     @Override
@@ -123,6 +123,7 @@ public class DetailRentActivity extends BackTitleActivity implements View.OnClic
         switch (v.getId()) {
             //设备信息
             case R.id.rl_deviceInfo:
+                if (checkRoomEmpty()) break;
                 RentDeviceInfoActivity.goActivity(this, entiy);
                 break;
             //居家防盗
@@ -147,14 +148,17 @@ public class DetailRentActivity extends BackTitleActivity implements View.OnClic
                 break;
             //人员管理
             case R.id.rl_people:
+                if (checkRoomEmpty()) break;
                 RoomListActivity.goActivity(this, entiy, PERSON_MANAGER);
                 break;
             //房间管理
             case R.id.rl_room:
+                if (checkRoomEmpty()) break;
                 RoomListActivity.goActivity(this, entiy, ROOM_MANAGER);
                 break;
             //人员申报
             case R.id.rl_apply:
+                if (checkRoomEmpty()) break;
                 PersonApplyActivity.goActivity(this, entiy);
                 break;
             //管理员管理
@@ -165,6 +169,14 @@ public class DetailRentActivity extends BackTitleActivity implements View.OnClic
                 break;
 
         }
+    }
+
+    private boolean checkRoomEmpty() {
+        if (roomCount == 0) {
+            ToastUtil.showToast("未查到房间信息");
+            return true;
+        }
+        return false;
     }
 
     @Override

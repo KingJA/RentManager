@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Description：TODO
+ * Description：我的出租房
  * Create Time：2016/8/4 16:20
  * Author:KingJA
  * Email:kingjavip@gmail.com
@@ -115,7 +115,7 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
 
     @Override
     protected void setData() {
-        setTitle("我的出租屋");
+        setTitle("我的出租房");
         setTopColor(TopColor.WHITE);
     }
 
@@ -161,7 +161,7 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
                     public void onErrorResult(ErrorResult errorResult) {
                         setProgressDialog(false);
                         finish();
-                        ToastUtil.showToast("卡包登录失败");
+                        ToastUtil.showToast("登录失败");
                     }
                 }).build().execute();
     }

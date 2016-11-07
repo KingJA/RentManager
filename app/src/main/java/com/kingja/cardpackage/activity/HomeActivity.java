@@ -11,18 +11,32 @@ import android.widget.Toast;
 
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
+import com.kingja.cardpackage.Event.ClearMsgEvent;
+import com.kingja.cardpackage.Event.RefreshMsgEvent;
 import com.kingja.cardpackage.adapter.HomeAdapter;
 import com.kingja.cardpackage.base.BaseActivity;
+import com.kingja.cardpackage.entiy.ErrorResult;
+import com.kingja.cardpackage.entiy.GetUserMessage;
+import com.kingja.cardpackage.net.ThreadPoolTask;
+import com.kingja.cardpackage.net.WebServiceCallBack;
+import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.DialogUtil;
 import com.kingja.cardpackage.util.GoUtil;
-import com.kingja.cardpackage.util.ToastUtil;
+import com.kingja.cardpackage.util.TempConstants;
 import com.kingja.ui.popupwindow.BottomListPop;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.actvitiy.LoginActivity;
 import com.tdr.wisdome.actvitiy.PerfectActivity;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Description：TODO
@@ -30,7 +44,7 @@ import java.util.Arrays;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class HomeActivity extends BaseActivity implements AdapterView.OnItemClickListener, View.OnClickListener ,BottomListPop.OnPopItemClickListener{
+public class HomeActivity extends BaseActivity implements AdapterView.OnItemClickListener, View.OnClickListener, BottomListPop.OnPopItemClickListener {
     private String mLargeTexts[] = {"我是房东", "我是租客", "我是管理员"};
     private String mSmallTexts[] = {"我的出租房", "我的住房", "出租房代管"};
     private int mHouseImgs[] = {R.drawable.home_rent, R.drawable.home_house, R.drawable.home_agent};
@@ -56,6 +70,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         mRlHomeMenu = (RelativeLayout) findViewById(R.id.rl_home_menu);
         mRlHomeMsg = (RelativeLayout) findViewById(R.id.rl_home_msg);
         mTvHomeCount = (TextView) findViewById(R.id.tv_home_count);
@@ -66,7 +81,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     private void initBottomListPop() {
-        mBottomListPop = new BottomListPop(mRlHomeMenu, this, Arrays.asList("完善资料", "修改密码","退出登录"));
+        mBottomListPop = new BottomListPop(mRlHomeMenu, this, Arrays.asList("完善资料", "修改密码", "退出登录"));
         mBottomListPop.setOnPopItemClickListener(this);
     }
 
@@ -85,7 +100,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     protected void initNet() {
-
+        getMsg(0);
     }
 
     @Override
@@ -108,7 +123,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 mBottomListPop.showPopupWindow();
                 break;
             case R.id.rl_home_msg:
-               GoUtil.goActivity(this,AlarmMineActivity.class);
+                GoUtil.goActivity(this, AlarmMineActivity.class);
                 break;
             default:
                 break;
@@ -181,6 +196,24 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         }
     }
 
+    private void makeSureQuit() {
+        final NormalDialog quitDialog = DialogUtil.getDoubleDialog(this, "确定要退出应用？", "取消", "确定");
+        quitDialog.setOnBtnClickL(new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                quitDialog.dismiss();
+            }
+        }, new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                quitDialog.dismiss();
+                DataManager.putToken("");
+                GoUtil.goActivityAndFinish(HomeActivity.this,LoginActivity.class);
+            }
+        });
+        quitDialog.show();
+    }
+
     private void exitApp() {
         DataManager.putToken("");
         finish();
@@ -205,9 +238,53 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 GoUtil.goActivity(HomeActivity.this, EditPwdActivity.class);
                 break;
             case 2://退出登录
-                exitApp();
+                makeSureQuit();
                 break;
 
         }
+    }
+
+    private void getMsg(int index) {
+        Map<String, Object> param = new HashMap<>();
+        param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
+        param.put(TempConstants.PageIndex, index);
+        param.put(TempConstants.PageSize, TempConstants.DEFAULT_PAGE_SIZE);
+        new ThreadPoolTask.Builder()
+                .setGeneralParam(DataManager.getToken(), "", Constants.GetUserMessage, param)
+                .setBeanType(GetUserMessage.class)
+                .setCallBack(new WebServiceCallBack<GetUserMessage>() {
+                    @Override
+                    public void onSuccess(GetUserMessage bean) {
+                        mTvHomeCount.setVisibility(isHasNewMsg(bean) ? View.VISIBLE : View.GONE);
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                    }
+                }).build().execute();
+    }
+
+    private boolean isHasNewMsg(GetUserMessage bean) {
+        List<GetUserMessage.ContentBean> msgList = bean.getContent();
+        for (GetUserMessage.ContentBean msg : msgList) {
+            if (msg.getIsRead() == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onClearMsgEvent(ClearMsgEvent messageEvent) {
+        mTvHomeCount.setVisibility( View.GONE);
+    }  @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRefreshMsgEvent(RefreshMsgEvent messageEvent) {
+        mTvHomeCount.setVisibility( View.VISIBLE);
     }
 }
