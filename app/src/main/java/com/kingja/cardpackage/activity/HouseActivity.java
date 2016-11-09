@@ -2,6 +2,10 @@ package com.kingja.cardpackage.activity;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -21,6 +25,7 @@ import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.PhoneUtil;
 import com.kingja.cardpackage.util.TempConstants;
+import com.kingja.cardpackage.util.ToastUtil;
 import com.tdr.wisdome.R;
 
 import java.util.ArrayList;
@@ -58,10 +63,7 @@ public class HouseActivity extends BackTitleActivity implements SwipeRefreshLayo
         mSrlTopContent.setColorSchemeResources(R.color.bg_black);
         mSrlTopContent.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
+
     @Override
     protected int getBackContentView() {
         return R.layout.single_lv;
@@ -113,6 +115,7 @@ public class HouseActivity extends BackTitleActivity implements SwipeRefreshLayo
     protected void setData() {
         setTitle("我的住房");
         setTopColor(TopColor.WHITE);
+        DataManager.putLastPage(1);
     }
 
 
@@ -155,7 +158,14 @@ public class HouseActivity extends BackTitleActivity implements SwipeRefreshLayo
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
                         setProgressDialog(false);
+                        finish();
+                        ToastUtil.showToast("登录失败");
                     }
                 }).build().execute();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DataManager.putLastPage(-1);
     }
 }

@@ -112,7 +112,23 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     protected void setData() {
+        autoToLastPage();
+    }
 
+    private void autoToLastPage() {
+        switch (DataManager.getLastPage()) {
+            case 0://我的出租房
+                GoUtil.goActivity(HomeActivity.this, RentActivity.class);
+                break;
+            case 1://我的住房
+                GoUtil.goActivity(HomeActivity.this, HouseActivity.class);
+                break;
+            case 2://代管出租
+                GoUtil.goActivity(HomeActivity.this, AgentActivity.class);
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -208,7 +224,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
             public void onBtnClick() {
                 quitDialog.dismiss();
                 DataManager.putToken("");
-                GoUtil.goActivityAndFinish(HomeActivity.this,LoginActivity.class);
+                GoUtil.goActivityAndFinish(HomeActivity.this, LoginActivity.class);
             }
         });
         quitDialog.show();
@@ -282,9 +298,11 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onClearMsgEvent(ClearMsgEvent messageEvent) {
-        mTvHomeCount.setVisibility( View.GONE);
-    }  @Subscribe(threadMode = ThreadMode.MAIN)
+        mTvHomeCount.setVisibility(View.GONE);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefreshMsgEvent(RefreshMsgEvent messageEvent) {
-        mTvHomeCount.setVisibility( View.VISIBLE);
+        mTvHomeCount.setVisibility(View.VISIBLE);
     }
 }

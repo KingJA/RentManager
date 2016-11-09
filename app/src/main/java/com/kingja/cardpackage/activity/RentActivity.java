@@ -29,6 +29,7 @@ import com.tdr.wisdome.R;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.xutils.DbManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,10 +69,7 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
         mSrlTopContent.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
 
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
+
     @Override
     protected int getBackContentView() {
         return R.layout.single_lv;
@@ -117,6 +115,7 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
     protected void setData() {
         setTitle("我的出租房");
         setTopColor(TopColor.WHITE);
+        DataManager.putLastPage(0);
     }
 
 
@@ -164,5 +163,10 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
                         ToastUtil.showToast("登录失败");
                     }
                 }).build().execute();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DataManager.putLastPage(-1);
     }
 }

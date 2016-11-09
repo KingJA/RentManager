@@ -74,10 +74,6 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
         mSrlTopContent.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
     }
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-    @Override
     protected int getBackContentView() {
         return R.layout.single_lv;
     }
@@ -123,6 +119,7 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
         setTitle("出租房代管");
         setTopColor(TopColor.WHITE);
         setOnRightClickListener(this, "加入");
+        DataManager.putLastPage(2);
     }
 
     @Override
@@ -222,5 +219,10 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
                 ToastUtil.showToast("二维码异常请重新生成");
             }
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DataManager.putLastPage(-1);
     }
 }

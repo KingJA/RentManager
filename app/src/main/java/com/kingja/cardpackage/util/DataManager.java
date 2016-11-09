@@ -12,8 +12,10 @@ public class DataManager {
     private static final String USER_ID = "userId";
     private static final String USER_PHONE = "userPhone";
     private static final String USER_NAME = "userName";
+    private static final String LAST_PAGE = "LAST_PAGE";
     private static final String ID_CARD = "userIdentitycard";
     private static final String EMPTY = "";
+    private static final int INT_EMPTY = -1;
 
     /*================================GET================================*/
     public static String getToken() {
@@ -40,6 +42,10 @@ public class DataManager {
         return (String) SpUtils.get(REAL_NAME, EMPTY);
     }
 
+    public static Integer getLastPage() {
+        return (Integer) SpUtils.get(LAST_PAGE, INT_EMPTY);
+    }
+
     /*================================PUT================================*/
 
     public static void putToken(String token) {
@@ -60,6 +66,10 @@ public class DataManager {
 
     public static void putIdCard(String idCard) {
         SpUtils.put(ID_CARD, idCard);
+    }
+
+    public static void putLastPage(int pageIndex) {
+        SpUtils.put(LAST_PAGE, pageIndex);
     }
 
 
