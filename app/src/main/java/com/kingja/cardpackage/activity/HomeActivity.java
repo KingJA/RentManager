@@ -208,7 +208,8 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
             Toast.makeText(this, "长按两次退出", Toast.LENGTH_SHORT).show();
             firstTime = secondTime;
         } else {
-            exitApp();
+            finish();
+            System.exit(0);
         }
     }
 
@@ -224,6 +225,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
             public void onBtnClick() {
                 quitDialog.dismiss();
                 DataManager.putToken("");
+                DataManager.putLastPage(-1);
                 GoUtil.goActivityAndFinish(HomeActivity.this, LoginActivity.class);
             }
         });
@@ -232,6 +234,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     private void exitApp() {
         DataManager.putToken("");
+        DataManager.putLastPage(-1);
         finish();
         System.exit(0);
     }

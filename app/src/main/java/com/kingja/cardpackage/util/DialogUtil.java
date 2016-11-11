@@ -40,8 +40,7 @@ public class DialogUtil {
                 .titleTextColor(ContextCompat.getColor(context, R.color.font_3))
                 .titleBgColor(ContextCompat.getColor(context, R.color.bg_light))
                 .dividerHeight(0.3f)
-                .dividerColor(ContextCompat.getColor(context, R.color.bg_divider))
-                .show();
+                .dividerColor(ContextCompat.getColor(context, R.color.bg_divider));
         return dialog;
     }
 }

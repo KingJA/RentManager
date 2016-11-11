@@ -1,6 +1,7 @@
 package com.kingja.cardpackage.activity;
 
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,11 +9,14 @@ import com.kingja.cardpackage.base.BaseActivity;
 import com.kingja.cardpackage.db.DatebaseManager;
 import com.kingja.cardpackage.net.PoolManager;
 import com.kingja.cardpackage.util.AppInfoUtil;
+import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.GoUtil;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.actvitiy.LoginActivity;
 
 import cn.jpush.android.api.JPushInterface;
+import lib.king.kupdate.UpdateManager;
+import lib.king.kupdate.strategy.WebServiceStrategy;
 
 /**
  * Description：TODO
@@ -52,23 +56,19 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void setData() {
         tv_version.setText("当前版本:"+ AppInfoUtil.getVersionName());
-        copyDb();
         handler.postDelayed(skipRunnable,DELAYED_MILLS);
     }
 
-    private void copyDb() {
-        PoolManager.getInstance().execute(new Runnable() {
-            @Override
-            public void run() {
-                DatebaseManager.getInstance(getApplicationContext()).copyDataBase("citypolice_wz.db");
-            }
-        });
-    }
 
     private Runnable skipRunnable = new Runnable() {
         @Override
         public void run() {
-            GoUtil.goActivityAndFinish(SplashActivity.this, LoginActivity.class);
+            if (TextUtils.isEmpty(DataManager.getToken())) {
+                GoUtil.goActivityAndFinish(SplashActivity.this, LoginActivity.class);
+            }else{
+                GoUtil.goActivityAndFinish(SplashActivity.this, HomeActivity.class);
+            }
+
         }
     };
 

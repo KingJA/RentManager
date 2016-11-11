@@ -122,6 +122,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
                 if (mRoomList.size() > 0) {
                     mNormalListDialog = DialogUtil.getListDialog(getActivity(), "房间号", new RoomListAdapter(getActivity(), mRoomList));
                     mNormalListDialog.setOnOperItemClickL(ApplyFragment.this);
+                    mNormalListDialog.show();
                 } else {
                     ToastUtil.showToast("该出租屋暂时没有房间");
                 }

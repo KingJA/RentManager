@@ -44,7 +44,6 @@ public class DownloadDbManager {
     public static final String Basic_PaiChuSuo = "Basic_PaiChuSuo";
     public static final String Basic_XingZhengQuHua = "Basic_XingZhengQuHua";
     public static final String DB_NAME = "citypolice_wz.db";
-
     public static final String DEFAULT_TIME = "2014-10-30 23:11:02";
     public static final int REQUEST_SIZE = 500;
     public static final int Done_Basic_Dictionary = -1;

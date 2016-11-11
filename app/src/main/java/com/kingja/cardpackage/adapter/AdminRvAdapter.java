@@ -5,12 +5,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kingja.cardpackage.db.DbDaoXutils3;
+import com.kingja.cardpackage.entiy.Basic_Dictionary_Kj;
 import com.kingja.cardpackage.entiy.ChuZuWu_AdminList;
 import com.kingja.cardpackage.entiy.ChuZuWu_MenPaiAuthorizationList;
 import com.kingja.cardpackage.ui.NoDoubleClickListener;
 import com.tdr.wisdome.R;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description：TODO
@@ -20,9 +24,14 @@ import java.util.List;
  */
 public class AdminRvAdapter extends BaseRvAdaper<ChuZuWu_AdminList.ContentBean.AdminListBean> {
     private OnDeliteItemListener onDeliteItemListener;
+    private Map<String,String> typeMap=new HashMap<>();
 
     public AdminRvAdapter(Context context, List<ChuZuWu_AdminList.ContentBean.AdminListBean> list) {
         super(context, list);
+        List<Basic_Dictionary_Kj> adminTypeList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().selectAllWhere(Basic_Dictionary_Kj.class, "COLUMNCODE", "ADMINTYPE");
+        for (Basic_Dictionary_Kj bean : adminTypeList) {
+            typeMap.put(bean.getCOLUMNVALUE(),bean.getCOLUMNCOMMENT());
+        }
     }
 
     @Override
@@ -39,6 +48,7 @@ public class AdminRvAdapter extends BaseRvAdaper<ChuZuWu_AdminList.ContentBean.A
     protected void bindHolder(ViewHolder baseHolder, ChuZuWu_AdminList.ContentBean.AdminListBean bean, final int position) {
         PersonManagerViewHolder holder = (PersonManagerViewHolder) baseHolder;
         holder.tv_name.setText(bean.getNAME());
+        holder.tv_type.setText(typeMap.get(bean.getADMINTYPE()+""));
         holder.tv_cardId.setText("身份证号: " + bean.getIDENTITYCARD());
         holder.iv_delete.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -67,12 +77,14 @@ public class AdminRvAdapter extends BaseRvAdaper<ChuZuWu_AdminList.ContentBean.A
     class PersonManagerViewHolder extends ViewHolder {
         public TextView tv_cardId;
         public TextView tv_name;
+        public TextView tv_type;
         public ImageView iv_delete;
 
         public PersonManagerViewHolder(View itemView) {
             super(itemView);
             tv_cardId = (TextView) itemView.findViewById(R.id.tv_cardId);
             tv_name = (TextView) itemView.findViewById(R.id.tv_name);
+            tv_type = (TextView) itemView.findViewById(R.id.tv_type);
             iv_delete = (ImageView) itemView.findViewById(R.id.iv_delete);
         }
     }

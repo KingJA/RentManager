@@ -223,6 +223,5 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        DataManager.putLastPage(-1);
     }
 }

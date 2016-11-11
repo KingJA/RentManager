@@ -3,12 +3,17 @@ package com.tdr.wisdome.base;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.kingja.cardpackage.db.DatebaseManager;
 import com.kingja.cardpackage.db.DownloadDbManager;
 import com.kingja.cardpackage.net.PoolManager;
+import com.kingja.cardpackage.util.AppInfoUtil;
 import com.kingja.cardpackage.util.CrashHandler;
+import com.tdr.wisdome.util.Constants;
 
 import net.tsz.afinal.FinalDb;
 
@@ -16,6 +21,8 @@ import org.xutils.BuildConfig;
 import org.xutils.x;
 
 import cn.jpush.android.api.JPushInterface;
+import lib.king.kupdate.UpdateManager;
+import lib.king.kupdate.strategy.WebServiceStrategy;
 
 
 /**
@@ -29,7 +36,6 @@ public class MyApplication extends Application {
     private static SharedPreferences mSharedPreferences;
 
     private boolean isWxLogin;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -46,6 +52,7 @@ public class MyApplication extends Application {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mAppContext);
         initXutils3();
         copyPoliceDb();
+//        new DownloadDbManager( new Handler()).startDownloadDb();
 
     }
 

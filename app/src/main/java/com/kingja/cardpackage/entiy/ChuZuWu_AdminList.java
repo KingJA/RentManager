@@ -96,6 +96,7 @@ public class ChuZuWu_AdminList {
 
         public static class AdminListBean {
             private String IDENTITYCARD;
+            private int ADMINTYPE;
             private String NAME;
 
             public String getIDENTITYCARD() {
@@ -112,6 +113,14 @@ public class ChuZuWu_AdminList {
 
             public void setNAME(String NAME) {
                 this.NAME = NAME;
+            }
+
+            public int getADMINTYPE() {
+                return ADMINTYPE;
+            }
+
+            public void setADMINTYPE(int ADMINTYPE) {
+                this.ADMINTYPE = ADMINTYPE;
             }
         }
     }

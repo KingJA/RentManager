@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.kingja.cardpackage.entiy.ErrorResult;
 import com.kingja.cardpackage.util.ActivityManager;
+import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.orhanobut.logger.Logger;
 import com.tdr.wisdome.actvitiy.LoginActivity;
@@ -77,6 +78,7 @@ public class ThreadPoolTask implements Runnable {
                             if (resultCode == 3) {
                                 ToastUtil.showToast("登录失效，请重新登录");
                                 Log.e(TAG, "resultCode == 3");
+                                DataManager.putLastPage(-1);
                                 ActivityManager.getAppManager().finishAllActivity();
                                 Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

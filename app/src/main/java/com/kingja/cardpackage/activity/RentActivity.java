@@ -167,6 +167,5 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        DataManager.putLastPage(-1);
     }
 }
