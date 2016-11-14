@@ -76,7 +76,7 @@ public class AlarmHouseActivity extends BackTitleActivity implements SwipeRefres
         loadNet(loadIndex);
     }
 
-    private void loadNet(int index) {
+    private void loadNet(final int index) {
         mSrlTopContent.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
@@ -92,6 +92,9 @@ public class AlarmHouseActivity extends BackTitleActivity implements SwipeRefres
                     public void onSuccess(AlarmList bean) {
                         mSrlTopContent.setRefreshing(false);
                         mAlarmList = bean.getContent();
+                        if (index == 0) {
+                            mAlarmAdapter.reset();
+                        }
                         mLlEmpty.setVisibility(mAlarmList.size() > 0 ? View.GONE : View.VISIBLE);
                         mAlarmAdapter.addData(mAlarmList);
                         Log.e(TAG, "mAlarmList.size: " + mAlarmList.size());
@@ -123,12 +126,10 @@ public class AlarmHouseActivity extends BackTitleActivity implements SwipeRefres
         intent.putExtra(TempConstants.HOUSEID, houseId);
         intent.putExtra(TempConstants.ROOMID, roomId);
         activity.startActivity(intent);
-
     }
 
     @Override
     public void onRefresh() {
-        mAlarmAdapter.reset();
         loadNet(0);
     }
 

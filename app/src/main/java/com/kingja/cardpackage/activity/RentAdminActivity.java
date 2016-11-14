@@ -63,7 +63,6 @@ public class RentAdminActivity extends BackTitleActivity implements BackTitleAct
                 DividerItemDecoration.VERTICAL_LIST));
         mRv.setHasFixedSize(true);
         mRv.setAdapter(mAdminRvAdapter);
-
         mSrl.setColorSchemeResources(R.color.bg_black);
         mSrl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
     }
@@ -82,7 +81,7 @@ public class RentAdminActivity extends BackTitleActivity implements BackTitleAct
         param.put(TempConstants.PageSize, TempConstants.DEFAULT_PAGE_SIZE);
         param.put(TempConstants.PageIndex, TempConstants.DEFAULT_PAGE_INDEX);
         new ThreadPoolTask.Builder()
-                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_SHOP, Constants.ChuZuWu_AdminList, param)
+                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_RENT, Constants.ChuZuWu_AdminList, param)
                 .setBeanType(ChuZuWu_AdminList.class)
                 .setCallBack(new WebServiceCallBack<ChuZuWu_AdminList>() {
                     @Override
@@ -156,7 +155,7 @@ public class RentAdminActivity extends BackTitleActivity implements BackTitleAct
         param.put(TempConstants.HOUSEID, houseId);
         param.put("IDENTITYCARD", cardId);
         new ThreadPoolTask.Builder()
-                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_AGENT, Constants.ChuZuWu_RemoveAdmin, param)
+                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_RENT, Constants.ChuZuWu_RemoveAdmin, param)
                 .setBeanType(ChuZuWu_RemoveAdmin.class)
                 .setCallBack(new WebServiceCallBack<ChuZuWu_RemoveAdmin>() {
                     @Override

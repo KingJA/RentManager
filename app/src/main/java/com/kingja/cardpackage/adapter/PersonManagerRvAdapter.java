@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.ChuZuWu_MenPaiAuthorizationList;
+import com.kingja.cardpackage.util.StringUtil;
 import com.tdr.wisdome.R;
 
 import java.util.List;
@@ -38,7 +39,8 @@ public class PersonManagerRvAdapter extends BaseRvAdaper<ChuZuWu_MenPaiAuthoriza
         PersonManagerViewHolder holder = (PersonManagerViewHolder) baseHolder;
         holder.tv_name.setText(bean.getNAME());
         holder.tv_phone.setText("手机号码: " +bean.getPHONENUM());
-        holder.tv_cardId.setText("身份证号: " + bean.getIDENTITYCARD());
+
+        holder.tv_cardId.setText("身份证号: " + StringUtil.hideID(bean.getIDENTITYCARD()));
         holder.tv_code.setText("识别码: " + bean.getCARDID());
         holder.iv_delete.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.ChuZuWu_LKSelfReportingList;
 import com.kingja.cardpackage.ui.NoDoubleClickListener;
+import com.kingja.cardpackage.util.StringUtil;
 import com.tdr.wisdome.R;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class PersonApplyRvAdapter extends BaseRvAdaper<ChuZuWu_LKSelfReportingLi
     protected void bindHolder(ViewHolder baseHolder, ChuZuWu_LKSelfReportingList.ContentBean.PERSONNELINFOLISTBean bean, final int position) {
         PersonManagerViewHolder holder = (PersonManagerViewHolder) baseHolder;
         holder.tv_name.setText(bean.getNAME());
-        holder.tv_cardId.setText("身份证号: " + bean.getIDENTITYCARD());
+        holder.tv_cardId.setText("身份证号: " +  StringUtil.hideID(bean.getIDENTITYCARD()));
         holder.tv_phone.setText(bean.getPHONENUM());
         holder.iv_delete.setOnClickListener(new NoDoubleClickListener() {
             @Override

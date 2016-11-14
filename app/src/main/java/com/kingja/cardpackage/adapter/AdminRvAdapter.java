@@ -10,6 +10,7 @@ import com.kingja.cardpackage.entiy.Basic_Dictionary_Kj;
 import com.kingja.cardpackage.entiy.ChuZuWu_AdminList;
 import com.kingja.cardpackage.entiy.ChuZuWu_MenPaiAuthorizationList;
 import com.kingja.cardpackage.ui.NoDoubleClickListener;
+import com.kingja.cardpackage.util.StringUtil;
 import com.tdr.wisdome.R;
 
 import java.util.HashMap;
@@ -49,7 +50,7 @@ public class AdminRvAdapter extends BaseRvAdaper<ChuZuWu_AdminList.ContentBean.A
         PersonManagerViewHolder holder = (PersonManagerViewHolder) baseHolder;
         holder.tv_name.setText(bean.getNAME());
         holder.tv_type.setText(typeMap.get(bean.getADMINTYPE()+""));
-        holder.tv_cardId.setText("身份证号: " + bean.getIDENTITYCARD());
+        holder.tv_cardId.setText("身份证号: " + StringUtil.hideID(bean.getIDENTITYCARD()));
         holder.iv_delete.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {

@@ -75,7 +75,7 @@ public class AlarmRentActivity extends BackTitleActivity implements SwipeRefresh
         loadNet(loadIndex);
     }
 
-    private void loadNet(int index) {
+    private void loadNet(final int index) {
         mSrlTopContent.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
@@ -91,6 +91,9 @@ public class AlarmRentActivity extends BackTitleActivity implements SwipeRefresh
                         mSrlTopContent.setRefreshing(false);
                         mAlarmList = bean.getContent();
                         mLlEmpty.setVisibility(mAlarmList.size() > 0 ? View.GONE : View.VISIBLE);
+                        if (index == 0) {
+                            mAlarmAdapter.reset();
+                        }
                         mAlarmAdapter.addData(mAlarmList);
                         Log.e(TAG, "mAlarmList.size: " + mAlarmList.size());
                         hasMore = mAlarmList.size() == LOADSIZE;
@@ -108,7 +111,6 @@ public class AlarmRentActivity extends BackTitleActivity implements SwipeRefresh
     protected void initData() {
         mSrlTopContent.setOnRefreshListener(this);
         mLvTopContent.setOnScrollListener(onScrollListener);
-
     }
 
     @Override
@@ -125,7 +127,6 @@ public class AlarmRentActivity extends BackTitleActivity implements SwipeRefresh
 
     @Override
     public void onRefresh() {
-        mAlarmAdapter.reset();
         loadNet(0);
     }
 

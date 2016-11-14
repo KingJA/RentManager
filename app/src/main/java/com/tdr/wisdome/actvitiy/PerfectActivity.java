@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.activity.HomeActivity;
+import com.kingja.cardpackage.util.StringUtil;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.util.CloseActivityUtil;
 import com.tdr.wisdome.util.Constants;
@@ -129,7 +130,7 @@ public class PerfectActivity extends Activity implements View.OnClickListener {
         if (!(Constants.getUserIdentitycard()).equals("")) {
             //控件不可操作
             material_identity.setFocusable(false);
-            material_identity.setText(Utils.hideID(Constants.getUserIdentitycard()));
+            material_identity.setText(StringUtil.hideID(Constants.getUserIdentitycard()));
             material_birthday.setFocusable(false);
             material_birthday.setText(Utils.identityToBirthday(Constants.getUserIdentitycard()));
             material_sex.setText(Utils.maleOrFemale(Constants.getUserIdentitycard()));
