@@ -40,7 +40,7 @@ public class PersonApplyRvAdapter extends BaseRvAdaper<ChuZuWu_LKSelfReportingLi
         PersonManagerViewHolder holder = (PersonManagerViewHolder) baseHolder;
         holder.tv_name.setText(bean.getNAME());
         holder.tv_cardId.setText("身份证号: " +  StringUtil.hideID(bean.getIDENTITYCARD()));
-        holder.tv_phone.setText(bean.getPHONENUM());
+        holder.tv_phone.setText("手机号码: " +bean.getPHONENUM());
         holder.iv_delete.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {

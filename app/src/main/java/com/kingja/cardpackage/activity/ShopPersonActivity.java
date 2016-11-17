@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.widget.NormalDialog;
 import com.kingja.cardpackage.adapter.DividerItemDecoration;
 import com.kingja.cardpackage.adapter.ShopPersonAdapter;
 import com.kingja.cardpackage.entiy.ErrorResult;
@@ -18,6 +20,7 @@ import com.kingja.cardpackage.net.WebServiceCallBack;
 import com.kingja.cardpackage.util.AppUtil;
 import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
+import com.kingja.cardpackage.util.DialogUtil;
 import com.kingja.cardpackage.util.TempConstants;
 import com.tdr.wisdome.R;
 
@@ -41,6 +44,7 @@ public class ShopPersonActivity extends BackTitleActivity implements BackTitleAc
     private RecyclerView mRv;
     private List<ShangPu_EmployeeList.ContentBean.PERSONNELINFOLISTBean> mPersonnelinfolist=new ArrayList<>();
     private ShopPersonAdapter mShopPersonAdapter;
+    private NormalDialog makeSureDeleteDialog;
 
 
     @Override
@@ -120,7 +124,7 @@ public class ShopPersonActivity extends BackTitleActivity implements BackTitleAc
 
     @Override
     public void onMenuClick() {
-       ShopPersonQRCodeActivity.goActivity(this,mShopId,mShopName);
+        ShopPersonQRCodeActivity.goActivity(this,mShopId,mShopName);
     }
 
     public static void goActivity(Context context, String shopId, String shopName) {
@@ -136,7 +140,26 @@ public class ShopPersonActivity extends BackTitleActivity implements BackTitleAc
      * @param position
      */
     @Override
-    public void OnShopPersonDelite(String listId, final int position) {
+    public void OnShopPersonDelite(final String listId, final int position) {
+        makeSureDeleteDialog = DialogUtil.getDoubleDialog(this,"确定要删除该项？", "取消", "确定");
+        makeSureDeleteDialog.setOnBtnClickL(new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                makeSureDeleteDialog.dismiss();
+            }
+        }, new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                makeSureDeleteDialog.dismiss();
+                uploadDelete(listId, position);
+            }
+        });
+        makeSureDeleteDialog.show();
+
+
+    }
+
+    private void uploadDelete(String listId, final int position) {
         mSrl.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, "1");
@@ -151,7 +174,7 @@ public class ShopPersonActivity extends BackTitleActivity implements BackTitleAc
                     public void onSuccess(ShangPu_DismissEmployee bean) {
                         mSrl.setRefreshing(false);
                         mShopPersonAdapter.deleteItem(position);
-
+                        doNet();
                     }
 
                     @Override

@@ -10,10 +10,7 @@ import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
 import com.kingja.cardpackage.adapter.AddedShopAdapter;
 import com.kingja.cardpackage.adapter.DividerItemDecoration;
-import com.kingja.cardpackage.adapter.ShopDeviceAdapter;
-import com.kingja.cardpackage.entiy.Common_RemoveDevice;
 import com.kingja.cardpackage.entiy.ErrorResult;
-import com.kingja.cardpackage.entiy.ShangPu_DeviceLists;
 import com.kingja.cardpackage.entiy.ShangPu_ListByEmp;
 import com.kingja.cardpackage.entiy.ShangPu_UserOut;
 import com.kingja.cardpackage.net.ThreadPoolTask;
@@ -37,19 +34,19 @@ import java.util.Map;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class AddedShopActivity extends BackTitleActivity implements AddedShopAdapter.OnShopDeliteListener, SwipeRefreshLayout.OnRefreshListener {
+public class AddedShopActivity extends BackTitleActivity implements AddedShopAdapter.OnShopDeliteListener,SwipeRefreshLayout.OnRefreshListener{
     private LinearLayout mLlEmpty;
     private SwipeRefreshLayout mSrl;
     private RecyclerView mRv;
-    private List<ShangPu_ListByEmp.ContentBean> mAddedShopList = new ArrayList<>();
+    private List<ShangPu_ListByEmp.ContentBean> mAddedShopList=new ArrayList<>();
     private AddedShopAdapter mAddedShopAdapter;
     private NormalDialog deleteDialog;
 
 
     @Override
     protected void initVariables() {
-    }
 
+    }
 
     @Override
     protected void initContentView() {
@@ -112,7 +109,7 @@ public class AddedShopActivity extends BackTitleActivity implements AddedShopAda
 
     @Override
     public void onShopDelite(final int position, final String shopId) {
-        deleteDialog = DialogUtil.getDoubleDialog(this, "确定要退出店铺", "取消", "确定");
+        deleteDialog = DialogUtil.getDoubleDialog(this, "确定要解除店铺关系", "取消", "确定");
         deleteDialog.setOnBtnClickL(new OnBtnClickL() {
             @Override
             public void onBtnClick() {
@@ -157,4 +154,6 @@ public class AddedShopActivity extends BackTitleActivity implements AddedShopAda
     public void onRefresh() {
         mSrl.setRefreshing(false);
     }
+
+
 }

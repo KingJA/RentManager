@@ -1,6 +1,7 @@
 package com.kingja.cardpackage.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,10 +42,10 @@ public class ShopDeviceAdapter extends BaseRvAdaper<ShangPu_DeviceLists.ContentB
 
     @Override
     protected void bindHolder(ViewHolder baseHolder, ShangPu_DeviceLists.ContentBean bean, final int position) {
-        PersonManagerViewHolder holder = (PersonManagerViewHolder) baseHolder;
-        holder.tv_deviceName.setText(bean.getDEVICENAME());
+        final PersonManagerViewHolder holder = (PersonManagerViewHolder) baseHolder;
+        holder.tv_deviceName.setText("设备名称："+bean.getDEVICENAME());
         holder.tv_deviceType.setText(typeMap.get(bean.getDEVICETYPE()));
-        holder.tv_deviceCode.setText(bean.getDEVICECODE());
+        holder.tv_deviceCode.setText("设备编号："+bean.getDEVICECODE());
 
 
         holder.iv_delete.setOnClickListener(new NoDoubleClickListener() {

@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.widget.NormalDialog;
 import com.kingja.cardpackage.adapter.DividerItemDecoration;
 import com.kingja.cardpackage.adapter.ShopDeviceAdapter;
 import com.kingja.cardpackage.entiy.Common_RemoveDevice;
@@ -22,6 +24,7 @@ import com.kingja.cardpackage.util.AppUtil;
 import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.DeviceTypeUtil;
+import com.kingja.cardpackage.util.DialogUtil;
 import com.kingja.cardpackage.util.GoUtil;
 import com.kingja.cardpackage.util.TempConstants;
 import com.kingja.cardpackage.util.ToastUtil;
@@ -49,6 +52,7 @@ public class ShopDeviceActivity extends BackTitleActivity implements BackTitleAc
     private ShopDeviceAdapter mShopDeviceAdapter;
     private String mShopName;
     private List<String> mShopDeviceTypeList;
+    private NormalDialog makeSureDeleteDialog;
 
     @Override
     protected void initVariables() {
@@ -141,7 +145,25 @@ public class ShopDeviceActivity extends BackTitleActivity implements BackTitleAc
     }
 
     @Override
-    public void onShopDeviceDelite(final int position, String deviceId, String deviceType, String deviceCode) {
+    public void onShopDeviceDelite(final int position, final String deviceId, final String deviceType, final String deviceCode) {
+        makeSureDeleteDialog = DialogUtil.getDoubleDialog(this,"确定要删除该项？", "取消", "确定");
+        makeSureDeleteDialog.setOnBtnClickL(new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                makeSureDeleteDialog.dismiss();
+            }
+        }, new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                makeSureDeleteDialog.dismiss();
+                uploadDelete(position, deviceId, deviceType, deviceCode);
+            }
+        });
+        makeSureDeleteDialog.show();
+
+    }
+
+    private void uploadDelete(final int position, String deviceId, String deviceType, String deviceCode) {
         mSrl.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);

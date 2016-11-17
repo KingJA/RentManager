@@ -1,14 +1,11 @@
 package com.kingja.cardpackage.activity;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.kingja.cardpackage.Event.HouseDialogEvent;
-import com.kingja.cardpackage.Event.RentDialogEvent;
 import com.kingja.cardpackage.adapter.RentAdapter;
 import com.kingja.cardpackage.entiy.ChuZuWu_List;
 import com.kingja.cardpackage.entiy.ErrorResult;
@@ -25,11 +22,6 @@ import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.PhoneUtil;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.tdr.wisdome.R;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-import org.xutils.DbManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
