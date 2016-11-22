@@ -32,7 +32,7 @@ import java.util.Map;
  * Description：TODO
  * Create Time：2016/10/18 10:05
  * Author:KingJA
- * Email:kingjavip@gmail.com
+ * Email:kingjavip@gmail.com    ...
  */
 public class AddedShopActivity extends BackTitleActivity implements AddedShopAdapter.OnShopDeliteListener,SwipeRefreshLayout.OnRefreshListener{
     private LinearLayout mLlEmpty;
