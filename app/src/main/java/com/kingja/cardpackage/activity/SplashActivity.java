@@ -2,12 +2,9 @@ package com.kingja.cardpackage.activity;
 
 import android.os.Handler;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.base.BaseActivity;
-import com.kingja.cardpackage.db.DatebaseManager;
-import com.kingja.cardpackage.net.PoolManager;
 import com.kingja.cardpackage.util.AppInfoUtil;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.GoUtil;
@@ -15,8 +12,6 @@ import com.tdr.wisdome.R;
 import com.tdr.wisdome.actvitiy.LoginActivity;
 
 import cn.jpush.android.api.JPushInterface;
-import lib.king.kupdate.UpdateManager;
-import lib.king.kupdate.strategy.WebServiceStrategy;
 
 /**
  * Description：TODO

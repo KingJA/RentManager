@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.kingja.cardpackage.Event.AgentDialogEvent;
-import com.kingja.cardpackage.Event.ShopDialogEvent;
 import com.kingja.cardpackage.adapter.RentAdapter;
 import com.kingja.cardpackage.entiy.ChuZuWu_JoinManage;
 import com.kingja.cardpackage.entiy.ChuZuWu_List;
@@ -33,17 +32,13 @@ import com.kingja.cardpackage.util.ToastUtil;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.zbar.CaptureActivity;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Description：出租房代管
+ * Description：出租屋代管
  * Create Time：2016/8/4 16:20
  * Author:KingJA
  * Email:kingjavip@gmail.com
@@ -54,7 +49,9 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
     private List<RentBean> mChuZuWuList = new ArrayList<>();
     private RentAdapter mRentAdapter;
     private LinearLayout mLlEmpty;
-
+    private int LOADSIZE = 50;
+    private int loadIndex = 0;
+    private boolean hasMore;
     @Override
     protected void initVariables() {
         mZeusManager.checkPermissions(permissionArr, true);
@@ -74,6 +71,10 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
         mSrlTopContent.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
     }
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+    @Override
     protected int getBackContentView() {
         return R.layout.single_lv;
     }
@@ -83,12 +84,12 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
         cardLogin();
     }
 
-    private void doNet() {
+    private void doNet(final int index) {
         mSrlTopContent.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
-        param.put("PageSize", "100");
-        param.put("PageIndex", "0");
+        param.put("PageSize", LOADSIZE);
+        param.put("PageIndex", index);
         new ThreadPoolTask.Builder()
                 .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_AGENT, Constants.ChuZuWu_ListByManager, param)
                 .setBeanType(ChuZuWu_List.class)
@@ -97,8 +98,14 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
                     public void onSuccess(ChuZuWu_List bean) {
                         mSrlTopContent.setRefreshing(false);
                         mChuZuWuList = bean.getContent();
+                        if (index == 0) {
+                            mRentAdapter.reset();
+                        }
+                        hasMore = mChuZuWuList.size() == LOADSIZE;
+                        Log.e(TAG, "hasMore" +hasMore);
+                        Log.e(TAG, "加载数据条数" + mChuZuWuList.size());
                         mLlEmpty.setVisibility(mChuZuWuList.size() > 0 ? View.GONE : View.VISIBLE);
-                        mRentAdapter.setData(mChuZuWuList);
+                        mRentAdapter.addData(mChuZuWuList);
                     }
 
                     @Override
@@ -107,25 +114,48 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
                     }
                 }).build().execute();
     }
+    private AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            switch (scrollState) {
+                case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+                    if (mLvTopContent.getLastVisiblePosition() == (mLvTopContent.getCount() - 1)) {
+                        Log.e("log", "滑到底部");
+                        if (mSrlTopContent.isRefreshing()) {
+                            return;
+                        }
+                        if (hasMore) {
+                            doNet(++loadIndex);
+                        } else {
+                            ToastUtil.showToast("已经没有更多数据");
+                        }
+                    }
+                    break;
+            }
+        }
 
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        }
+    };
     @Override
     protected void initData() {
         mLvTopContent.setOnItemClickListener(this);
         mSrlTopContent.setOnRefreshListener(this);
+        mLvTopContent.setOnScrollListener(onScrollListener);
     }
 
     @Override
     protected void setData() {
-        setTitle("出租房代管");
+        setTitle("出租屋代管");
         setTopColor(TopColor.WHITE);
         setOnRightClickListener(this, "加入");
-        DataManager.putLastPage(2);
     }
 
     @Override
     public void onRefresh() {
-        doNet();
-//        mSrlTopContent.setRefreshing(false);
+        loadIndex = 0;
+        doNet(loadIndex);
     }
 
 
@@ -156,14 +186,14 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
                     @Override
                     public void onSuccess(User_LogInForKaBao bean) {
                         setProgressDialog(false);
-                        doNet();
+                        doNet(0);
                     }
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
                         setProgressDialog(false);
                         finish();
-                       ToastUtil.showToast("登录失败");
+                        ToastUtil.showToast("卡包登录失败");
                     }
                 }).build().execute();
     }
@@ -219,9 +249,5 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
                 ToastUtil.showToast("二维码异常请重新生成");
             }
         }
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }

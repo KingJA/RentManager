@@ -1,11 +1,9 @@
 package com.kingja.cardpackage.activity;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -45,11 +43,13 @@ public class HouseActivity extends BackTitleActivity implements SwipeRefreshLayo
     private List<RentBean> mHouseList = new ArrayList<>();
     private HouseAdapter mHouseAdapter;
     private LinearLayout mLlEmpty;
-
+    private int LOADSIZE = 50;
+    private int loadIndex = 0;
+    private boolean hasMore;
 
     @Override
     protected void initVariables() {
-        mZeusManager.checkPermissions(permissionArr,true);
+        mZeusManager.checkPermissions(permissionArr, true);
     }
 
     @Override
@@ -65,6 +65,11 @@ public class HouseActivity extends BackTitleActivity implements SwipeRefreshLayo
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     protected int getBackContentView() {
         return R.layout.single_lv;
     }
@@ -77,15 +82,15 @@ public class HouseActivity extends BackTitleActivity implements SwipeRefreshLayo
     @Override
     protected void onRestart() {
         super.onRestart();
-        doNet();
+        doNet(0);
     }
 
-    private void doNet() {
+    private void doNet(final int index) {
         mSrlTopContent.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
-        param.put(TempConstants.PageSize, TempConstants.DEFAULT_PAGE_SIZE);
-        param.put(TempConstants.PageIndex, TempConstants.DEFAULT_PAGE_INDEX);
+        param.put(TempConstants.PageSize, LOADSIZE);
+        param.put(TempConstants.PageIndex, index);
         new ThreadPoolTask.Builder()
                 .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_HOUSE, Constants.ChuZuWu_ListByRenter, param)
                 .setBeanType(ChuZuWu_List.class)
@@ -94,8 +99,14 @@ public class HouseActivity extends BackTitleActivity implements SwipeRefreshLayo
                     public void onSuccess(ChuZuWu_List bean) {
                         mSrlTopContent.setRefreshing(false);
                         mHouseList = bean.getContent();
+                        if (index == 0) {
+                            mHouseAdapter.reset();
+                        }
+                        hasMore = mHouseList.size() == LOADSIZE;
+                        Log.e(TAG, "hasMore" + hasMore);
+                        Log.e(TAG, "加载数据条数" + mHouseList.size());
                         mLlEmpty.setVisibility(mHouseList.size() > 0 ? View.GONE : View.VISIBLE);
-                        mHouseAdapter.setData(mHouseList);
+                        mHouseAdapter.addData(mHouseList);
                     }
 
                     @Override
@@ -105,30 +116,56 @@ public class HouseActivity extends BackTitleActivity implements SwipeRefreshLayo
                 }).build().execute();
     }
 
+    private AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            switch (scrollState) {
+                case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+                    if (mLvTopContent.getLastVisiblePosition() == (mLvTopContent.getCount() - 1)) {
+                        Log.e("log", "滑到底部");
+                        if (mSrlTopContent.isRefreshing()) {
+                            return;
+                        }
+                        if (hasMore) {
+                            doNet(++loadIndex);
+                        } else {
+                            ToastUtil.showToast("已经没有更多数据");
+                        }
+                    }
+                    break;
+            }
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        }
+    };
+
     @Override
     protected void initData() {
         mLvTopContent.setOnItemClickListener(this);
         mSrlTopContent.setOnRefreshListener(this);
+        mLvTopContent.setOnScrollListener(onScrollListener);
     }
 
     @Override
     protected void setData() {
         setTitle("我的住房");
         setTopColor(TopColor.WHITE);
-        DataManager.putLastPage(1);
     }
 
 
     @Override
     public void onRefresh() {
-        mSrlTopContent.setRefreshing(false);
+        loadIndex = 0;
+        doNet(loadIndex);
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         RentBean bean = (RentBean) parent.getItemAtPosition(position);
-        DetailHouseActivity.goActivity(this, bean,bean.getRoomList().get(0));
+        DetailHouseActivity.goActivity(this, bean, bean.getRoomList().get(0));
     }
 
     private void cardLogin() {
@@ -152,19 +189,13 @@ public class HouseActivity extends BackTitleActivity implements SwipeRefreshLayo
                     @Override
                     public void onSuccess(User_LogInForKaBao bean) {
                         setProgressDialog(false);
-                        doNet();
+                        doNet(0);
                     }
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
                         setProgressDialog(false);
-                        finish();
-                        ToastUtil.showToast("登录失败");
                     }
                 }).build().execute();
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }

@@ -173,7 +173,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         List<ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean> photolist = new ArrayList<>();
         ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean photolistBean = new ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean();
         photolistBean.setLISTID(StringUtil.getUUID());
-        photolistBean.setTAG("身份证头像");
+        photolistBean.setTAG("身份证");
         photolistBean.setIMAGE(imgBase64);
         photolist.add(photolistBean);
         bean.setPHOTOLIST(photolist);

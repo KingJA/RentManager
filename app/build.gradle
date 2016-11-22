@@ -8,7 +8,7 @@ android {
         applicationId "com.tdr.rentmanager"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 20161017
+        versionCode 20170101
         versionName "1.1.1"
 
         ndk {

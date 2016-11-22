@@ -196,7 +196,7 @@ public class ShopDeviceBindActivity extends BackTitleActivity implements BackTit
                     Common_AddDevice_Param.PHOTOLISTBean photolistBean = new Common_AddDevice_Param.PHOTOLISTBean();
                     photolistBean.setIMAGE(base64);
                     photolistBean.setLISTID(StringUtil.getUUID());
-                    photolistBean.setTAG("TAG");
+                    photolistBean.setTAG("店铺设备");
                     mPhotolist.add(photolistBean);
                 }
             });

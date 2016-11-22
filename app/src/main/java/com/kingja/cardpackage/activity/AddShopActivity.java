@@ -300,7 +300,7 @@ public class AddShopActivity extends BackTitleActivity implements BackTitleActiv
                     ShangPu_Add_Param.PHOTOLISTBean photolistBean = new ShangPu_Add_Param.PHOTOLISTBean();
                     photolistBean.setIMAGE(base64);
                     photolistBean.setLISTID(StringUtil.getUUID());
-                    photolistBean.setTAG("TAG");
+                    photolistBean.setTAG("店铺图片");
                     photolist.add(photolistBean);
                 }
             });

@@ -31,7 +31,6 @@ import com.kingja.cardpackage.activity.HouseActivity;
 import com.kingja.cardpackage.activity.RentActivity;
 import com.kingja.cardpackage.activity.ShopActivity;
 import com.kingja.cardpackage.util.ActivityManager;
-import com.kingja.cardpackage.util.AppInfoUtil;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.DialogUtil;
 import com.kingja.cardpackage.util.GoUtil;
@@ -67,8 +66,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
-import lib.king.kupdate.UpdateManager;
-import lib.king.kupdate.strategy.WebServiceStrategy;
 
 /**
  * 卡包主页面
@@ -154,13 +151,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Menu
         initLoc();//初始化定位
         initCityData();//获取支持的城市列表
 
-        UpdateManager.Builder builder = new UpdateManager.Builder(this);
-        builder.setUpdateCancleable(false)
-                .setShowDownloadDialog(true)
-                .setLoadStrategy(new WebServiceStrategy())
-                .setUpdateContent("发现新版本，请马上更新" )
-                .build()
-                .checkUpdate();
     }
 
     private ImageView image_person, image_add;
@@ -844,22 +834,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Menu
     public boolean handleMessage(Message msg) {
         switch (msg.what) {
             case Constants.HANDLER_KEY_GETVERSION_SUCCESS:
-//                double newVersion = Double.parseDouble(msg.obj.toString());
-//                try {
-//                    double vCode = mContext.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionCode;
-//                    if (vCode < newVersion && updateCount > 0) {
-//                        finish();
-//                        break;
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                updateCount++;
-//                UpdateManager updateManager = new UpdateManager(newVersion, mContext);
-//                updateManager.checkUpdate();// 开始检查版本更新
                 break;
             case Constants.HANDLER_KEY_GETVERSION_FAIL:
-//                Log.e(TAG, "获取更新版本失败");
                 break;
         }
         return false;
