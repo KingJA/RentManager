@@ -145,7 +145,7 @@ public class ShopActivity extends BackTitleActivity implements SwipeRefreshLayou
         mInfo.setIDENTITYCARD(DataManager.getIdCard());
         mInfo.setPHONENUM(DataManager.getUserPhone());
         mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
-        mInfo.setSOFTTYPE(1);
+        mInfo.setSOFTTYPE(Constants.SOFTTYPE);
         mInfo.setCARDTYPE(Constants.CARD_TYPE_SHOP);
         mInfo.setPHONEINFO(phoneInfo);
         mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
