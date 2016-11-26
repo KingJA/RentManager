@@ -17,7 +17,7 @@ public class Constants {
     public static final String WEBSERVER_NAMESPACE = "http://tempuri.org/";// 命名空间
     public static final String WEBSERVER_REREQUEST = "CardHolder";
     public static final String APPLICATION_NAME = "CardPackage";
-    public static final int SOFTTYPE = 1;
+    public static final int SOFTTYPE = 5;
     /*  ============================================  卡类型  ============================================*/
 
     /*我的住房*/

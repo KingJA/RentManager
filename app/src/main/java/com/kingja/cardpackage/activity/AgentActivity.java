@@ -52,6 +52,7 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
     private int LOADSIZE = 50;
     private int loadIndex = 0;
     private boolean hasMore;
+
     @Override
     protected void initVariables() {
         mZeusManager.checkPermissions(permissionArr, true);
@@ -70,10 +71,12 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
         mSrlTopContent.setColorSchemeResources(R.color.bg_black);
         mSrlTopContent.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+
     @Override
     protected int getBackContentView() {
         return R.layout.single_lv;
@@ -102,7 +105,7 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
                             mRentAdapter.reset();
                         }
                         hasMore = mChuZuWuList.size() == LOADSIZE;
-                        Log.e(TAG, "hasMore" +hasMore);
+                        Log.e(TAG, "hasMore" + hasMore);
                         Log.e(TAG, "加载数据条数" + mChuZuWuList.size());
                         mLlEmpty.setVisibility(mChuZuWuList.size() > 0 ? View.GONE : View.VISIBLE);
                         mRentAdapter.addData(mChuZuWuList);
@@ -114,6 +117,7 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
                     }
                 }).build().execute();
     }
+
     private AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -138,6 +142,7 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         }
     };
+
     @Override
     protected void initData() {
         mLvTopContent.setOnItemClickListener(this);

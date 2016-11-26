@@ -36,10 +36,10 @@ import java.util.Map;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class RentActivity extends BackTitleActivity implements SwipeRefreshLayout.OnRefreshListener,AdapterView.OnItemClickListener{
+public class RentActivity extends BackTitleActivity implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
     private SwipeRefreshLayout mSrlTopContent;
     private ListView mLvTopContent;
-    private List<RentBean> mChuZuWuList=new ArrayList<>();
+    private List<RentBean> mChuZuWuList = new ArrayList<>();
     private RentAdapter mRentAdapter;
     private LinearLayout mLlEmpty;
 
@@ -48,10 +48,9 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
     private boolean hasMore;
 
 
-
     @Override
     protected void initVariables() {
-        mZeusManager.checkPermissions(permissionArr,true);
+        mZeusManager.checkPermissions(permissionArr, true);
     }
 
 
@@ -68,10 +67,12 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
         mSrlTopContent.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+
     @Override
     protected int getBackContentView() {
         return R.layout.single_lv;
@@ -100,11 +101,10 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
                             mRentAdapter.reset();
                         }
                         hasMore = mChuZuWuList.size() == LOADSIZE;
-                        Log.e(TAG, "hasMore" +hasMore);
+                        Log.e(TAG, "hasMore" + hasMore);
                         Log.e(TAG, "加载数据条数" + mChuZuWuList.size());
-                        mLlEmpty.setVisibility(mChuZuWuList.size()>0? View.GONE:View.VISIBLE);
+                        mLlEmpty.setVisibility(mChuZuWuList.size() > 0 ? View.GONE : View.VISIBLE);
                         mRentAdapter.addData(mChuZuWuList);
-
                     }
 
                     @Override
@@ -133,6 +133,7 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
         loadIndex = 0;
         doNet(loadIndex);
     }
+
     private AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -160,8 +161,8 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        RentBean bean= (RentBean) parent.getItemAtPosition(position);
-        DetailRentActivity.goActivity(this,bean);
+        RentBean bean = (RentBean) parent.getItemAtPosition(position);
+        DetailRentActivity.goActivity(this, bean);
     }
 
     private void cardLogin() {
