@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:clipToPadding="true"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+
+            android:id="@+id/rl_intermediary_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/sel_tr2half_kj">
+
+            <ImageView
+                android:id="@+id/iv_top_back"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/back"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_around_gray"
+            android:gravity="center_vertical"
+            android:paddingBottom="2dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="2dp">
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:background="@drawable/search_gray"/>
+
+            <EditText
+                android:id="@+id/et_intermediary_keyword"
+                style="@style/edit_cursor_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:background="@null"/>
+
+
+        </LinearLayout>
+
+        <TextView
+
+            android:id="@+id/tv_intermediary_search"
+            style="@style/font_6_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="24dp"
+            android:text="搜索"/>
+
+        <ImageView
+            android:id="@+id/iv_unregistered"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/bg_unregister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_intermediary_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_intermediary_xq"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tv_intermediary_xq"
+                style="@style/font_3_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:text="辖区"/>
+
+            <ImageView
+                android:id="@+id/iv_intermediary_xq"
+                android:layout_width="6dp"
+                android:layout_height="4dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/spinner_arow_nor"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_intermediary_pcs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tv_intermediary_pcs"
+                style="@style/font_3_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:text="派出所"/>
+
+            <ImageView
+                android:id="@+id/iv_intermediary_pcs"
+                android:layout_width="6dp"
+                android:layout_height="4dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/spinner_arow_nor"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_intermediary_jwh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tv_intermediary_jwh"
+                style="@style/font_3_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:text="居委会"/>
+
+            <ImageView
+                android:id="@+id/iv_intermediary_jwh"
+                android:layout_width="6dp"
+                android:layout_height="4dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/spinner_arow_nor"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal"/>
+
+    <include layout="@layout/single_rv"/>
+</LinearLayout>

@@ -2,7 +2,7 @@ package com.kingja.cardpackage.util;
 
 import android.widget.Toast;
 
-import com.tdr.wisdome.base.MyApplication;
+import com.tdr.wisdome.base.App;
 
 /**
  * Description：TODO
@@ -15,7 +15,7 @@ public class ToastUtil {
 
     public static void showToast(String msg) {
         if (mToast == null) {
-            mToast = Toast.makeText(MyApplication.getContext(), "", Toast.LENGTH_LONG);
+            mToast = Toast.makeText(App.getContext(), "", Toast.LENGTH_LONG);
         }
         mToast.setText(msg);
         mToast.show();

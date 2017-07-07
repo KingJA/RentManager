@@ -3,7 +3,7 @@ package com.tdr.wisdome.util;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 
-import com.tdr.wisdome.base.MyApplication;
+import com.tdr.wisdome.base.App;
 
 /**
  * Created by Linus_Xie on 2016/6/20.
@@ -16,7 +16,6 @@ public class Constants {
 
 
     public static final String APP_ID = "";
-
     public static class ShowMsgActivity {
         public static final String STitle = "showmsg_title";
         public static final String SMessage = "showmsg_message";
@@ -38,8 +37,8 @@ public class Constants {
     /**
      * Webservice参数
      */
-//    public static final String WEBSERVER_URL = "http://122.228.188.210:20043/WebCardHolder.asmx";// WebServices访问地址，测试
-        public static final String WEBSERVER_URL = "http://116.255.205.110:1001/WEBCARDHOLDER.asmx";// WebServices访问地址，正式
+    public static final String WEBSERVER_URL = "http://122.228.188.210:20043/WebCardHolder.asmx";// WebServices访问地址，测试
+//        public static final String WEBSERVER_URL = "http://116.255.205.110:1001/WEBCARDHOLDER.asmx";// WebServices访问地址，正式
     public static final String WEBSERVER_NAMESPACE = "http://tempuri.org/";// 命名空间
 
     public static final String WEBSERVER_CARDHOLDER = "CardHolder";//智慧e点通服务
@@ -90,206 +89,206 @@ public class Constants {
     private static final String LASTUPDATETIME = "lastUpdateTime";//编码表最后更新时间
 
     public static String getToken() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(TOKEN, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(TOKEN, "");
     }
 
     public static void setToken(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(TOKEN, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(TOKEN, value).commit();
     }
 
     public static String getUserId() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(USERID, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(USERID, "");
     }
 
     public static void setUserId(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(USERID, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(USERID, value).commit();
     }
 
     public static String getUserName() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(USERNAME, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(USERNAME, "");
     }
 
     public static void setUserName(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(USERNAME, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(USERNAME, value).commit();
     }
 
     public static String getUserPhone() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(USERPHONE, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(USERPHONE, "");
     }
 
     public static void setUserPhone(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(USERPHONE, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(USERPHONE, value).commit();
     }
 
     public static String getUserIdentitycard() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(USERIDENTITYCARD, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(USERIDENTITYCARD, "");
     }
 
     public static void setUserIdentitycard(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(USERIDENTITYCARD, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(USERIDENTITYCARD, value).commit();
     }
 
     public static String getRealName() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(REALNAME, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(REALNAME, "");
     }
 
     public static void setRealName(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(REALNAME, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(REALNAME, value).commit();
     }
 
     public static String getPermanentAddr() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(PERMANENTADDR, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(PERMANENTADDR, "");
     }
 
     public static void setPermanentAddr(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(PERMANENTADDR, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(PERMANENTADDR, value).commit();
     }
 
     public static String getCertification() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(CERTIFICATION, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(CERTIFICATION, "");
     }
 
     public static void setCertification(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(CERTIFICATION, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(CERTIFICATION, value).commit();
     }
 
     public static String getFaceId() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(FACEID, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(FACEID, "");
     }
 
     public static void setFaceId(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(FACEID, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(FACEID, value).commit();
     }
 
     public static String getFaceBase() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(FACEBASE, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(FACEBASE, "");
     }
 
     public static void setFaceBase(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(FACEBASE, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(FACEBASE, value).commit();
     }
 
     public static String getCityCode() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(CITYCODE, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(CITYCODE, "");
     }
 
     public static void setCityCode(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(CITYCODE, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(CITYCODE, value).commit();
     }
 
     public static String getCityName() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(CITYNAME, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(CITYNAME, "");
     }
 
     public static void setCityName(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(CITYNAME, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(CITYNAME, value).commit();
     }
 
     public static String getCardName() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(CARDNAME, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(CARDNAME, "");
     }
 
     public static void setCardName(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(CARDNAME, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(CARDNAME, value).commit();
     }
 
     public static String getCardCode() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(CARDCODE, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(CARDCODE, "");
     }
 
     public static void setCardCode(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(CARDCODE, value).commit();
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(CARDCODE, value).commit();
     }
 
     // 被关爱人数据
 
     public static String getLovedNumber() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(LOVEDNUMBER, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(LOVEDNUMBER, "");
     }
 
     public static void setLovedNumber(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(LOVEDNUMBER, value)
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(LOVEDNUMBER, value)
                 .commit();
     }
 
     public static String getLovedName() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(LOVEDNAME, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(LOVEDNAME, "");
     }
 
     public static void setLovedName(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(LOVEDNAME, value)
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(LOVEDNAME, value)
                 .commit();
     }
 
     public static String getLovedIndentity() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(LOVEDINDENTITY, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(LOVEDINDENTITY, "");
     }
 
     public static void setLovedIndentity(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(LOVEDINDENTITY, value)
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(LOVEDINDENTITY, value)
                 .commit();
     }
 
     public static String getLovedPhone() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(LOVEDPHONE, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(LOVEDPHONE, "");
     }
 
     public static void setLovedPhone(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(LOVEDPHONE, value)
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(LOVEDPHONE, value)
                 .commit();
     }
 
     public static String getLovedAddress() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(LOVEDADDRESS, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(LOVEDADDRESS, "");
     }
 
     public static void setLovedAddress(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(LOVEDADDRESS, value)
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(LOVEDADDRESS, value)
                 .commit();
     }
 
     public static String getBodyPhoto() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(LOVEDBODYPHOTO, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(LOVEDBODYPHOTO, "");
     }
 
     public static void setBodyPhoto(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(LOVEDBODYPHOTO, value)
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(LOVEDBODYPHOTO, value)
                 .commit();
     }
 
     public static String getLovedDisease() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(LOVEDDISEASE, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(LOVEDDISEASE, "");
     }
 
     public static void setLovedDisease(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(LOVEDDISEASE, value)
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(LOVEDDISEASE, value)
                 .commit();
     }
 
     public static String getLovedRemarks() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(LOVEDREMARKS, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(LOVEDREMARKS, "");
     }
 
     public static void setLovedRemarks(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(LOVEDREMARKS, value)
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(LOVEDREMARKS, value)
                 .commit();
     }
 
     public static String getShowPhoto() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(SHOWPHOTO, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(SHOWPHOTO, "");
     }
 
     public static void setShowphoto(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(SHOWPHOTO, value)
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(SHOWPHOTO, value)
                 .commit();
     }
 
     public static String getLastUpdateTime() {
-        return PreferenceManager.getDefaultSharedPreferences(MyApplication.context).getString(LASTUPDATETIME, "");
+        return PreferenceManager.getDefaultSharedPreferences(App.context).getString(LASTUPDATETIME, "");
     }
 
     public static void setLastUpdateTime(String value) {
-        PreferenceManager.getDefaultSharedPreferences(MyApplication.context).edit().putString(LASTUPDATETIME, value)
+        PreferenceManager.getDefaultSharedPreferences(App.context).edit().putString(LASTUPDATETIME, value)
                 .commit();
     }
 }

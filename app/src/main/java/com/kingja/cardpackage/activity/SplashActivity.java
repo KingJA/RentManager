@@ -61,7 +61,7 @@ public class SplashActivity extends BaseActivity {
             if (TextUtils.isEmpty(DataManager.getToken())) {
                 GoUtil.goActivityAndFinish(SplashActivity.this, LoginActivity.class);
             }else{
-                GoUtil.goActivityAndFinish(SplashActivity.this, HomeActivity.class);
+                GoUtil.goActivityAndFinish(SplashActivity.this, NewHomeActivity.class);
             }
 
         }

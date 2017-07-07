@@ -17,8 +17,10 @@ public class TempConstants {
     public static final String ROOMID = "ROOMID";
     public static final String ROOMNUM = "ROOMNUM";
     public static final String TaskID = "TaskID";
+    public static final String CITYCODE = "CITYCODE";
     public static final String PageSize = "PageSize";
     public static final String PageIndex = "PageIndex";
+    public static final String CURRENT_CITY_CODE = "3303";
 
     /*单位*/
     public static final String UNIT_MOUTH = "元/月";

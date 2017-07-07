@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.gson.Gson;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.actvitiy.SetPwdActivity;
 import com.tdr.wisdome.base.BaseFragment;
@@ -19,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 /**
  * 注册
@@ -69,16 +71,18 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 JSONObject obj = new JSONObject();
                 try {
                     obj.put("phone", phoneNum);
-                    obj.put("CodeType", "1");
+                    obj.put("CodeType", "2");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 map.put("token", "");
                 map.put("cardType", "");
-                map.put("taskId", "");
+                map.put("taskId", "1");
                 map.put("DataTypeCode", "SendCodeSms");
                 map.put("content", obj.toString());
+
+                Log.e("PARAM", new Gson().toJson(map));
 
                 WebServiceUtils.callWebService(Constants.WEBSERVER_URL, Constants.WEBSERVER_CARDHOLDER, map, new WebServiceUtils.WebServiceCallBack() {
                     @Override

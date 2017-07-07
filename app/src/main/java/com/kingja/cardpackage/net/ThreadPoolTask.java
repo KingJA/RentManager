@@ -12,7 +12,7 @@ import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.orhanobut.logger.Logger;
 import com.tdr.wisdome.actvitiy.LoginActivity;
-import com.tdr.wisdome.base.MyApplication;
+import com.tdr.wisdome.base.App;
 
 import org.json.JSONObject;
 
@@ -80,9 +80,9 @@ public class ThreadPoolTask implements Runnable {
                                 Log.e(TAG, "resultCode == 3");
                                 DataManager.putLastPage(-1);
                                 ActivityManager.getAppManager().finishAllActivity();
-                                Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
+                                Intent intent = new Intent(App.getContext(), LoginActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                MyApplication.getContext().startActivity(intent);
+                                App.getContext().startActivity(intent);
 //                                android.os.Process.killProcess(android.os.Process.myPid());
                             } else if (resultCode == 1) {
 

@@ -169,6 +169,7 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
         setProgressDialog(true);
         LoginInfo mInfo = new LoginInfo();
         PhoneInfo phoneInfo = new PhoneUtil(this).getInfo();
+
         mInfo.setTaskID("1");
         mInfo.setREALNAME(DataManager.getRealName());
         mInfo.setIDENTITYCARD(DataManager.getIdCard());

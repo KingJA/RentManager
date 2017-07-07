@@ -44,7 +44,8 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ApplyFragment extends BaseFragment implements View.OnClickListener, PersonApplyActivity.OnSaveClickListener, OnOperItemClickL {
+public class ApplyFragment extends BaseFragment implements View.OnClickListener, PersonApplyActivity
+        .OnSaveClickListener, OnOperItemClickL {
     private LinearLayout mLlSelectRoom;
     private TextView mTvApplyRoomNum;
     private EditText mTvApplyName;
@@ -62,13 +63,19 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
     private List<RentBean.RoomListBean> mRoomList;
     private LinearLayout mLlOcrCamera;
     private Intent mICardData;
-    private String imgBase64="";
+    private String imgBase64 = "";
     private ImageView mIvIdcard;
+    private EditText mEtApplyHeigh;
+    private String height;
+    private String cardType;
+    private int reporterRole;
 
-    public static ApplyFragment newInstance(RentBean bean) {
+    public static ApplyFragment newInstance(RentBean bean,String cardType,int reporterRole) {
         ApplyFragment mApplyFragment = new ApplyFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("ENTIY", bean);
+        bundle.putString("cardType", cardType);
+        bundle.putInt("reporterRole", reporterRole);
         mApplyFragment.setArguments(bundle);
         return mApplyFragment;
     }
@@ -87,6 +94,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         mTvApplyName = (EditText) view.findViewById(R.id.et_apply_name);
         mEtApplyCardId = (EditText) view.findViewById(R.id.et_apply_cardId);
         mEtApplyPhone = (EditText) view.findViewById(R.id.et_apply_phone);
+        mEtApplyHeigh = (EditText) view.findViewById(R.id.et_apply_height);
         mLlOcrCamera = (LinearLayout) view.findViewById(R.id.ll_ocr_camera);
         mIvIdcard = (ImageView) view.findViewById(R.id.iv_idcard);
     }
@@ -95,6 +103,8 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void initFragmentVariables() {
         entiy = (RentBean) getArguments().getSerializable("ENTIY");
+        cardType = getArguments().getString("cardType");
+        reporterRole = getArguments().getInt("reporterRole");
         mRoomList = entiy.getRoomList();
     }
 
@@ -120,7 +130,8 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         switch (v.getId()) {
             case R.id.ll_selectRoom:
                 if (mRoomList.size() > 0) {
-                    mNormalListDialog = DialogUtil.getListDialog(getActivity(), "房间号", new RoomListAdapter(getActivity(), mRoomList));
+                    mNormalListDialog = DialogUtil.getListDialog(getActivity(), "房间号", new RoomListAdapter
+                            (getActivity(), mRoomList));
                     mNormalListDialog.setOnOperItemClickL(ApplyFragment.this);
                     mNormalListDialog.show();
                 } else {
@@ -139,10 +150,12 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         name = mTvApplyName.getText().toString().trim();
         cardId = mEtApplyCardId.getText().toString().trim().toUpperCase();
         phone = mEtApplyPhone.getText().toString().trim();
+        height = mEtApplyHeigh.getText().toString().trim();
         if (CheckUtil.checkEmpty(mTvApplyRoomNum.getText().toString(), "请选择房间号")
                 && CheckUtil.checkEmpty(name, "请通过相机获取姓名")
-                && CheckUtil.checkEmpty(cardId, "请通过相机获取身份证号")
-                && CheckUtil.checkPhoneFormat(phone)) {
+                && CheckUtil.checkIdCard(cardId, "身份证格式错误")
+                && CheckUtil.checkPhoneFormat(phone)
+                && CheckUtil.checkHeight(height, 50, 210)) {
             onApply();
         }
 
@@ -161,14 +174,15 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         bean.setNAME(name);
         bean.setIDENTITYCARD(cardId);
         bean.setPHONE(phone);
-        bean.setREPORTERROLE(2);
+        bean.setHEIGHT(Integer.valueOf(height));
+        bean.setREPORTERROLE(reporterRole);
         bean.setOPERATOR(DataManager.getUserId());
         bean.setSTANDARDADDRCODE(entiy.getSTANDARDADDRCODE());
         bean.setTERMINAL(2);
-        bean.setXQCODE( entiy.getXQCODE());
+        bean.setXQCODE(entiy.getXQCODE());
         bean.setPCSCODE(entiy.getPCSCODE());
         bean.setJWHCODE(entiy.getJWHCODE());
-        bean.setOPERATORPHONE("18888888888");
+        bean.setOPERATORPHONE(DataManager.getUserPhone());
         bean.setPHOTOCOUNT(1);
         List<ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean> photolist = new ArrayList<>();
         ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean photolistBean = new ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean();
@@ -178,13 +192,15 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         photolist.add(photolistBean);
         bean.setPHOTOLIST(photolist);
         new ThreadPoolTask.Builder()
-                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_HOUSE, Constants.ChuZuWu_LKSelfReportingIn, bean)
+                .setGeneralParam(DataManager.getToken(), cardType, Constants
+                        .ChuZuWu_LKSelfReportingIn, bean)
                 .setBeanType(ChuZuWu_LKSelfReportingIn.class)
                 .setCallBack(new WebServiceCallBack<ChuZuWu_LKSelfReportingIn>() {
                     @Override
                     public void onSuccess(ChuZuWu_LKSelfReportingIn bean) {
                         setProgressDialog(false);
-                        final NormalDialog doubleDialog = DialogUtil.getDoubleDialog(getActivity(), "是否要继续进行人员申报", "离开", "继续");
+                        final NormalDialog doubleDialog = DialogUtil.getDoubleDialog(getActivity(), "是否要继续进行人员申报",
+                                "离开", "继续");
                         doubleDialog.show();
                         doubleDialog.setOnBtnClickL(new OnBtnClickL() {
                             @Override
@@ -198,8 +214,9 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
                                 mTvApplyName.setText("");
                                 mEtApplyCardId.setText("");
                                 mEtApplyPhone.setText("");
+                                mEtApplyHeigh.setText("");
                                 doubleDialog.dismiss();
-                                imgBase64="";
+                                imgBase64 = "";
                                 mIvIdcard.setImageResource(R.drawable.transparency_full);
                             }
                         });

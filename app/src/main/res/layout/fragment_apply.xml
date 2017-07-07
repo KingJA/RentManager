@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:focusable="true"
+              android:focusableInTouchMode="true">
 
     <LinearLayout
         android:id="@+id/ll_selectRoom"
@@ -150,7 +150,35 @@
             android:maxLength="11"
             android:hint="请输入联系电话" />
     </LinearLayout>
+    <View style="@style/divider_nomal_horizontal" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <com.kingja.ui.RequiredTextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="end"
+            android:text="身高:" />
+
+        <EditText
+            android:layout_marginLeft="12dp"
+            android:id="@+id/et_apply_height"
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@null"
+            android:inputType="number"
+            android:maxLength="11"
+            android:hint="请输入身高(cm)" />
+    </LinearLayout>
     <ImageView
         android:id="@+id/iv_idcard"
         android:padding="20dp"

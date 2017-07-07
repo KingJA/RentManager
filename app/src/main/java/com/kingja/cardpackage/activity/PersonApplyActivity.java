@@ -25,10 +25,14 @@ public class PersonApplyActivity extends BackTitleActivity implements SwitchMult
     private FragmentTransaction mTransaction;
     private ApplyFragment mApplyFragment;
     private ApplyListFragment mApplyListFragment;
+    private String cardType;
+    private int reporterRole;
 
     @Override
     protected void initVariables() {
         entiy = (RentBean) getIntent().getSerializableExtra("ENTIY");
+        cardType = getIntent().getStringExtra("cardType");
+        reporterRole = getIntent().getIntExtra("reporterRole", 0);
     }
 
     @Override
@@ -70,7 +74,7 @@ public class PersonApplyActivity extends BackTitleActivity implements SwitchMult
         switch (position) {
             case 0://申报
                 if (mApplyFragment == null) {
-                    mApplyFragment = ApplyFragment.newInstance(entiy);
+                    mApplyFragment = ApplyFragment.newInstance(entiy,cardType,reporterRole);
                     mTransaction.add(R.id.fl_fragment, mApplyFragment);
                 } else {
                     mTransaction.show(mApplyFragment);
@@ -114,7 +118,14 @@ public class PersonApplyActivity extends BackTitleActivity implements SwitchMult
         this.onSaveClickListener = onSaveClickListener;
     }
 
-    public static void goActivity(Context context, RentBean entiy) {
+    public static void goActivity(Context context, RentBean entiy,String cardType,int reporterRole) {
+        Intent intent = new Intent(context, PersonApplyActivity.class);
+        intent.putExtra("ENTIY", entiy);
+        intent.putExtra("cardType", cardType);
+        intent.putExtra("reporterRole", reporterRole);
+        context.startActivity(intent);
+    }
+  public static void goActivity(Context context, RentBean entiy) {
         Intent intent = new Intent(context, PersonApplyActivity.class);
         intent.putExtra("ENTIY", entiy);
         context.startActivity(intent);

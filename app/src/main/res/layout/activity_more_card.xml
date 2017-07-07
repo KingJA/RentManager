@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray_kj"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll_card_icon_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <TextView
+            style="@style/font_3_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="首页应用"/>
+
+        <com.kingja.cardpackage.ui.SystemBarTint.FixedGridView
+            android:id="@+id/fgv_edit_home_icons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:horizontalSpacing="12dp"
+            android:numColumns="8"
+            tools:listitem="@layout/item_home_small_icon"/>
+
+        <TextView
+            android:id="@+id/tv_card_edit"
+            style="@style/font_blue_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="编辑"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_card_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:background="@color/white"
+            style="@style/font_3_12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="首页应用(按住拖动调整排序)"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_card_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            tools:listitem="@layout/item_card"/>
+
+
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/bg_blue_rect"
+                android:drawablePadding="6dp"
+                android:padding="8dp"
+                android:text="人员申报"/>
+
+            <com.kingja.cardpackage.ui.SystemBarTint.FixedGridView
+                android:id="@+id/fgv_service_person"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="4"
+                android:verticalSpacing="10dp"
+                tools:listitem="@layout/item_card"/>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/bg_blue_rect"
+                android:drawablePadding="6dp"
+                android:padding="8dp"
+                android:text="物联网服务"/>
+
+            <com.kingja.cardpackage.ui.SystemBarTint.FixedGridView
+                android:id="@+id/fgv_service_things"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="4"
+                android:verticalSpacing="10dp"
+                tools:listitem="@layout/item_card"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/bg_blue_rect"
+                android:drawablePadding="6dp"
+                android:padding="8dp"
+                android:text="公安服务"/>
+
+            <com.kingja.cardpackage.ui.SystemBarTint.FixedGridView
+                android:id="@+id/fgv_service_police"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="4"
+                android:verticalSpacing="10dp"
+                tools:listitem="@layout/item_card"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

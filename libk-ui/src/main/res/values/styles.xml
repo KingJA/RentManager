@@ -47,6 +47,10 @@
         <item name="android:textColor">@color/font_3</item>
     </style>
 
+    <style name="font_9_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/font_9</item>
+    </style>
 
     <!--右上角出来Popupwindow样式-->
     <style name="PopupTopRightAnimation" parent="android:Animation">
@@ -61,6 +65,23 @@
     <style name="UI_PopupBottomAnimation" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/menu_up</item>
         <item name="android:windowExitAnimation">@anim/menu_down</item>
+    </style>
+
+    <style name="PopupBottom2TopAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/menu_up</item>
+        <item name="android:windowExitAnimation">@anim/menu_down</item>
+    </style>
+
+    <style name="PopupTop2BottomAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/spaner_enter</item>
+        <item name="android:windowExitAnimation">@anim/spaner_exit</item>
+    </style>
+    <style name="CheckboxBlue" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/cb_blue</item>
+        <item name="android:maxHeight">24dp</item>
+    </style>
+    <style name="CustomAlertDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/shape_lnull_bwhite_r8</item>
     </style>
 
 </resources>

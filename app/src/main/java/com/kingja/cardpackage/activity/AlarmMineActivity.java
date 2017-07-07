@@ -3,7 +3,6 @@ package com.kingja.cardpackage.activity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -18,7 +17,6 @@ import com.kingja.cardpackage.util.AppUtil;
 import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.TempConstants;
-import com.kingja.cardpackage.util.ToastUtil;
 import com.tdr.wisdome.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -102,9 +100,10 @@ public class AlarmMineActivity extends BackTitleActivity implements SwipeRefresh
     }
 
     private List<GetUserMessage.ContentBean> filter(List<GetUserMessage.ContentBean> mAlarmList) {
-         List<GetUserMessage.ContentBean> newList=new ArrayList<>();
+        List<GetUserMessage.ContentBean> newList = new ArrayList<>();
         for (GetUserMessage.ContentBean contentBean : mAlarmList) {
-            if ("1001".equals(contentBean.getCardCode())||"1002".equals(contentBean.getCardCode())||"1007".equals(contentBean.getCardCode())){
+            if ("1001".equals(contentBean.getCardCode()) || "1002".equals(contentBean.getCardCode()) || "1007".equals
+                    (contentBean.getCardCode()) || "1008".equals(contentBean.getCardCode())) {
                 newList.add(contentBean);
             }
         }
@@ -137,7 +136,7 @@ public class AlarmMineActivity extends BackTitleActivity implements SwipeRefresh
                 .setCallBack(new WebServiceCallBack<SetUserMessageAll>() {
                     @Override
                     public void onSuccess(SetUserMessageAll bean) {
-                        Log.e(TAG, "onSuccess: "+"信息全读" );
+                        Log.e(TAG, "onSuccess: " + "信息全读");
 
                     }
 

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorAccent">#999999</color>
+    <color name="colorAccent">@color/bg_blue</color>
 
     <!-- 部分界面需要用的状态栏颜色 -->
     <color name="colorStatus">#4285F4</color>

@@ -10,7 +10,8 @@ public class Constants {
     /**
      * Webservice参数
      */
-//    public static final String WEBSERVER_URL = "http://zafkapp.test.iotone.cn:12026/rentalestate.asmx";// WebServices访问地址，测试
+//    public static final String WEBSERVER_URL = "http://zafkapp.test.iotone.cn:12026/rentalestate.asmx";//
+// WebServices访问地址，测试
 
 //    public static final String WEBSERVER_URL = "http://122.228.188.210:20043/WebCardHolder.asmx";// WebServices访问地址
     public static final String WEBSERVER_URL = com.tdr.wisdome.util.Constants.WEBSERVER_URL;// WebServices访问地址
@@ -28,6 +29,14 @@ public class Constants {
     public static final String CARD_TYPE_SHOP = "1004";
     /*出租房代管*/
     public static final String CARD_TYPE_AGENT = "1007";
+    /*出租房中介*/
+    public static final String CARD_TYPE_INTERMEDIARY = "1008";
+    /*民警查询*/
+    public static final String CARD_TYPE_POLICE_SEARCH = "3001";
+
+    public static final String CARD_TYPE_EMPTY = "";
+    public static final int ROLE_INTERMEDIARY = 4;
+    public static final int ROLE_RENT = 2;
 
     /*  ============================================  接口方法  ============================================*/
 
@@ -105,15 +114,21 @@ public class Constants {
     public static final String Basic_PaiChuSuoOfStandardAddress = "Basic_PaiChuSuoOfStandardAddress";
     /*员工商铺列表*/
     public static final String ShangPu_ListByEmp = "ShangPu_ListByEmp";
-   /*员工删除店铺*/
+    /*员工删除店铺*/
     public static final String ShangPu_UserOut = "ShangPu_UserOut";
-   /*转让店铺*/
+    /*转让店铺*/
     public static final String ShangPu_Transfer = "ShangPu_Transfer";
-   /*接收店铺*/
+    /*接收店铺*/
     public static final String ShangPu_TakeOver = "ShangPu_TakeOver";
-   /*我的消息*/
+    /*我的消息*/
     public static final String GetUserMessage = "GetUserMessage";
-   /*我的消息-全读*/
+    /*我的消息-全读*/
     public static final String SetUserMessageAll = "SetUserMessageAll";
+    /*全部应用*/
+    public static final String Application_List = "Application_List";
+    /*民警查询*/
+    public static final String Police_Policemeninfo = "Police_Policemeninfo";
+   /*中介查询*/
+    public static final String Agency_List = "Agency_List";
 
 }

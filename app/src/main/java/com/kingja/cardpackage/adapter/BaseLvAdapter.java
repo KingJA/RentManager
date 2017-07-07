@@ -34,9 +34,11 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter {
         this.list.addAll(list);
         this.notifyDataSetChanged();
     }
+
     public void reset() {
         this.list.clear();
     }
+
     @Override
     public int getCount() {
         return list.size();
@@ -63,4 +65,9 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter {
         this.selectPosition = selectPosition;
         this.notifyDataSetChanged();
     }
+
+    public List getData() {
+        return list;
+    }
+
 }

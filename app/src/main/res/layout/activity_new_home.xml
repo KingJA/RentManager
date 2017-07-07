@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_gray_kj"
+              android:orientation="vertical"
+              android:clipToPadding="true"
+              android:fitsSystemWindows="true">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/home_logo"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/iv_home_menu"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_menu_white"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_home_msg"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/iv_home_msg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_msg_white"/>
+
+            <RelativeLayout
+                android:layout_width="45dp"
+                android:layout_height="45dp">
+
+                <TextView
+                    android:id="@+id/iv_home_msgCount"
+                    style="@style/font_f_12"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/shape_cycler_tip"
+                    android:gravity="center"
+                    android:text="44"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <com.kingja.cardpackage.ui.SystemBarTint.FixedGridView
+        android:layout_marginTop="8dp"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:id="@+id/fgv_home_card"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:numColumns="4"
+        tools:listitem="@layout/item_card"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="114dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_home_img"/>
+
+
+</LinearLayout>

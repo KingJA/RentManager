@@ -195,6 +195,8 @@ public class HouseActivity extends BackTitleActivity implements SwipeRefreshLayo
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
                         setProgressDialog(false);
+                        finish();
+                        ToastUtil.showToast("卡包登录失败");
                     }
                 }).build().execute();
     }

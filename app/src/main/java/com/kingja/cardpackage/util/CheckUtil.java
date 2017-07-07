@@ -26,7 +26,20 @@ public class CheckUtil {
         }
         return true;
     }
+    public static boolean checkHeight(String height,int min,int max) {
+        if (TextUtils.isEmpty(height)) {
+            ToastUtil.showToast("请输入身高");
+            return false;
+        }
+        int heightInt=Integer.valueOf(height);
 
+        if (heightInt<80||heightInt>210) {
+            ToastUtil.showToast("输入身高需在"+min+"到"+max+"cm之间");
+            return false;
+        }
+
+        return true;
+    }
     /**
      * 未-1判断(经纬度)
      * @param d

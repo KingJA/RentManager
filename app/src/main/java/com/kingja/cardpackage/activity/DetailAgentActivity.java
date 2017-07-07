@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.RentBean;
+import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.tdr.wisdome.R;
 
@@ -162,7 +163,7 @@ public class DetailAgentActivity extends BackTitleActivity implements View.OnCli
             //人员申报
             case R.id.rl_apply:
                 if (checkRoomEmpty()) break;
-                PersonApplyActivity.goActivity(this, entiy);
+                PersonApplyActivity.goActivity(this, entiy, Constants.CARD_TYPE_AGENT,Constants.ROLE_RENT);
                 break;
             default:
                 break;

@@ -1,12 +1,11 @@
 package com.kingja.cardpackage.util;
 
-import android.app.*;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
-import com.tdr.wisdome.base.MyApplication;
+import com.tdr.wisdome.base.App;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ import java.util.List;
  */
 public class AppUtil {
     public static Context getContext() {
-        return MyApplication.getContext();
+        return App.getContext();
     }
 
     /**
@@ -73,7 +72,7 @@ public class AppUtil {
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
         if (!tasks.isEmpty()) {
             ComponentName topActivity = tasks.get(0).topActivity;
-            if (topActivity.getPackageName().equals(MyApplication.getContext().getPackageName())) {
+            if (topActivity.getPackageName().equals(App.getContext().getPackageName())) {
                 return true;
             }
         }

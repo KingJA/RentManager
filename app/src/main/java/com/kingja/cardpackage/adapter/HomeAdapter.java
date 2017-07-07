@@ -32,7 +32,7 @@ public class HomeAdapter extends BaseAdapter {
         this.smallTexts = smallTexts;
         this.homeImgs = homeImgs;
         this.totelHeight = totelHeight;
-        itemHeight = (int) ((totelHeight- 2*AppUtil.dp2px(10))/3.0f);
+        itemHeight = (int) ((totelHeight- 2*AppUtil.dp2px(10))/largeTexts.length);
     }
 
     @Override

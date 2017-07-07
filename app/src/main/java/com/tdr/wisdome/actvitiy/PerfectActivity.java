@@ -75,7 +75,8 @@ public class PerfectActivity extends Activity implements View.OnClickListener {
     private ImageView image_back;
     private TextView text_title;
 
-    private MaterialEditText material_identity, material_birthday, material_realName, material_sex, material_permanentAddress;
+    private MaterialEditText material_identity, material_birthday, material_realName, material_sex,
+            material_permanentAddress;
     private ImageView image_identity;
     private Button btn_complete;
 
@@ -100,8 +101,10 @@ public class PerfectActivity extends Activity implements View.OnClickListener {
             @Override
             public void afterTextChanged(Editable s) {
                 if (material_identity.length() == 18) {
-                    material_birthday.setText(Utils.identityToBirthday(material_identity.getText().toString().toUpperCase().trim()));
-                    material_sex.setText(Utils.maleOrFemale(material_identity.getText().toString().toUpperCase().trim()));
+                    material_birthday.setText(Utils.identityToBirthday(material_identity.getText().toString()
+                            .toUpperCase().trim()));
+                    material_sex.setText(Utils.maleOrFemale(material_identity.getText().toString().toUpperCase().trim
+                            ()));
                 }
             }
         });
@@ -204,7 +207,8 @@ public class PerfectActivity extends Activity implements View.OnClickListener {
                 map.put("DataTypeCode", "AddUserDetails");
                 map.put("content", jsonObject.toString());
 
-                WebServiceUtils.callWebService(Constants.WEBSERVER_URL, Constants.WEBSERVER_CARDHOLDER, map, new WebServiceUtils.WebServiceCallBack() {
+                WebServiceUtils.callWebService(Constants.WEBSERVER_URL, Constants.WEBSERVER_CARDHOLDER, map, new
+                        WebServiceUtils.WebServiceCallBack() {
                     @Override
                     public void callBack(String result) {
                         if (result != null) {
@@ -218,16 +222,15 @@ public class PerfectActivity extends Activity implements View.OnClickListener {
                                     if (activity.equals("SetPwdActivity")) {
                                         Intent intent = new Intent(mContext, LoginActivity.class);
                                         startActivity(intent);
-                                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim
+                                                .slide_out_right);
                                         CloseActivityUtil.activityFinish(PerfectActivity.this);
                                     } else {
                                         Constants.setUserIdentitycard(material_identity.getText().toString().trim());
                                         Constants.setRealName(material_realName.getText().toString().trim());
-                                        Constants.setPermanentAddr(material_permanentAddress.getText().toString().trim());
-                                        Intent intent = new Intent(mContext, HomeActivity.class);
-                                        startActivity(intent);
-                                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                                        CloseActivityUtil.activityFinish(PerfectActivity.this);
+                                        Constants.setPermanentAddr(material_permanentAddress.getText().toString()
+                                                .trim());
+                                        finish();
                                     }
                                 } else {
                                     mProgressHUD.dismiss();

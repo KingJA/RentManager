@@ -39,7 +39,7 @@ import com.tdr.wisdome.adapter.ItemAdapter;
 import com.tdr.wisdome.amap.LocationTask;
 import com.tdr.wisdome.amap.OnLocationGetListener;
 import com.tdr.wisdome.amap.PositionEntity;
-import com.tdr.wisdome.base.MyApplication;
+import com.tdr.wisdome.base.App;
 import com.tdr.wisdome.model.CardInfo;
 import com.tdr.wisdome.model.CityInfo;
 import com.tdr.wisdome.util.Constants;
@@ -842,9 +842,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Menu
     }
 
     public static void goActivityInReceiver() {
-        Intent intent = new Intent(MyApplication.getContext(), MainActivity.class);
+        Intent intent = new Intent(App.getContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        MyApplication.getContext().startActivity(intent);
+        App.getContext().startActivity(intent);
     }
 
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp">
+
+    <LinearLayout
+        android:background="@color/bg_gray_kj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/iv_card_img"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/card_1001"/>
+
+
+        <TextView
+            android:id="@+id/tv_card_name"
+            style="@style/font_3_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_card_img"
+            android:text="房东申报"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_margin="3dp"
+        android:id="@+id/iv_card_select"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/card_remove"/>
+</RelativeLayout>

@@ -96,4 +96,9 @@
     <style name="dialog_untran" parent="dialog_tran">
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
+    <style name="AppCompatTheme" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/bg_blue</item>
+        <item name="colorControlActivated">@color/grey</item>
+    </style>
 </resources>

@@ -12,17 +12,10 @@
             <option value="$PROJECT_DIR$/imagepickerModule" />
             <option value="$PROJECT_DIR$/libk-kupdate" />
             <option value="$PROJECT_DIR$/libk-ui" />
+            <option value="$PROJECT_DIR$/recyclerviewhelper" />
           </set>
         </option>
-        <option name="myModules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/imagepickerModule" />
-            <option value="$PROJECT_DIR$/libk-kupdate" />
-            <option value="$PROJECT_DIR$/libk-ui" />
-          </set>
-        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

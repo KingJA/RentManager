@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
-
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.tdr.rentmanager"
-        minSdkVersion 14
-        targetSdkVersion 23
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 20170101
         versionName "1.1.1"
 
@@ -50,11 +49,12 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    compile "com.android.support:design:$rootProject.ext.supportVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
     compile 'com.7heaven.widgets:segmentcontrol:1.14'
     compile 'com.kaopiz:kprogresshud:1.0.5'
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
-    compile 'com.android.support:design:23.1.1'
     compile 'cn.jiguang:jpush:2.1.8'
     compile files('libs/idcard_engine_20160322.jar')
     compile files('libs/afinal_0.5.1_bin.jar')
@@ -68,13 +68,13 @@ dependencies {
     compile project(':libk-ui')
     compile files('libs/commons-codec-1.8.jar')
     compile files('libs/idcard_engine_20160322.jar')
-    compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'org.xutils:xutils:3.3.36'
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'
     compile 'com.orhanobut:logger:1.11'
     compile files('libs/commons-codec-1.8.jar')
     compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':libk-kupdate')
+    compile project(':recyclerviewhelper')
 }
 
 def releaseTime() {
@@ -84,10 +84,10 @@ def releaseTime() {
 def buildApkByType(type) {
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
-            def outputFile = output.outputFile
-            if (outputFile != null && variant.buildType.name.equals(type)) {
-                def fileName = rootProject.ext.android.appName + "V${android.defaultConfig.versionName}_${releaseTime()}-" + type + ".apk"
-                output.outputFile = new File(outputFile.parent, fileName)
+            def outputFile = output.packageApplication.outputFile
+            if (outputFile != null && variant.buildType.name == type) {
+                def fileName = rootProject.ext.appName + "V${android.defaultConfig.versionName}_${releaseTime()}-" + type + ".apk"
+                output.packageApplication.outputFile = new File(outputFile.parent, fileName)
             }
         }
     }

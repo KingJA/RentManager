@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="bg_gray_kj">#F5F5F5</color>
+    <color name="et_gray">#eaeaea</color>
     <color name="bg_white">#33FFFFFF</color>
     <color name="bg_transparent">#00000000</color>
     <color name="gray_divider">#CFCFCF</color>

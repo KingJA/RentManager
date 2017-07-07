@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.kingja.cardpackage.Event.ClearMsgEvent;
 import com.kingja.cardpackage.Event.RefreshMsgEvent;
 import com.kingja.cardpackage.activity.AgentActivity;
 import com.kingja.cardpackage.activity.AlarmMineActivity;
@@ -15,7 +14,7 @@ import com.kingja.cardpackage.activity.RentActivity;
 import com.kingja.cardpackage.activity.ShopActivity;
 import com.kingja.cardpackage.util.GoUtil;
 import com.tdr.wisdome.actvitiy.MsgActivity;
-import com.tdr.wisdome.base.MyApplication;
+import com.tdr.wisdome.base.App;
 import com.tdr.wisdome.util.Utils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,8 +54,8 @@ public class MyReceiver extends BroadcastReceiver {
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-//            processCustomMessage(context, bundle);
-//            sendMsgToChild(context, bundle);
+            processCustomMessage(context, bundle);
+            sendMsgToChild(context, bundle);
             EventBus.getDefault().post(new RefreshMsgEvent());
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
@@ -72,7 +71,7 @@ public class MyReceiver extends BroadcastReceiver {
                 String cardCode = json.getString("CardCode");
                 String data = Utils.initNullStr(json.getString("data"));
                 String sourceId = json.getString("data");
-                GoUtil.goActivityOutOfActivity(MyApplication.getContext(), AlarmMineActivity.class);
+                GoUtil.goActivityOutOfActivity(App.getContext(), AlarmMineActivity.class);
                 //  switch (cardCode) {
                 //      case "1001"://我的住房
                 //     case "1002"://我的出租房
@@ -90,7 +89,7 @@ public class MyReceiver extends BroadcastReceiver {
                 //                GoUtil.goActivityInReceiver(context, PerfectActivity.class);
                 //              break;
                 //        }
-                //      JPushDispathService.goService(MyApplication.getContext(),cardCode, sourceId);
+                //      JPushDispathService.goService(App.getContext(),cardCode, sourceId);
 //
                 //                      break;
                 //                default:
@@ -136,16 +135,16 @@ public class MyReceiver extends BroadcastReceiver {
     private void goActivityOrderByCardCode(String cardCode) {
         switch (cardCode) {
             case "1001"://我的住房
-                GoUtil.goActivityOutOfActivity(MyApplication.getContext(), HouseActivity.class);
+                GoUtil.goActivityOutOfActivity(App.getContext(), HouseActivity.class);
                 break;
             case "1002"://我的出租房
-                GoUtil.goActivityOutOfActivity(MyApplication.getContext(), RentActivity.class);
+                GoUtil.goActivityOutOfActivity(App.getContext(), RentActivity.class);
                 break;
             case "1004"://我的店
-                GoUtil.goActivityOutOfActivity(MyApplication.getContext(), ShopActivity.class);
+                GoUtil.goActivityOutOfActivity(App.getContext(), ShopActivity.class);
                 break;
             case "1007"://出租屋代管
-                GoUtil.goActivityOutOfActivity(MyApplication.getContext(), AgentActivity.class);
+                GoUtil.goActivityOutOfActivity(App.getContext(), AgentActivity.class);
                 break;
             default:
                 break;

@@ -9,6 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.activity.HomeActivity;
+import com.kingja.cardpackage.activity.NewHomeActivity;
+import com.kingja.cardpackage.entiy.ErrorResult;
+import com.kingja.cardpackage.entiy.LoginInfo;
+import com.kingja.cardpackage.entiy.User_LogInForKaBao;
+import com.kingja.cardpackage.net.ThreadPoolTask;
+import com.kingja.cardpackage.net.WebServiceCallBack;
+import com.kingja.cardpackage.util.AppInfoUtil;
+import com.kingja.cardpackage.util.DataManager;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.actvitiy.ForgetPwdActivity;
 import com.tdr.wisdome.actvitiy.MainActivity;
@@ -99,7 +107,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                     jsonObject.put("Phone", material_loginName.getText().toString());
                     jsonObject.put("UserPassword", MD5.getMD5(material_loginPwd.getText().toString()));
                     jsonObject.put("channelid", JPushInterface.getRegistrationID(mActivity));
-                    Log.e("channelid", ExampleUtil.getAppKey(mActivity));
+//                    Log.e("channelid", ExampleUtil.getAppKey(mActivity));
+                    Log.e("CHANNELID:", JPushInterface.getRegistrationID(mActivity));
                     jsonObject.put("channeltype", "1");
                     jsonObject.put("LoginIP", "");
                     jsonObject.put("IMEI", imei);
@@ -116,7 +125,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                 map.put("DataTypeCode", "Login");
                 map.put("content", jsonObject.toString());
 
-                WebServiceUtils.callWebService(Constants.WEBSERVER_URL, Constants.WEBSERVER_CARDHOLDER, map, new WebServiceUtils.WebServiceCallBack() {
+                WebServiceUtils.callWebService(Constants.WEBSERVER_URL, Constants.WEBSERVER_CARDHOLDER, map, new
+                        WebServiceUtils.WebServiceCallBack() {
                     @Override
                     public void callBack(String result) {
                         if (result != null) {
@@ -126,6 +136,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                                 int resultCode = object.getInt("ResultCode");
                                 String resultText = Utils.initNullStr(object.getString("ResultText"));
                                 if (resultCode == 0) {
+                                    sendCurrentCityCode("3303");
                                     String content = object.getString("Content");
                                     JSONObject obj = new JSONObject(content);
                                     Constants.setUserId(Utils.initNullStr(obj.getString("UserID")));
@@ -145,9 +156,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                                         Constants.setCityCode(Utils.initNullStr(json.getString("CityCode")));
                                     }
                                     mProgressHUD.dismiss();
-                                    Intent intent = new Intent(mActivity, HomeActivity.class);
+                                    Intent intent = new Intent(mActivity, NewHomeActivity.class);
                                     startActivity(intent);
-                                    mActivity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                                    mActivity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim
+                                            .slide_out_right);
                                     CloseActivityUtil.activityFinish(mActivity);
 
                                 } else {
@@ -159,6 +171,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                                 mProgressHUD.dismiss();
                                 Utils.myToast(mActivity, "JSON解析出错");
                             }
+//                            cardLogin();
                         } else {
                             mProgressHUD.dismiss();
                             Utils.myToast(mActivity, "获取数据错误，请稍后重试！");
@@ -177,9 +190,77 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
 
     }
 
+    private void sendCurrentCityCode(final String cityCode) {
+        if (!Constants.getToken().equals("")) {
+            //Token不为空则说明用户已经登录，发送设置当前城市指令
+            JSONObject json = new JSONObject();
+            try {
+                json.put("CityCode", cityCode);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            HashMap<String, String> map = new HashMap<>();
+            map.put("token", Constants.getToken());
+            map.put("cardType", "");
+            map.put("taskId", "");
+            map.put("DataTypeCode", "EditCurrentCity");
+            map.put("content", json.toString());
+            WebServiceUtils.callWebService(Constants.WEBSERVER_URL, Constants.WEBSERVER_CARDHOLDER, map, new
+                    WebServiceUtils.WebServiceCallBack() {
+                @Override
+                public void callBack(String result) {
+                    if (result != null) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            int resultCode = jsonObject.getInt("ResultCode");
+                            String resultText = Utils.initNullStr(jsonObject.getString("ResultText"));
+                            if (resultCode == 0) {
+                                Log.e(TAG, "设置当前城市成功");
+                            } else {
+                                Log.e(TAG, resultText);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e(TAG, "设置当前城市JSON解析出错");
+                        }
+                    } else {
+                        Log.e(TAG, "获取数据错误，请稍后重试！");
+                    }
+                }
+            });
+        }
+    }
 
     @Override
     public boolean handleMessage(Message message) {
         return false;
+    }
+
+    private void cardLogin() {
+        LoginInfo mInfo = new LoginInfo();
+        com.kingja.cardpackage.entiy.PhoneInfo phoneInfo = new com.kingja.cardpackage.util.PhoneUtil(getActivity())
+                .getInfo();
+        mInfo.setTaskID("1");
+        mInfo.setREALNAME(DataManager.getRealName());
+        mInfo.setIDENTITYCARD(DataManager.getIdCard());
+        mInfo.setPHONENUM(DataManager.getUserPhone());
+        mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
+        mInfo.setSOFTTYPE(com.kingja.cardpackage.util.Constants.SOFTTYPE);
+        mInfo.setCARDTYPE(com.kingja.cardpackage.util.Constants.CARD_TYPE_RENT);
+        mInfo.setPHONEINFO(phoneInfo);
+        mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
+        new ThreadPoolTask.Builder()
+                .setGeneralParam(DataManager.getToken(), com.kingja.cardpackage.util.Constants.CARD_TYPE_RENT, com
+                        .kingja.cardpackage.util.Constants.User_LogInForKaBao, mInfo)
+                .setBeanType(User_LogInForKaBao.class)
+                .setCallBack(new WebServiceCallBack<User_LogInForKaBao>() {
+                    @Override
+                    public void onSuccess(User_LogInForKaBao bean) {
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                    }
+                }).build().execute();
     }
 }

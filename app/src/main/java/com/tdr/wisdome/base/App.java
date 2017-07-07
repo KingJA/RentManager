@@ -21,7 +21,7 @@ import cn.jpush.android.api.JPushInterface;
 /**
  * Created by Linus_Xie on 2016/8/3.
  */
-public class MyApplication extends Application {
+public class App extends Application {
     public static Context context;
 
     public static FinalDb db;
@@ -33,7 +33,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
-        CrashHandler.getInstance().init(this);
+//        CrashHandler.getInstance().init(this);
         db = FinalDb.create(context, "WisdomE.db", false);
 
         JPushInterface.setDebugMode(true);// 设置开启日志,发布时请关闭日志

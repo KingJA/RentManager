@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.kingja.cardpackage.entiy.PhoneInfo;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * 获取手机参数信息
@@ -45,7 +47,7 @@ public class PhoneUtil {
         phoneInfo.setSYSTEMTYPE("Android");
         phoneInfo.setDEVICEID(imei);
         phoneInfo.setWIFIMAC(getMacAddress());
-        phoneInfo.setCHANNELID("-1");
+        phoneInfo.setCHANNELID(JPushInterface.getRegistrationID(mContext));
         return phoneInfo;
     }
 

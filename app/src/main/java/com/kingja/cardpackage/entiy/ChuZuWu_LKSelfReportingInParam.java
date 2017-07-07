@@ -41,6 +41,16 @@ public class ChuZuWu_LKSelfReportingInParam {
     private String OPERATOR;
     private String STANDARDADDRCODE;
     private int TERMINAL;
+
+    public int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public void setHEIGHT(int HEIGHT) {
+        this.HEIGHT = HEIGHT;
+    }
+
+    private int HEIGHT;
     private String XQCODE;
     private String PCSCODE;
     private String JWHCODE;

@@ -27,6 +27,7 @@ import com.kingja.cardpackage.util.TempConstants;
 import com.kingja.ui.popupwindow.BottomListPop;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.actvitiy.LoginActivity;
+import com.tdr.wisdome.actvitiy.MainActivity;
 import com.tdr.wisdome.actvitiy.PerfectActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,10 +45,12 @@ import java.util.Map;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class HomeActivity extends BaseActivity implements AdapterView.OnItemClickListener, View.OnClickListener, BottomListPop.OnPopItemClickListener {
-    private String mLargeTexts[] = {"我是房东", "我是租客", "我是管理员"};
-    private String mSmallTexts[] = {"我的出租房", "我的住房", "出租房代管"};
-    private int mHouseImgs[] = {R.drawable.home_rent, R.drawable.home_house, R.drawable.home_agent};
+public class HomeActivity extends BaseActivity implements AdapterView.OnItemClickListener, View.OnClickListener,
+        BottomListPop.OnPopItemClickListener {
+    private String mLargeTexts[] = {"我是房东", "我是租客", "我是管理员", "我的中介"};
+    private String mSmallTexts[] = {"我的出租房", "我的住房", "出租房代管", "出租房中介"};
+    private int mHouseImgs[] = {R.drawable.home_rent, R.drawable.home_house, R.drawable.home_agent, R.drawable
+            .home_intermediary};
     private RelativeLayout mRlHomeMenu;
     private RelativeLayout mRlHomeMsg;
     private TextView mTvHomeCount;
@@ -126,6 +129,9 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
             case 2://代管出租
                 GoUtil.goActivity(HomeActivity.this, AgentActivity.class);
                 break;
+            case 3://出租房中介
+                GoUtil.goActivity(HomeActivity.this, IntermediaryActivity.class);
+                break;
             default:
                 break;
         }
@@ -165,6 +171,9 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 break;
             case 2://代管出租
                 GoUtil.goActivity(HomeActivity.this, AgentActivity.class);
+                break;
+            case 3://出租房中介
+                GoUtil.goActivity(HomeActivity.this, IntermediaryActivity.class);
                 break;
         }
 

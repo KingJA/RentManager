@@ -17,10 +17,10 @@
         android:background="@color/colorStatus">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/bg_logo_login" />
+            android:background="@drawable/login_logo" />
 
         <com.tdr.wisdome.view.TitleIndicator
             android:id="@+id/titleIndicator_choose"

@@ -28,6 +28,16 @@
         <item name="android:maxLength">32</item>
 
     </style>
+    <style name="font_blue_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/bg_blue</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="font_blue_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/bg_blue</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
     <style name="font_9_15_multi">
         <item name="android:textSize">15sp</item>
@@ -95,6 +105,15 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/font_9</item>
         <item name="android:singleLine">true</item>
+        <item name="android:textColorHint">@color/font_9</item>
+    </style>
+    <style name="edit_cursor_blue_12">
+        <item name="android:textCursorDrawable">@drawable/et_cursor</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/font_9</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColorHint">@color/font_9</item>
     </style>
     <!--搜索地址背景框-->
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">

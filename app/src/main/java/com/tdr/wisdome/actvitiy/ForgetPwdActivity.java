@@ -94,7 +94,7 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener 
                 JSONObject obj = new JSONObject();
                 try {
                     obj.put("phone", phoneNum);
-                    obj.put("CodeType", "2");
+                    obj.put("CodeType", "1");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -187,9 +187,9 @@ public class SetPwdActivity extends Activity implements View.OnClickListener {
 
                 String codeType = "";
                 if (activity.equals("register")) {
-                    codeType = "1";
-                } else {
                     codeType = "2";
+                } else {
+                    codeType = "1";
                 }
 
                 HashMap<String, String> map1 = new HashMap<>();
