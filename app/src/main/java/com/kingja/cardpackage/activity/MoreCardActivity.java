@@ -8,11 +8,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.adapter.HomeCardIconAdapter;
-import com.kingja.cardpackage.adapter.SelectedCardsAdapter;
+import com.kingja.cardpackage.adapter.HomeCardSelectedAdapter;
+import com.kingja.cardpackage.adapter.HomeCardSettingAdapter;
 import com.kingja.cardpackage.entiy.Application_List;
 import com.kingja.cardpackage.entiy.ErrorResult;
-import com.kingja.cardpackage.entiy.ShangPu_ViewInfo;
-import com.kingja.cardpackage.entiy.ShopBean;
 import com.kingja.cardpackage.entiy.User_HomePageApplication;
 import com.kingja.cardpackage.net.ThreadPoolTask;
 import com.kingja.cardpackage.net.WebServiceCallBack;
@@ -24,31 +23,37 @@ import com.kingja.recyclerviewhelper.LayoutHelper;
 import com.kingja.recyclerviewhelper.RecyclerViewHelper;
 import com.tdr.wisdome.R;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Description:TODO
+ * Description:卡片编辑页面
  * Create Time:2017/7/6 13:28
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MoreCardActivity extends BackTitleActivity implements SelectedCardsAdapter.OnRemoveCardListener {
+public class MoreCardActivity extends BackTitleActivity implements HomeCardSelectedAdapter.OnRemoveCardListener,
+        HomeCardSettingAdapter.OnAddHomeCardListener {
 
     private List<User_HomePageApplication.ContentBean> cards;
     private HomeCardIconAdapter mHomeCardIconAdapter;
-
     private FixedGridView mFgvEditHomeIcons;
     private TextView mTvCardEdit;
     private FixedGridView mFgvServicePerson;
     private FixedGridView mFgvServiceThings;
     private FixedGridView mFgvServicePolice;
     private LinearLayout mLlCardEdit;
-    private RecyclerView mRvCcardEdit;
-    private SelectedCardsAdapter mSelectedCardsAdapter;
+    private RecyclerView mRvCardEdit;
+    private HomeCardSelectedAdapter mHomeCardSelectedAdapter;
     private LinearLayout mLlCardIcon_edit;
+    private HomeCardSettingAdapter mPersonSettingAdapter;
+    private HomeCardSettingAdapter mThingsSettingAdapter;
+    private HomeCardSettingAdapter mPoliceSettingAdapter;
+    private List<Application_List.ContentBean.CARDPROPERTYBean> personCards = new ArrayList<>();
+    private List<Application_List.ContentBean.CARDPROPERTYBean> thingsCards = new ArrayList<>();
+    private List<Application_List.ContentBean.CARDPROPERTYBean> policeCards = new ArrayList<>();
 
 
     @Override
@@ -68,7 +73,15 @@ public class MoreCardActivity extends BackTitleActivity implements SelectedCards
         mFgvServicePolice = (FixedGridView) findViewById(R.id.fgv_service_police);
         mLlCardEdit = (LinearLayout) findViewById(R.id.ll_card_edit);
         mLlCardIcon_edit = (LinearLayout) findViewById(R.id.ll_card_icon_edit);
-        mRvCcardEdit = (RecyclerView) findViewById(R.id.rv_card_edit);
+        mRvCardEdit = (RecyclerView) findViewById(R.id.rv_card_edit);
+
+        mPersonSettingAdapter = new HomeCardSettingAdapter(this, personCards);
+        mThingsSettingAdapter = new HomeCardSettingAdapter(this, thingsCards);
+        mPoliceSettingAdapter = new HomeCardSettingAdapter(this, policeCards);
+
+        mFgvServicePerson.setAdapter(mPersonSettingAdapter);
+        mFgvServiceThings.setAdapter(mThingsSettingAdapter);
+        mFgvServicePolice.setAdapter(mPoliceSettingAdapter);
     }
 
     @Override
@@ -78,31 +91,42 @@ public class MoreCardActivity extends BackTitleActivity implements SelectedCards
 
     @Override
     protected void initNet() {
-//        setProgressDialog(true);
-//        Map<String, Object> param = new HashMap<>();
-//        param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
-//        param.put(TempConstants.CITYCODE, TempConstants.CURRENT_CITY_CODE);
-//
-//        new ThreadPoolTask.Builder()
-//                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_EMPTY, Constants.Application_List, param)
-//                .setBeanType(Application_List.class)
-//                .setCallBack(new WebServiceCallBack<Application_List>() {
-//                    @Override
-//                    public void onSuccess(Application_List bean) {
-//                        List<Application_List.ContentBean.CARDPROPERTYBean> cardproperty = bean.getContent().get(0)
-//                                .getCARDPROPERTY();
-//                        setProgressDialog(false);
-//                    }
-//
-//                    @Override
-//                    public void onErrorResult(ErrorResult errorResult) {
-//                        setProgressDialog(false);
-//                    }
-//                }).build().execute();
+        setProgressDialog(true);
+        Map<String, Object> param = new HashMap<>();
+        param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
+        param.put(TempConstants.CITYCODE, TempConstants.CURRENT_CITY_CODE);
+
+        new ThreadPoolTask.Builder()
+                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_EMPTY, Constants.Application_List, param)
+                .setBeanType(Application_List.class)
+                .setCallBack(new WebServiceCallBack<Application_List>() {
+                    @Override
+                    public void onSuccess(Application_List bean) {
+                        setProgressDialog(false);
+                        personCards = bean.getContent().get(0)
+                                .getCARDPROPERTY();
+                        thingsCards = bean.getContent().get(0)
+                                .getCARDPROPERTY();
+                        policeCards = bean.getContent().get(0)
+                                .getCARDPROPERTY();
+
+                        mPersonSettingAdapter.setData(personCards);
+                        mThingsSettingAdapter.setData(thingsCards);
+                        mPoliceSettingAdapter.setData(policeCards);
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                        setProgressDialog(false);
+                    }
+                }).build().execute();
     }
 
     @Override
     protected void initData() {
+        mPersonSettingAdapter.setOnAddHomeCardListener(this);
+        mThingsSettingAdapter.setOnAddHomeCardListener(this);
+        mPoliceSettingAdapter.setOnAddHomeCardListener(this);
         mHomeCardIconAdapter = new HomeCardIconAdapter(this, cards);
         mFgvEditHomeIcons.setAdapter(mHomeCardIconAdapter);
         mTvCardEdit.setOnClickListener(new View.OnClickListener() {
@@ -122,17 +146,17 @@ public class MoreCardActivity extends BackTitleActivity implements SelectedCards
             }
         });
 
-        mSelectedCardsAdapter = new SelectedCardsAdapter(this, cards);
-        mSelectedCardsAdapter.setOnRemoveCardListener(this);
+        mHomeCardSelectedAdapter = new HomeCardSelectedAdapter(this, cards);
+        mHomeCardSelectedAdapter.setOnRemoveCardListener(this);
         new RecyclerViewHelper.Builder(this)
-                .setAdapter(mSelectedCardsAdapter)
+                .setAdapter(mHomeCardSelectedAdapter)
                 .setLayoutStyle(LayoutHelper.LayoutStyle.GRID)
                 .setColumns(4)
                 .setDividerHeight(4)
                 .setDividerColor(0xffffffff)
                 .setDragable(true)
                 .build()
-                .attachToRecyclerView(mRvCcardEdit);
+                .attachToRecyclerView(mRvCardEdit);
 
     }
 
@@ -148,7 +172,45 @@ public class MoreCardActivity extends BackTitleActivity implements SelectedCards
     }
 
     @Override
-    public void onReove(int position, String cardCode) {
-        mSelectedCardsAdapter.onSwipe(position);
+    public void onRemove(int position, String cardCode) {
+        mHomeCardSelectedAdapter.onSwipe(position);
+        //刷新三个ListView的状态
+        refreshStatus(cardCode, 0);
+    }
+
+    private void refreshStatus(String cardCode, int status) {
+        switch (cardCode) {
+            case "1001":
+            case "1002":
+            case "1003":
+            case "1004":
+            case "1005":
+            case "1006":
+                mPersonSettingAdapter.setHomeCardStatus(cardCode, status);
+                break;
+            case "2001":
+            case "2002":
+            case "2003":
+            case "2004":
+                mThingsSettingAdapter.setHomeCardStatus(cardCode, status);
+                break;
+            case "3001":
+            case "3002":
+            case "3003":
+            case "3004":
+            case "3005":
+            case "3006":
+                mPoliceSettingAdapter.setHomeCardStatus(cardCode, status);
+                break;
+
+        }
+    }
+
+    @Override
+    public void onAddHomeCard(String cardCode, String cardName) {
+        //增加SelectedList
+        mHomeCardSelectedAdapter.addCard(cardCode, cardName);
+        //刷新三个ListView
+        refreshStatus(cardCode, 1);
     }
 }

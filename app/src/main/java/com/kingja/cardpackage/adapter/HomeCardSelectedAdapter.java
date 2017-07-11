@@ -20,13 +20,13 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class SelectedCardsAdapter extends BaseRvAdaper<User_HomePageApplication.ContentBean> implements
+public class HomeCardSelectedAdapter extends BaseRvAdaper<User_HomePageApplication.ContentBean> implements
         RecyclerViewHelper.OnItemCallback {
 
 
     private OnRemoveCardListener onRemoveCardListener;
 
-    public SelectedCardsAdapter(Context context, List<User_HomePageApplication.ContentBean> list) {
+    public HomeCardSelectedAdapter(Context context, List<User_HomePageApplication.ContentBean> list) {
         super(context, list);
     }
 
@@ -41,7 +41,8 @@ public class SelectedCardsAdapter extends BaseRvAdaper<User_HomePageApplication.
     }
 
     @Override
-    protected void bindHolder(ViewHolder baseHolder, final User_HomePageApplication.ContentBean bean, final int position) {
+    protected void bindHolder(ViewHolder baseHolder, final User_HomePageApplication.ContentBean bean, final int
+            position) {
         final GiftViewHolder holder = (GiftViewHolder) baseHolder;
         holder.tv_card_name.setText(bean.getCARDNAME());
         holder.iv_card_img.setBackgroundResource(ResUtil.getCardRes(bean.getCARDCODE()));
@@ -50,7 +51,7 @@ public class SelectedCardsAdapter extends BaseRvAdaper<User_HomePageApplication.
             @Override
             public void onClick(View v) {
                 if (onRemoveCardListener != null) {
-                    onRemoveCardListener.onReove(position,bean.getCARDCODE());
+                    onRemoveCardListener.onRemove(position, bean.getCARDCODE());
                 }
             }
         });
@@ -70,6 +71,14 @@ public class SelectedCardsAdapter extends BaseRvAdaper<User_HomePageApplication.
         }
     }
 
+    public void addCard(String cardCode, String cardName) {
+        User_HomePageApplication.ContentBean card = new User_HomePageApplication.ContentBean();
+        card.setCARDCODE(cardCode);
+        card.setCARDNAME(cardName);
+        list.add(card);
+        notifyDataSetChanged();
+    }
+
 
     class GiftViewHolder extends ViewHolder {
         public TextView tv_card_name;
@@ -85,11 +94,19 @@ public class SelectedCardsAdapter extends BaseRvAdaper<User_HomePageApplication.
     }
 
     public interface OnRemoveCardListener {
-        void onReove(int position, String cardCode);
-
+        void onRemove(int position, String cardCode);
     }
 
     public void setOnRemoveCardListener(OnRemoveCardListener onRemoveCardListener) {
         this.onRemoveCardListener = onRemoveCardListener;
+    }
+
+    public String getSelectedCards() {
+        StringBuffer sb = new StringBuffer();
+        for (User_HomePageApplication.ContentBean card : list) {
+            sb.append(card.getCARDCODE());
+            sb.append(",");
+        }
+        return sb.toString();
     }
 }

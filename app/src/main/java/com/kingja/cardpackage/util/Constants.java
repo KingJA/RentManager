@@ -128,7 +128,9 @@ public class Constants {
     public static final String Application_List = "Application_List";
     /*民警查询*/
     public static final String Police_Policemeninfo = "Police_Policemeninfo";
-   /*中介查询*/
+    /*中介查询*/
     public static final String Agency_List = "Agency_List";
+    /*首页卡片*/
+    public static final String User_HomePageApplication = "User_HomePageApplication";
 
 }

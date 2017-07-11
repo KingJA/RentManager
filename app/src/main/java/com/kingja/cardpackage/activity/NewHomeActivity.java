@@ -12,11 +12,17 @@ import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
 import com.kingja.cardpackage.adapter.HomeCardAdapter;
 import com.kingja.cardpackage.base.BaseActivity;
+import com.kingja.cardpackage.entiy.ErrorResult;
+import com.kingja.cardpackage.entiy.GetUserMessage;
 import com.kingja.cardpackage.entiy.User_HomePageApplication;
+import com.kingja.cardpackage.net.ThreadPoolTask;
+import com.kingja.cardpackage.net.WebServiceCallBack;
 import com.kingja.cardpackage.ui.SystemBarTint.FixedGridView;
+import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.DialogUtil;
 import com.kingja.cardpackage.util.GoUtil;
+import com.kingja.cardpackage.util.TempConstants;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.kingja.ui.popupwindow.BottomListPop;
 import com.tdr.wisdome.R;
@@ -25,7 +31,9 @@ import com.tdr.wisdome.actvitiy.PerfectActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description:TODO
@@ -33,14 +41,13 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemClickListener, View.OnClickListener, BottomListPop.OnPopItemClickListener {
+public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemClickListener, View.OnClickListener,
+        BottomListPop.OnPopItemClickListener {
 
     private ImageView mIvHomeMenu;
-    private RelativeLayout mRlHomeMsg;
     private ImageView mIvHomeMsg;
-    private TextView mIvHomeMsgCount;
+    private TextView mTvHomeMsgCount;
     private FixedGridView mFgvHomeCard;
-    private ImageView mImageView;
     private HomeCardAdapter mHomeCardAdapter;
     private List<User_HomePageApplication.ContentBean> cards = new ArrayList<>();
     private User_HomePageApplication user_homePageApplication;
@@ -61,24 +68,51 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
     protected void initView() {
         mIvHomeMenu = (ImageView) findViewById(R.id.iv_home_menu);
         mIvHomeMsg = (ImageView) findViewById(R.id.iv_home_msg);
-        mIvHomeMsgCount = (TextView) findViewById(R.id.iv_home_msgCount);
+        mTvHomeMsgCount = (TextView) findViewById(R.id.tv_home_msgCount);
         mFgvHomeCard = (FixedGridView) findViewById(R.id.fgv_home_card);
+        mHomeCardAdapter = new HomeCardAdapter(this, cards);
+        mFgvHomeCard.setAdapter(mHomeCardAdapter);
     }
 
     @Override
     protected void initNet() {
         user_homePageApplication = new User_HomePageApplication();
         user_homePageApplication.setContent(cards);
+
+        getCards();
+        getMsg();
+    }
+
+    private void getCards() {
+        setProgressDialog(true);
+        Map<String, Object> param = new HashMap<>();
+        param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
+        param.put(TempConstants.CITYCODE, TempConstants.CURRENT_CITY_CODE);
+
+        new ThreadPoolTask.Builder()
+                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_EMPTY, Constants
+                        .User_HomePageApplication, param)
+                .setBeanType(User_HomePageApplication.class)
+                .setCallBack(new WebServiceCallBack<User_HomePageApplication>() {
+                    @Override
+                    public void onSuccess(User_HomePageApplication bean) {
+                        setProgressDialog(false);
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                        setProgressDialog(false);
+                    }
+                }).build().execute();
     }
 
     @Override
     protected void initData() {
-        mHomeCardAdapter = new HomeCardAdapter(this, cards);
-        mFgvHomeCard.setAdapter(mHomeCardAdapter);
         mFgvHomeCard.setOnItemClickListener(this);
         mIvHomeMenu.setOnClickListener(this);
         mIvHomeMsg.setOnClickListener(this);
         initBottomListPop();
+        initAddInfoDialog();
     }
 
     @Override
@@ -103,7 +137,7 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
         switch (card.getCARDCODE()) {
             case "1001"://房东申报
 //                GoUtil.goActivity(this,RentActivity.class);
-                GoUtil.goActivity(this,PoliceSearchActivity.class);
+                GoUtil.goActivity(this, PoliceSearchActivity.class);
 //                GoUtil.goActivity(this, IntermediarySearchActivity.class);
                 break;
             case "1002"://中介申报
@@ -166,11 +200,14 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
             System.exit(0);
         }
     }
+
     private void initBottomListPop() {
         mBottomListPop = new BottomListPop(mIvHomeMenu, this, Arrays.asList("完善资料", "修改密码", "退出登录"));
         mBottomListPop.setOnPopItemClickListener(this);
     }
+
     private BottomListPop mBottomListPop;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -207,6 +244,7 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
 
         }
     }
+
     private void makeSureQuit() {
         final NormalDialog quitDialog = DialogUtil.getDoubleDialog(this, "确定要退出应用？", "取消", "确定");
         quitDialog.setOnBtnClickL(new OnBtnClickL() {
@@ -237,6 +275,7 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
         }
         return true;
     }
+
     private void initAddInfoDialog() {
         mAddInfoDialog = DialogUtil.getDoubleDialog(NewHomeActivity.this, "资料不完整，前去完善资料", "取消", "确定");
         mAddInfoDialog.setOnBtnClickL(new OnBtnClickL() {
@@ -251,5 +290,35 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
                 mAddInfoDialog.dismiss();
             }
         });
+    }
+
+    private void getMsg() {
+        Map<String, Object> param = new HashMap<>();
+        param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
+        param.put(TempConstants.PageIndex, 0);
+        param.put(TempConstants.PageSize, TempConstants.DEFAULT_PAGE_SIZE);
+        new ThreadPoolTask.Builder()
+                .setGeneralParam(DataManager.getToken(), "", Constants.GetUserMessage, param)
+                .setBeanType(GetUserMessage.class)
+                .setCallBack(new WebServiceCallBack<GetUserMessage>() {
+                    @Override
+                    public void onSuccess(GetUserMessage bean) {
+                        mTvHomeMsgCount.setVisibility(isHasNewMsg(bean) ? View.VISIBLE : View.GONE);
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                    }
+                }).build().execute();
+    }
+
+    private boolean isHasNewMsg(GetUserMessage bean) {
+        List<GetUserMessage.ContentBean> msgList = bean.getContent();
+        for (GetUserMessage.ContentBean msg : msgList) {
+            if (msg.getIsRead() == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

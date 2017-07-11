@@ -39,7 +39,7 @@
                 android:layout_height="45dp">
 
                 <TextView
-                    android:id="@+id/iv_home_msgCount"
+                    android:id="@+id/tv_home_msgCount"
                     style="@style/font_f_12"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
