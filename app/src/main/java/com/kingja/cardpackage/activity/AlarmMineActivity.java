@@ -113,7 +113,6 @@ public class AlarmMineActivity extends BackTitleActivity implements SwipeRefresh
     @Override
     protected void initData() {
         mSrlTopContent.setOnRefreshListener(this);
-
     }
 
     @Override

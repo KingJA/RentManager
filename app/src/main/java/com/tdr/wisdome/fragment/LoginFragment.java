@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.kingja.cardpackage.activity.HomeActivity;
 import com.kingja.cardpackage.activity.NewHomeActivity;
 import com.kingja.cardpackage.entiy.ErrorResult;
 import com.kingja.cardpackage.entiy.LoginInfo;
@@ -19,9 +18,7 @@ import com.kingja.cardpackage.util.AppInfoUtil;
 import com.kingja.cardpackage.util.DataManager;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.actvitiy.ForgetPwdActivity;
-import com.tdr.wisdome.actvitiy.MainActivity;
 import com.tdr.wisdome.base.BaseFragment;
-import com.tdr.wisdome.jpush.ExampleUtil;
 import com.tdr.wisdome.model.PhoneInfo;
 import com.tdr.wisdome.util.CloseActivityUtil;
 import com.tdr.wisdome.util.Constants;
@@ -242,8 +239,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                 .getInfo();
         mInfo.setTaskID("1");
         mInfo.setREALNAME(DataManager.getRealName());
-        mInfo.setIDENTITYCARD(DataManager.getIdCard());
-        mInfo.setPHONENUM(DataManager.getUserPhone());
+        mInfo.setIDENTITYCARD(DataManager.getIdentitycard());
+        mInfo.setPHONENUM(DataManager.getPhone());
         mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
         mInfo.setSOFTTYPE(com.kingja.cardpackage.util.Constants.SOFTTYPE);
         mInfo.setCARDTYPE(com.kingja.cardpackage.util.Constants.CARD_TYPE_RENT);

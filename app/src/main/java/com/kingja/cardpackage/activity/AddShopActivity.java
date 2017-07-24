@@ -12,12 +12,10 @@ import android.widget.TextView;
 
 import com.kingja.cardpackage.Event.ShopRefreshEvent;
 import com.kingja.cardpackage.adapter.SelectPicAdapter;
-import com.kingja.cardpackage.db.DbDaoXutils3;
 import com.kingja.cardpackage.entiy.Basic_JuWeiHui_Kj;
 import com.kingja.cardpackage.entiy.Basic_PaiChuSuoOfStandardAddress;
 import com.kingja.cardpackage.entiy.Basic_PaiChuSuo_Kj;
 import com.kingja.cardpackage.entiy.Basic_StandardAddressCodeByKey;
-import com.kingja.cardpackage.entiy.ChuZuWu_GetSSYByStandAddressCode;
 import com.kingja.cardpackage.entiy.ErrorResult;
 import com.kingja.cardpackage.entiy.ShangPu_Add;
 import com.kingja.cardpackage.entiy.ShangPu_Add_Param;
@@ -133,8 +131,8 @@ public class AddShopActivity extends BackTitleActivity implements BackTitleActiv
     protected void setData() {
         setTitle("添加店铺");
         mTvAddShopName.setText(DataManager.getRealName());
-        mTvAddShopIdcard.setText(DataManager.getIdCard());
-        mTvAddShopPhone.setText(DataManager.getUserPhone());
+        mTvAddShopIdcard.setText(DataManager.getIdentitycard());
+        mTvAddShopPhone.setText(DataManager.getPhone());
     }
 
     @Override
@@ -167,10 +165,10 @@ public class AddShopActivity extends BackTitleActivity implements BackTitleActiv
         shopParam.setSHOPNAME(mShopName);
         shopParam.setSTANDARDADDRCODE(mGeocode);
         shopParam.setADDRESS(mShopAddress);
-        shopParam.setIDENTITYCARD(DataManager.getIdCard());
+        shopParam.setIDENTITYCARD(DataManager.getIdentitycard());
         shopParam.setOWNERNAME(DataManager.getUserName());
         shopParam.setOWNERNEWUSERID(StringUtil.getUUID());
-        shopParam.setPHONE(DataManager.getUserPhone());
+        shopParam.setPHONE(DataManager.getPhone());
         shopParam.setPCSCODE(policeCode);
         shopParam.setJWHCODE("");
         shopParam.setXQCODE(xqCode);

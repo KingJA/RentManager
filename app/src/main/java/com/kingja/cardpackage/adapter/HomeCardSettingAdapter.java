@@ -49,7 +49,7 @@ public class HomeCardSettingAdapter extends BaseLvAdapter<Application_List.Conte
             viewHolder.iv_card_ishomeapp.setVisibility(View.VISIBLE);
             viewHolder.iv_card_ishomeapp.setBackgroundResource(isHomeApp ? R.drawable
                     .card_selected : R.drawable.card_add);
-            if (isHomeApp) {
+            if (!isHomeApp) {
                 viewHolder.iv_card_ishomeapp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

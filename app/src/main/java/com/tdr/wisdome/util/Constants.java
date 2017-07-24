@@ -38,6 +38,7 @@ public class Constants {
      * Webservice参数
      */
     public static final String WEBSERVER_URL = "http://122.228.188.210:20043/WebCardHolder.asmx";// WebServices访问地址，测试
+//    public static final String WEBSERVER_URL = "http://122.228.188.212:13100/RentalEstate.asmx";// WebServices访问地址，测试
 //        public static final String WEBSERVER_URL = "http://116.255.205.110:1001/WEBCARDHOLDER.asmx";// WebServices访问地址，正式
     public static final String WEBSERVER_NAMESPACE = "http://tempuri.org/";// 命名空间
 

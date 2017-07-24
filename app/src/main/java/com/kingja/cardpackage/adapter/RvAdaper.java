@@ -107,4 +107,12 @@ public abstract class RvAdaper<T> extends RecyclerView.Adapter<RvAdaper.ViewHold
     public List<T> getData() {
         return list;
     }
+
+    public void removeItem(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
+        if (position != list.size()) {
+            notifyItemRangeChanged(position, list.size() - position);
+        }
+    }
 }

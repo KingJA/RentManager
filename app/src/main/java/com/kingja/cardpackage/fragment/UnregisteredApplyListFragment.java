@@ -155,7 +155,7 @@ public class UnregisteredApplyListFragment extends BaseFragment implements Swipe
         param.put("LISTID", listId);
         param.put("OUTREPORTERROLE", "1");
         param.put("OUTOPERATOR", DataManager.getUserId());
-        param.put("OUTOPERATORPHONE", DataManager.getUserPhone());
+        param.put("OUTOPERATORPHONE", DataManager.getPhone());
 
         new ThreadPoolTask.Builder()
                 .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_INTERMEDIARY, "ChuZuWu_AgencySelfReportingOut", param)

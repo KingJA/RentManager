@@ -138,9 +138,9 @@ public class ThreadPoolTask implements Runnable {
         Map<String, Object> generalParam = new HashMap<>();
         generalParam.put("token", token);
         generalParam.put("encryption", "0");
-        generalParam.put("DataTypeCode", dataTypeCode);
+        generalParam.put("dataTypeCode", dataTypeCode);
         generalParam.put("content", json);
-        generalParam.put("cardType", cardType);
+//        generalParam.put("cardType", cardType);
         generalParam.put("taskId", "1");
         Log.e("PARAM", gson.toJson(generalParam));
         Logger.json(gson.toJson(generalParam));

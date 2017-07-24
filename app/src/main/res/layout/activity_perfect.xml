@@ -156,6 +156,7 @@
                 android:background="@color/colorLine" />
 
             <Button
+                android:visibility="gone"
                 android:id="@+id/btn_complete"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"

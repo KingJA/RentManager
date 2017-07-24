@@ -4,12 +4,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
+import com.kingja.cardpackage.Event.GetCards;
 import com.kingja.cardpackage.adapter.HomeCardAdapter;
 import com.kingja.cardpackage.base.BaseActivity;
 import com.kingja.cardpackage.entiy.ErrorResult;
@@ -28,6 +28,9 @@ import com.kingja.ui.popupwindow.BottomListPop;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.actvitiy.LoginActivity;
 import com.tdr.wisdome.actvitiy.PerfectActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,13 +53,12 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
     private FixedGridView mFgvHomeCard;
     private HomeCardAdapter mHomeCardAdapter;
     private List<User_HomePageApplication.ContentBean> cards = new ArrayList<>();
-    private User_HomePageApplication user_homePageApplication;
     private long firstTime;
     private NormalDialog mAddInfoDialog;
 
     @Override
     protected void initVariables() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -76,9 +78,6 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
 
     @Override
     protected void initNet() {
-        user_homePageApplication = new User_HomePageApplication();
-        user_homePageApplication.setContent(cards);
-
         getCards();
         getMsg();
     }
@@ -94,9 +93,13 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
                         .User_HomePageApplication, param)
                 .setBeanType(User_HomePageApplication.class)
                 .setCallBack(new WebServiceCallBack<User_HomePageApplication>() {
+
+
                     @Override
                     public void onSuccess(User_HomePageApplication bean) {
                         setProgressDialog(false);
+                        cards = bean.getContent();
+                        mHomeCardAdapter.setData(cards);
                     }
 
                     @Override
@@ -126,9 +129,7 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
             return;
         }
         if (id == HomeCardAdapter.LAST_POSITION) {
-            ToastUtil.showToast("更多");
-            user_homePageApplication.setContent(mHomeCardAdapter.getData());
-            MoreCardActivity.goActivity(this, user_homePageApplication);
+            MoreCardActivity.goActivity(this, cards);
 
             return;
         }
@@ -136,12 +137,10 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
                 (position);
         switch (card.getCARDCODE()) {
             case "1001"://房东申报
-//                GoUtil.goActivity(this,RentActivity.class);
-                GoUtil.goActivity(this, PoliceSearchActivity.class);
-//                GoUtil.goActivity(this, IntermediarySearchActivity.class);
+                GoUtil.goActivity(this,RentActivity.class);
                 break;
             case "1002"://中介申报
-                GoUtil.goActivity(this, IntermediaryActivity.class);
+                GoUtil.goActivity(this, AgencySearchActivity.class);
                 break;
             case "1003"://物业申报
                 ToastUtil.showToast("物业申报未开放");
@@ -168,7 +167,7 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
                 ToastUtil.showToast("房源登记未开放");
                 break;
             case "3001"://民警查询
-                ToastUtil.showToast("民警查询未开放");
+                GoUtil.goActivity(this, PoliceSearchActivity.class);
                 break;
             case "3002"://预约办证
                 ToastUtil.showToast("预约办证未开放");
@@ -236,7 +235,7 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
                     GoUtil.goActivityAndFinish(this, LoginActivity.class);
                     break;
                 }
-                GoUtil.goActivity(NewHomeActivity.this, EditPwdActivity.class);
+                GoUtil.goActivity(NewHomeActivity.this, ModifyPasswordActivity.class);
                 break;
             case 2://退出登录
                 makeSureQuit();
@@ -256,9 +255,10 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
             @Override
             public void onBtnClick() {
                 quitDialog.dismiss();
+                GoUtil.goActivityAndFinish(NewHomeActivity.this, LoginActivity.class);
+                loginout();
                 DataManager.putToken("");
                 DataManager.putLastPage(-1);
-                GoUtil.goActivityAndFinish(NewHomeActivity.this, LoginActivity.class);
             }
         });
         quitDialog.show();
@@ -269,7 +269,7 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
             GoUtil.goActivityAndFinish(this, LoginActivity.class);
             return false;
         }
-        if (TextUtils.isEmpty(DataManager.getIdCard())) {
+        if (TextUtils.isEmpty(DataManager.getIdentitycard())) {
             mAddInfoDialog.show();
             return false;
         }
@@ -286,10 +286,28 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
         }, new OnBtnClickL() {
             @Override
             public void onBtnClick() {
-                GoUtil.goActivity(NewHomeActivity.this, PerfectActivity.class);
                 mAddInfoDialog.dismiss();
+                GoUtil.goActivity(NewHomeActivity.this, PerfectActivity.class);
             }
         });
+    }
+
+    private void loginout() {
+        Map<String, Object> param = new HashMap<>();
+        param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
+        param.put("USERSID", DataManager.getUserId());
+        new ThreadPoolTask.Builder()
+                .setGeneralParam(DataManager.getToken(), Constants.User_LogoffForShiMing, Constants.User_LogoffForShiMing, param)
+                .setBeanType(Object.class)
+                .setCallBack(new WebServiceCallBack<Object>() {
+                    @Override
+                    public void onSuccess(Object bean) {
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                    }
+                }).build().execute();
     }
 
     private void getMsg() {
@@ -320,5 +338,16 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
             }
         }
         return false;
+    }
+
+    @Subscribe
+    public void reGetCards(GetCards bean) {
+        getCards();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

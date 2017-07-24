@@ -182,7 +182,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         bean.setXQCODE(entiy.getXQCODE());
         bean.setPCSCODE(entiy.getPCSCODE());
         bean.setJWHCODE(entiy.getJWHCODE());
-        bean.setOPERATORPHONE(DataManager.getUserPhone());
+        bean.setOPERATORPHONE(DataManager.getPhone());
         bean.setPHOTOCOUNT(1);
         List<ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean> photolist = new ArrayList<>();
         ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean photolistBean = new ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean();

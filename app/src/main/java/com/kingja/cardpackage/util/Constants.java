@@ -7,18 +7,16 @@ package com.kingja.cardpackage.util;
  * Email:kingjavip@gmail.com
  */
 public class Constants {
-    /**
-     * Webservice参数
-     */
-//    public static final String WEBSERVER_URL = "http://zafkapp.test.iotone.cn:12026/rentalestate.asmx";//
-// WebServices访问地址，测试
 
-//    public static final String WEBSERVER_URL = "http://122.228.188.210:20043/WebCardHolder.asmx";// WebServices访问地址
-    public static final String WEBSERVER_URL = com.tdr.wisdome.util.Constants.WEBSERVER_URL;// WebServices访问地址
+    //    public static final String WEBSERVER_URL = "http://10.1.5.233:18349/RentalEstate.asmx";// WebServices访问地址
+    public static final String WEBSERVER_URL = "http://122.228.188.212:13100/rentalestate.asmx";// WebServices访问地址
+    //    public static final String WEBSERVER_URL = "http://122.228.188.210:20043/WebCardHolder.asmx";//
+    // WebServices访问地址
     public static final String WEBSERVER_NAMESPACE = "http://tempuri.org/";// 命名空间
-    public static final String WEBSERVER_REREQUEST = "CardHolder";
-    public static final String APPLICATION_NAME = "CardPackage";
+    //            public static final String WEBSERVER_REREQUEST = "CardHolder";
+    public static final String WEBSERVER_REREQUEST = "RERequest";
     public static final int SOFTTYPE = 5;
+    public static final int COUNT_TIME_DOWN = 60;
     /*  ============================================  卡类型  ============================================*/
 
     /*我的住房*/
@@ -35,8 +33,10 @@ public class Constants {
     public static final String CARD_TYPE_POLICE_SEARCH = "3001";
 
     public static final String CARD_TYPE_EMPTY = "";
+    public static final String EMPTY_STRING = "";
     public static final int ROLE_INTERMEDIARY = 4;
     public static final int ROLE_RENT = 2;
+    public static final int PAGE_SIZE = 50;
 
     /*  ============================================  接口方法  ============================================*/
 
@@ -132,5 +132,23 @@ public class Constants {
     public static final String Agency_List = "Agency_List";
     /*首页卡片*/
     public static final String User_HomePageApplication = "User_HomePageApplication";
+    /*新登录接口*/
+    public static final String User_LogInForShiMing = "User_LogInForShiMing";
+    /*完善用户资料*/
+    public static final String User_AddDetailForShiMing = "User_AddDetailForShiMing";
+    /*修改用户卡*/
+    public static final String User_HomePageApplicationModify = "User_HomePageApplicationModify";
+    /*获取验证码*/
+    public static final String Common_SendValidCode = "Common_SendValidCode";
+    /*注册*/
+    public static final String User_RegionForShiMing = "User_RegionForShiMing";
+    /*修改密码*/
+    public static final String User_PasswordModifyForShiMing = "User_PasswordModifyForShiMing";
+    /*退出登录*/
+    public static final String User_LogoffForShiMing = "User_LogoffForShiMing";
+    /*忘记密码*/
+    public static final String User_ResetPasswordForShiMing = "User_ResetPasswordForShiMing";
+    /*是否绑定中介*/
+    public static final String User_AgencyBung = "User_AgencyBung";
 
 }

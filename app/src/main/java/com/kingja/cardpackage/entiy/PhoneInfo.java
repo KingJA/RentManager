@@ -1,8 +1,6 @@
 package com.kingja.cardpackage.entiy;
 
-/**
- * Created by Linus_Xie on 2016/6/25.
- */
+
 public class PhoneInfo {
     private String SYSTEMTYPE;
     private String SYSTEMVERSION;
@@ -14,8 +12,16 @@ public class PhoneInfo {
     private String BTMAC;
     private String CHANNELID;
     private String DEVICEID;
+    private int CHANNELTYPE;
 
 
+    public int getCHANNELTYPE() {
+        return CHANNELTYPE;
+    }
+
+    public void setCHANNELTYPE(int CHANNELTYPE) {
+        this.CHANNELTYPE = CHANNELTYPE;
+    }
     public String getSYSTEMTYPE() {
         return SYSTEMTYPE;
     }

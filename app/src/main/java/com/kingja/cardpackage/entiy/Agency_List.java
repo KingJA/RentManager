@@ -87,6 +87,7 @@ public class Agency_List {
         private String LICENSE;
         private String OWNERNAME;
         private String PHONE;
+        private int ISBUNG;
 
         public String getAGENCYID() {
             return AGENCYID;
@@ -150,6 +151,14 @@ public class Agency_List {
 
         public void setPHONE(String PHONE) {
             this.PHONE = PHONE;
+        }
+
+        public int getISBUNG() {
+            return ISBUNG;
+        }
+
+        public void setISBUNG(int ISBUNG) {
+            this.ISBUNG = ISBUNG;
         }
     }
 }

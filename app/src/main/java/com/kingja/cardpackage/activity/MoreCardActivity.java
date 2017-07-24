@@ -7,22 +7,28 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kingja.cardpackage.Event.GetCards;
 import com.kingja.cardpackage.adapter.HomeCardIconAdapter;
 import com.kingja.cardpackage.adapter.HomeCardSelectedAdapter;
 import com.kingja.cardpackage.adapter.HomeCardSettingAdapter;
 import com.kingja.cardpackage.entiy.Application_List;
 import com.kingja.cardpackage.entiy.ErrorResult;
 import com.kingja.cardpackage.entiy.User_HomePageApplication;
+import com.kingja.cardpackage.entiy.User_HomePageApplicationModify;
 import com.kingja.cardpackage.net.ThreadPoolTask;
 import com.kingja.cardpackage.net.WebServiceCallBack;
 import com.kingja.cardpackage.ui.SystemBarTint.FixedGridView;
 import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.TempConstants;
+import com.kingja.cardpackage.util.ToastUtil;
 import com.kingja.recyclerviewhelper.LayoutHelper;
 import com.kingja.recyclerviewhelper.RecyclerViewHelper;
 import com.tdr.wisdome.R;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,9 +64,8 @@ public class MoreCardActivity extends BackTitleActivity implements HomeCardSelec
 
     @Override
     protected void initVariables() {
-        User_HomePageApplication cardResult = (User_HomePageApplication) getIntent().getSerializableExtra
-                ("User_HomePageApplication");
-        cards = cardResult.getContent();
+        cards = (List<User_HomePageApplication.ContentBean>) getIntent().getSerializableExtra
+                ("cards");
 
     }
 
@@ -105,9 +110,9 @@ public class MoreCardActivity extends BackTitleActivity implements HomeCardSelec
                         setProgressDialog(false);
                         personCards = bean.getContent().get(0)
                                 .getCARDPROPERTY();
-                        thingsCards = bean.getContent().get(0)
+                        thingsCards = bean.getContent().get(1)
                                 .getCARDPROPERTY();
-                        policeCards = bean.getContent().get(0)
+                        policeCards = bean.getContent().get(2)
                                 .getCARDPROPERTY();
 
                         mPersonSettingAdapter.setData(personCards);
@@ -135,12 +140,21 @@ public class MoreCardActivity extends BackTitleActivity implements HomeCardSelec
                 setTitle("我的应用编辑");
                 mLlCardIcon_edit.setVisibility(View.GONE);
                 mLlCardEdit.setVisibility(View.VISIBLE);
+                mPersonSettingAdapter.setEditMode(true);
+                mThingsSettingAdapter.setEditMode(true);
+                mPoliceSettingAdapter.setEditMode(true);
                 setOnRightClickListener(new OnRightClickListener() {
                     @Override
                     public void onRightClick() {
                         mLlCardIcon_edit.setVisibility(View.VISIBLE);
                         mLlCardEdit.setVisibility(View.GONE);
                         setTitle("更多");
+                        mPersonSettingAdapter.setEditMode(false);
+                        mThingsSettingAdapter.setEditMode(false);
+                        mPoliceSettingAdapter.setEditMode(false);
+                        mHomeCardIconAdapter.setData(mHomeCardSelectedAdapter.getData());
+                        setRightGone();
+                        modifyCard();
                     }
                 }, "完成");
             }
@@ -165,9 +179,9 @@ public class MoreCardActivity extends BackTitleActivity implements HomeCardSelec
         setTitle("更多");
     }
 
-    public static void goActivity(Context context, User_HomePageApplication bean) {
+    public static void goActivity(Context context, List<User_HomePageApplication.ContentBean> bean) {
         Intent intent = new Intent(context, MoreCardActivity.class);
-        intent.putExtra("User_HomePageApplication", bean);
+        intent.putExtra("cards", (Serializable) bean);
         context.startActivity(intent);
     }
 
@@ -212,5 +226,30 @@ public class MoreCardActivity extends BackTitleActivity implements HomeCardSelec
         mHomeCardSelectedAdapter.addCard(cardCode, cardName);
         //刷新三个ListView
         refreshStatus(cardCode, 1);
+    }
+
+    protected void modifyCard() {
+        setProgressDialog(true);
+        Map<String, Object> param = new HashMap<>();
+        param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
+        param.put(TempConstants.CITYCODE, TempConstants.CURRENT_CITY_CODE);
+        param.put("HOMEAPPLIST", mHomeCardSelectedAdapter.getSelectedCards());
+
+        new ThreadPoolTask.Builder()
+                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_EMPTY, Constants.User_HomePageApplicationModify, param)
+                .setBeanType(User_HomePageApplicationModify.class)
+                .setCallBack(new WebServiceCallBack<User_HomePageApplicationModify>() {
+                    @Override
+                    public void onSuccess(User_HomePageApplicationModify bean) {
+                        EventBus.getDefault().post(new GetCards());
+                        setProgressDialog(false);
+                        ToastUtil.showToast("编辑成功");
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                        setProgressDialog(false);
+                    }
+                }).build().execute();
     }
 }

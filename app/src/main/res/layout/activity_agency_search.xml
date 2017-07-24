@@ -127,18 +127,20 @@
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatCheckBox
-            android:theme="@style/AppCompatTheme"
+            style="@style/font_3_12"
             android:id="@+id/cb_bind"
             android:layout_weight="0.8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="绑定"/>
+            android:text="已绑定"/>
     </LinearLayout>
 
     <View style="@style/divider_nomal_horizontal"/>
 
-    <include layout="@layout/single_rv"/>
+    <FrameLayout
+        android:id="@+id/fl_angency_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>

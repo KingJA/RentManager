@@ -172,8 +172,8 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
 
         mInfo.setTaskID("1");
         mInfo.setREALNAME(DataManager.getRealName());
-        mInfo.setIDENTITYCARD(DataManager.getIdCard());
-        mInfo.setPHONENUM(DataManager.getUserPhone());
+        mInfo.setIDENTITYCARD(DataManager.getIdentitycard());
+        mInfo.setPHONENUM(DataManager.getPhone());
         mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
         mInfo.setSOFTTYPE(Constants.SOFTTYPE);
         mInfo.setCARDTYPE(Constants.CARD_TYPE_RENT);

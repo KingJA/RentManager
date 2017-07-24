@@ -32,6 +32,9 @@ import com.kingja.cardpackage.util.GoUtil;
 import com.kingja.cardpackage.util.PhoneUtil;
 import com.kingja.cardpackage.util.TempConstants;
 import com.kingja.cardpackage.util.ToastUtil;
+import com.kingja.recyclerviewhelper.LayoutHelper;
+import com.kingja.recyclerviewhelper.ListItemDecoration;
+import com.kingja.recyclerviewhelper.RecyclerViewHelper;
 import com.kingja.ui.popupwindow.BaseTopPop;
 import com.tdr.wisdome.R;
 
@@ -72,8 +75,8 @@ public class PoliceSearchActivity extends BaseActivity implements View.OnClickLi
     private LinearLayout mLlPolicePcs;
     private TextView mTvPolicePcs;
     private ImageView mIvPolicePcs;
-
-
+    private int currentPage;
+    private boolean hasMore;
     @Override
     protected void initVariables() {
         areas = DbDaoXutils3.getInstance().selectAll
@@ -112,16 +115,22 @@ public class PoliceSearchActivity extends BaseActivity implements View.OnClickLi
 
 
         mPoliceSearchAdapter = new PoliceSearchAdapter(this, polices);
-        mRv.setLayoutManager(new LinearLayoutManager(this));
-        mRv.setHasFixedSize(true);
-        mRv.setAdapter(mPoliceSearchAdapter);
+//        mRv.setLayoutManager(new LinearLayoutManager(this));
+//        mRv.setHasFixedSize(true);
+//        mRv.setAdapter(mPoliceSearchAdapter);
 
+        new RecyclerViewHelper.Builder(this)
+                .setAdapter(mPoliceSearchAdapter)
+                .setLayoutStyle(LayoutHelper.LayoutStyle.VERTICAL_LIST)
+                .setDividerHeight(1)
+                .setDividerColor(0xffbebebe)
+                .build()
+                .attachToRecyclerView(mRv);
 
     }
 
     @Override
     protected void initNet() {
-//        cardLogin();
     }
 
     @Override
@@ -133,6 +142,20 @@ public class PoliceSearchActivity extends BaseActivity implements View.OnClickLi
         initAreaPop();
         initPoliceStationPop();
 
+        mRv.setOnPullToBottomListener(new PullToBottomRecyclerView.OnPullToBottomListener() {
+            @Override
+            public void onPullToBottom() {
+                if (mSrl.isRefreshing()) {
+                    return;
+                }
+                if (hasMore) {
+                    currentPage++;
+                    loadPolices(currentPage);
+                } else {
+                    ToastUtil.showToast("到底啦");
+                }
+            }
+        });
         mSrl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -143,7 +166,7 @@ public class PoliceSearchActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void setData() {
-
+        setTitle("民警查询");
     }
 
     @Override
@@ -171,19 +194,21 @@ public class PoliceSearchActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.tv_police_search:
                 address = mEtPoliceKeyword.getText().toString().trim();
-                loadPolices();
+                loadPolices(0);
                 break;
 
         }
     }
 
-    private void loadPolices() {
+    private void loadPolices(final int page) {
         mSrl.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
         param.put("XQCODE", xqcode);
         param.put("PCSCODE", pcscode);
         param.put("MIXTEST", address);
+        param.put("PageSize", Constants.PAGE_SIZE);
+        param.put("PageIndex", page);
         new ThreadPoolTask.Builder()
                 .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_POLICE_SEARCH, Constants
                                 .Police_Policemeninfo,
@@ -194,6 +219,10 @@ public class PoliceSearchActivity extends BaseActivity implements View.OnClickLi
                     public void onSuccess(Police_Policemeninfo bean) {
                         mSrl.setRefreshing(false);
                         polices = bean.getContent();
+                        if (page == 0) {
+                            mPoliceSearchAdapter.reset();
+                        }
+                        hasMore = polices.size() == Constants.PAGE_SIZE;
                         mLlEmpty.setVisibility(polices.size() > 0 ? View.GONE : View.VISIBLE);
                         mPoliceSearchAdapter.addData(polices);
                     }
@@ -254,38 +283,5 @@ public class PoliceSearchActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
-
-    private void cardLogin() {
-        setProgressDialog(true);
-        LoginInfo mInfo = new LoginInfo();
-        PhoneInfo phoneInfo = new PhoneUtil(this).getInfo();
-        mInfo.setTaskID("1");
-        mInfo.setREALNAME(DataManager.getRealName());
-        mInfo.setIDENTITYCARD(DataManager.getIdCard());
-        mInfo.setPHONENUM(DataManager.getUserPhone());
-        mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
-        mInfo.setSOFTTYPE(4);
-        mInfo.setCARDTYPE(Constants.CARD_TYPE_POLICE_SEARCH);
-        mInfo.setPHONEINFO(phoneInfo);
-        mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
-        mInfo.setTaskID("1");
-        new ThreadPoolTask.Builder()
-                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_POLICE_SEARCH, Constants
-                        .User_LogInForKaBao, mInfo)
-                .setBeanType(User_LogInForKaBao.class)
-                .setCallBack(new WebServiceCallBack<User_LogInForKaBao>() {
-                    @Override
-                    public void onSuccess(User_LogInForKaBao bean) {
-                        setProgressDialog(false);
-                    }
-
-                    @Override
-                    public void onErrorResult(ErrorResult errorResult) {
-                        setProgressDialog(false);
-                        finish();
-                        ToastUtil.showToast("卡包登录失败");
-                    }
-                }).build().execute();
-    }
 
 }

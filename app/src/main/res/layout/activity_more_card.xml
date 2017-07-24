@@ -59,6 +59,7 @@
             android:text="首页应用(按住拖动调整排序)"/>
 
         <android.support.v7.widget.RecyclerView
+            android:padding="4dp"
             android:id="@+id/rv_card_edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -91,14 +92,15 @@
                 android:text="人员申报"/>
 
             <com.kingja.cardpackage.ui.SystemBarTint.FixedGridView
+                android:padding="4dp"
                 android:id="@+id/fgv_service_person"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:gravity="center"
-                android:horizontalSpacing="10dp"
+                android:horizontalSpacing="4dp"
                 android:numColumns="4"
-                android:verticalSpacing="10dp"
+                android:verticalSpacing="4dp"
                 tools:listitem="@layout/item_card"/>
 
 
@@ -114,14 +116,15 @@
                 android:text="物联网服务"/>
 
             <com.kingja.cardpackage.ui.SystemBarTint.FixedGridView
+                android:padding="4dp"
                 android:id="@+id/fgv_service_things"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:gravity="center"
-                android:horizontalSpacing="10dp"
+                android:horizontalSpacing="4dp"
                 android:numColumns="4"
-                android:verticalSpacing="10dp"
+                android:verticalSpacing="4dp"
                 tools:listitem="@layout/item_card"/>
 
             <TextView
@@ -135,14 +138,15 @@
                 android:text="公安服务"/>
 
             <com.kingja.cardpackage.ui.SystemBarTint.FixedGridView
+                android:padding="4dp"
                 android:id="@+id/fgv_service_police"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:gravity="center"
-                android:horizontalSpacing="10dp"
+                android:horizontalSpacing="4dp"
                 android:numColumns="4"
-                android:verticalSpacing="10dp"
+                android:verticalSpacing="4dp"
                 tools:listitem="@layout/item_card"/>
         </LinearLayout>
     </ScrollView>

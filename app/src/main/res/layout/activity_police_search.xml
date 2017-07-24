@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:background="@null"
-                android:hint="请输入姓名/警号查询"/>
+                android:hint="请输入姓名/电话查询"/>
 
 
         </LinearLayout>

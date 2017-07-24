@@ -7,12 +7,12 @@
 
     <LinearLayout
         android:id="@+id/ll_card_backgroud"
-        android:padding="12dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/iv_card_img"
@@ -35,8 +35,8 @@
     <ImageView
         android:layout_margin="3dp"
         android:id="@+id/iv_card_ishomeapp"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_alignParentRight="true"
-        android:background="@drawable/card_add"/>
+        android:background="@drawable/card_remove"/>
 </RelativeLayout>

@@ -27,7 +27,6 @@ import com.kingja.cardpackage.util.TempConstants;
 import com.kingja.ui.popupwindow.BottomListPop;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.actvitiy.LoginActivity;
-import com.tdr.wisdome.actvitiy.MainActivity;
 import com.tdr.wisdome.actvitiy.PerfectActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -203,7 +202,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
             GoUtil.goActivityAndFinish(this, LoginActivity.class);
             return false;
         }
-        if (TextUtils.isEmpty(DataManager.getIdCard())) {
+        if (TextUtils.isEmpty(DataManager.getIdentitycard())) {
             mAddInfoDialog.show();
             return false;
         }
@@ -263,7 +262,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                     GoUtil.goActivityAndFinish(this, LoginActivity.class);
                     break;
                 }
-                GoUtil.goActivity(HomeActivity.this, EditPwdActivity.class);
+                GoUtil.goActivity(HomeActivity.this, ModifyPasswordActivity.class);
                 break;
             case 2://退出登录
                 makeSureQuit();

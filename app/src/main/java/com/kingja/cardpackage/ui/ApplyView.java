@@ -104,7 +104,7 @@ public class ApplyView extends FrameLayout implements View.OnClickListener {
             applyPerson.setREPORTERROLE(2);
             applyPerson.setOPERATOR(DataManager.getUserId());
             applyPerson.setTERMINAL(2);
-            applyPerson.setOPERATORPHONE(DataManager.getUserPhone());
+            applyPerson.setOPERATORPHONE(DataManager.getPhone());
 
             applyPerson.setNAME(applyName);
             applyPerson.setIDENTITYCARD(cardId);

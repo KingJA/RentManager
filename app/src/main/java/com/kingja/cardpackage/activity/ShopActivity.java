@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.kingja.cardpackage.Event.ShopDialogEvent;
 import com.kingja.cardpackage.Event.ShopRefreshEvent;
 import com.kingja.cardpackage.adapter.ShopAdapter;
 import com.kingja.cardpackage.entiy.ErrorResult;
@@ -142,14 +141,13 @@ public class ShopActivity extends BackTitleActivity implements SwipeRefreshLayou
         PhoneInfo phoneInfo = new PhoneUtil(this).getInfo();
         mInfo.setTaskID("1");
         mInfo.setREALNAME(DataManager.getRealName());
-        mInfo.setIDENTITYCARD(DataManager.getIdCard());
-        mInfo.setPHONENUM(DataManager.getUserPhone());
+        mInfo.setIDENTITYCARD(DataManager.getIdentitycard());
+        mInfo.setPHONENUM(DataManager.getPhone());
         mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
         mInfo.setSOFTTYPE(Constants.SOFTTYPE);
         mInfo.setCARDTYPE(Constants.CARD_TYPE_SHOP);
         mInfo.setPHONEINFO(phoneInfo);
         mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
-        mInfo.setTaskID("1");
         new ThreadPoolTask.Builder()
                 .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_SHOP, Constants.User_LogInForKaBao, mInfo)
                 .setBeanType(User_LogInForKaBao.class)

@@ -103,9 +103,11 @@ public class HomeCardSelectedAdapter extends BaseRvAdaper<User_HomePageApplicati
 
     public String getSelectedCards() {
         StringBuffer sb = new StringBuffer();
-        for (User_HomePageApplication.ContentBean card : list) {
-            sb.append(card.getCARDCODE());
-            sb.append(",");
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i).getCARDCODE());
+            if (i != list.size() - 1) {
+                sb.append(",");
+            }
         }
         return sb.toString();
     }

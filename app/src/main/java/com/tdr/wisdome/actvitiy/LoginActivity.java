@@ -2,8 +2,8 @@ package com.tdr.wisdome.actvitiy;
 
 import android.os.Bundle;
 
-import com.tdr.wisdome.fragment.LoginFragment;
-import com.tdr.wisdome.fragment.RegisterFragment;
+import com.kingja.cardpackage.fragment.LoginFragment;
+import com.kingja.cardpackage.fragment.RegisterFragment;
 
 import java.util.List;
 

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#FAEFD5"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="请通过相机获取身份证相关信息"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingRight="32dp"
+        android:paddingLeft="32dp">
+
+        <com.tdr.wisdome.view.material.MaterialEditText
+            android:id="@+id/met_userinfo_idcard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="身份证"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal"
+            app:met_primaryColor="@color/bg_blue"
+            app:met_singleLineEllipsis="true"/>
+
+        <com.tdr.wisdome.view.material.MaterialEditText
+            android:id="@+id/met_userinfo_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="出生年月"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal"
+            app:met_primaryColor="@color/bg_blue"
+            app:met_singleLineEllipsis="true"/>
+
+        <com.tdr.wisdome.view.material.MaterialEditText
+            android:id="@+id/met_userinfo_realname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="真实姓名"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal"
+            app:met_primaryColor="@color/bg_blue"
+            app:met_singleLineEllipsis="true"/>
+
+        <com.tdr.wisdome.view.material.MaterialEditText
+            android:id="@+id/met_userinfo_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="性别"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal"
+            app:met_primaryColor="@color/bg_blue"
+            app:met_singleLineEllipsis="true"/>
+
+        <com.tdr.wisdome.view.material.MaterialEditText
+            android:id="@+id/met_userinfo_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="户籍地址"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal"
+            app:met_primaryColor="@color/bg_blue"
+            app:met_singleLineEllipsis="true"/>
+
+    </LinearLayout>
+
+    <com.kingja.supershapeview.SuperShapeTextView
+        android:layout_marginTop="12dp"
+        android:id="@+id/stv_userinfo_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="完成"
+        android:textColor="@color/bg_blue"
+        app:super_cornerRadius="4dp"
+        app:super_strokeColor="@color/bg_blue"
+        app:super_strokeWidth="1dp"/>
+
+</LinearLayout>

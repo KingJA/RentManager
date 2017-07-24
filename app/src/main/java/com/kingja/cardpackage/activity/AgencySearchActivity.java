@@ -1,11 +1,13 @@
 package com.kingja.cardpackage.activity;
 
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,34 +15,19 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kingja.cardpackage.adapter.IntermediarySearchAdapter;
 import com.kingja.cardpackage.base.BaseActivity;
 import com.kingja.cardpackage.db.DbDaoXutils3;
 import com.kingja.cardpackage.entiy.Agency_List;
 import com.kingja.cardpackage.entiy.Basic_PaiChuSuo_Kj;
 import com.kingja.cardpackage.entiy.Basic_XingZhengQuHua_Kj;
-import com.kingja.cardpackage.entiy.ErrorResult;
-import com.kingja.cardpackage.entiy.LoginInfo;
-import com.kingja.cardpackage.entiy.PhoneInfo;
-import com.kingja.cardpackage.entiy.User_LogInForKaBao;
-import com.kingja.cardpackage.net.ThreadPoolTask;
-import com.kingja.cardpackage.net.WebServiceCallBack;
-import com.kingja.cardpackage.ui.PullToBottomRecyclerView;
-import com.kingja.cardpackage.util.AppInfoUtil;
-import com.kingja.cardpackage.util.CheckUtil;
-import com.kingja.cardpackage.util.Constants;
-import com.kingja.cardpackage.util.DataManager;
+import com.kingja.cardpackage.fragment.AgencysFragment;
 import com.kingja.cardpackage.util.GoUtil;
-import com.kingja.cardpackage.util.PhoneUtil;
-import com.kingja.cardpackage.util.TempConstants;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.kingja.ui.popupwindow.BaseTopPop;
 import com.tdr.wisdome.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Description:中介查询
@@ -48,7 +35,8 @@ import java.util.Map;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class IntermediarySearchActivity extends BaseActivity implements View.OnClickListener {
+public class AgencySearchActivity extends BaseActivity implements View.OnClickListener, CompoundButton
+        .OnCheckedChangeListener {
 
     private List<Basic_XingZhengQuHua_Kj> areas = new ArrayList<>();
     private List<Basic_PaiChuSuo_Kj> policeStations = new ArrayList<>();
@@ -57,10 +45,6 @@ public class IntermediarySearchActivity extends BaseActivity implements View.OnC
     private String xqcode;
     private String pcscode;
     private String keyword;
-    private LinearLayout mLlEmpty;
-    private SwipeRefreshLayout mSrl;
-    private PullToBottomRecyclerView mRv;
-    private IntermediarySearchAdapter mIntermediarySearchAdapter;
     private List<Agency_List.ContentBean> polices = new ArrayList<>();
 
     private RelativeLayout mRlPoliceBack;
@@ -75,6 +59,9 @@ public class IntermediarySearchActivity extends BaseActivity implements View.OnC
     private TextView mTvPolicePcs;
     private ImageView mIvPolicePcs;
     private AppCompatCheckBox mCbBind;
+    private AgencysFragment bindedAgencys;
+    private AgencysFragment unBindedAgencys;
+    private FragmentManager mFragmentManager;
 
 
     @Override
@@ -92,7 +79,7 @@ public class IntermediarySearchActivity extends BaseActivity implements View.OnC
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_intermediary_search;
+        return R.layout.activity_agency_search;
     }
 
     @Override
@@ -109,23 +96,12 @@ public class IntermediarySearchActivity extends BaseActivity implements View.OnC
         mTvPolicePcs = (TextView) findViewById(R.id.tv_police_pcs);
         mIvPolicePcs = (ImageView) findViewById(R.id.iv_police_pcs);
         mCbBind = (AppCompatCheckBox) findViewById(R.id.cb_bind);
-
-        mLlEmpty = (LinearLayout) findViewById(R.id.ll_empty);
-        mSrl = (SwipeRefreshLayout) findViewById(R.id.srl);
-        mRv = (PullToBottomRecyclerView) findViewById(R.id.rv);
-
-
-        mIntermediarySearchAdapter = new IntermediarySearchAdapter(this, polices);
-        mRv.setLayoutManager(new LinearLayoutManager(this));
-        mRv.setHasFixedSize(true);
-        mRv.setAdapter(mIntermediarySearchAdapter);
-
+        mFragmentManager = getSupportFragmentManager();
 
     }
 
     @Override
     protected void initNet() {
-//        cardLogin();
     }
 
     @Override
@@ -137,16 +113,19 @@ public class IntermediarySearchActivity extends BaseActivity implements View.OnC
         initAreaPop();
         initPoliceStationPop();
 
-        mSrl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mSrl.setRefreshing(false);
-            }
-        });
+
+        mCbBind.setOnCheckedChangeListener(this);
     }
 
     @Override
     protected void setData() {
+
+    }
+
+    @Override
+    protected void onCreate(Bundle arg0) {
+        super.onCreate(arg0);
+        mCbBind.setChecked(true);
     }
 
     @Override
@@ -174,48 +153,17 @@ public class IntermediarySearchActivity extends BaseActivity implements View.OnC
                 break;
             case R.id.tv_police_search:
                 keyword = mEtPoliceKeyword.getText().toString().trim();
-                if (CheckUtil.checkEmpty(keyword, "请输入中介名称")
-                        && CheckUtil.checkEmpty(xqcode, "请选择所属辖区")
-                        && CheckUtil.checkEmpty(pcscode, "请选择派出所")) {
-                    loadIntermediarys();
+                if (mCbBind.isChecked()) {
+                    bindedAgencys.searchAgencys(xqcode, pcscode, keyword);
+                }else{
+                    unBindedAgencys.searchAgencys(xqcode, pcscode, keyword);
                 }
+
                 break;
 
         }
     }
 
-    private int isBind;
-
-    private void loadIntermediarys() {
-        mSrl.setRefreshing(true);
-        isBind = mCbBind.isChecked() ? 1 : 0;
-        Map<String, Object> param = new HashMap<>();
-        param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
-        param.put("XQCODE", xqcode);
-        param.put("PCSCODE", pcscode);
-        param.put("ADDRESS", keyword);
-        param.put("ISBUNG", isBind);
-        param.put("PAGESIZE", 100);
-        param.put("PAGEINDEX", 0);
-        new ThreadPoolTask.Builder()
-                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_POLICE_SEARCH, Constants.Agency_List,
-                        param)
-                .setBeanType(Agency_List.class)
-                .setCallBack(new WebServiceCallBack<Agency_List>() {
-                    @Override
-                    public void onSuccess(Agency_List bean) {
-                        mSrl.setRefreshing(false);
-                        polices = bean.getContent();
-                        mLlEmpty.setVisibility(polices.size() > 0 ? View.GONE : View.VISIBLE);
-                        mIntermediarySearchAdapter.addData(polices);
-                    }
-
-                    @Override
-                    public void onErrorResult(ErrorResult errorResult) {
-                        mSrl.setRefreshing(false);
-                    }
-                }).build().execute();
-    }
 
     private void initAreaPop() {
         areasPop = new BaseTopPop<Basic_XingZhengQuHua_Kj>(this, areas) {
@@ -267,37 +215,32 @@ public class IntermediarySearchActivity extends BaseActivity implements View.OnC
     }
 
 
-    private void cardLogin() {
-        setProgressDialog(true);
-        LoginInfo mInfo = new LoginInfo();
-        PhoneInfo phoneInfo = new PhoneUtil(this).getInfo();
-        mInfo.setTaskID("1");
-        mInfo.setREALNAME(DataManager.getRealName());
-        mInfo.setIDENTITYCARD(DataManager.getIdCard());
-        mInfo.setPHONENUM(DataManager.getUserPhone());
-        mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
-        mInfo.setSOFTTYPE(4);
-        mInfo.setCARDTYPE(Constants.CARD_TYPE_POLICE_SEARCH);
-        mInfo.setPHONEINFO(phoneInfo);
-        mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
-        mInfo.setTaskID("1");
-        new ThreadPoolTask.Builder()
-                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_POLICE_SEARCH, Constants
-                        .User_LogInForKaBao, mInfo)
-                .setBeanType(User_LogInForKaBao.class)
-                .setCallBack(new WebServiceCallBack<User_LogInForKaBao>() {
-                    @Override
-                    public void onSuccess(User_LogInForKaBao bean) {
-                        setProgressDialog(false);
-                    }
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        int isBind = isChecked ? 1 : 0;
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        if (isChecked) {
+            if (bindedAgencys == null) {
+                bindedAgencys = AgencysFragment.newInstance(isBind);
+                fragmentTransaction.add(R.id.fl_angency_search, bindedAgencys);
+            }
+            if (unBindedAgencys != null) {
+                fragmentTransaction.hide(unBindedAgencys);
+            }
+            fragmentTransaction.show(bindedAgencys);
 
-                    @Override
-                    public void onErrorResult(ErrorResult errorResult) {
-                        setProgressDialog(false);
-                        finish();
-                        ToastUtil.showToast("卡包登录失败");
-                    }
-                }).build().execute();
+
+        } else {
+            if (unBindedAgencys == null) {
+                unBindedAgencys = AgencysFragment.newInstance(isBind);
+                fragmentTransaction.add(R.id.fl_angency_search, unBindedAgencys);
+            }
+            if (bindedAgencys != null) {
+                fragmentTransaction.hide(bindedAgencys);
+            }
+            fragmentTransaction.show(unBindedAgencys);
+        }
+        fragmentTransaction.commit();
+
     }
-
 }

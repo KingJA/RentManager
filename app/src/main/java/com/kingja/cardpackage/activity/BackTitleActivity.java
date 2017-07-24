@@ -132,6 +132,10 @@ public abstract class BackTitleActivity extends BaseActivity implements View.OnC
         this.onRightClickListener = onRightClickListener;
     }
 
+    public void setRightGone() {
+        mRlTopRight.setVisibility(View.GONE);
+    }
+
 
     /**
      * 菜单点击接口

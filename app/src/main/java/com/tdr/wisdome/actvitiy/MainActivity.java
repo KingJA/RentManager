@@ -354,7 +354,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Menu
     private NormalDialog mAddInfoDialog;
 
     private boolean checkIfPerfect() {
-        if ("".equals(DataManager.getIdCard())) {
+        if ("".equals(DataManager.getIdentitycard())) {
             mAddInfoDialog.show();
             return true;
         }

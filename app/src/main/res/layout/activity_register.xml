@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="26dp"
+        android:orientation="vertical"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.tdr.wisdome.view.material.MaterialEditText
+                android:id="@+id/met_register_code"
+                style="@style/font_9_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="验证码"
+                app:met_clearButton="true"
+                app:met_floatingLabel="normal"
+                app:met_primaryColor="@color/bg_blue"
+                app:met_singleLineEllipsis="true"/>
+
+            <TextView
+                android:id="@+id/tv_register_getCode"
+                style="@style/font_blue_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="获取中(60s)"/>
+
+        </LinearLayout>
+        <com.tdr.wisdome.view.material.MaterialEditText
+            android:id="@+id/met_register_password"
+            style="@style/font_9_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="密码（长度6-16位）"
+            android:inputType="textPassword"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal"
+            app:met_primaryColor="@color/bg_blue"
+            app:met_singleLineEllipsis="true"/>
+
+
+        <com.tdr.wisdome.view.material.MaterialEditText
+            android:id="@+id/met_register_repeatPassword"
+            style="@style/font_9_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="确认密码"
+            android:inputType="textPassword"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal"
+            app:met_primaryColor="@color/bg_blue"
+            app:met_singleLineEllipsis="true"/>
+
+
+        <com.kingja.supershapeview.SuperShapeTextView
+            android:id="@+id/stv_register_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="注册"
+            android:textColor="@color/bg_blue"
+            app:super_cornerRadius="4dp"
+            app:super_strokeColor="@color/bg_blue"
+            app:super_strokeWidth="1dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

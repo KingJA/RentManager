@@ -75,6 +75,7 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':libk-kupdate')
     compile project(':recyclerviewhelper')
+    compile 'com.kingja.supershapeview:supershapeview:1.1.1'
 }
 
 def releaseTime() {

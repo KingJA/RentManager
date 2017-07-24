@@ -9,11 +9,14 @@ package com.kingja.cardpackage.util;
 public class DataManager {
     private static final String TOKEN = "token";
     private static final String REAL_NAME = "realName";
+    private static final String BIRTHDAY = "birthday";
+    private static final String ADDRESS = "address";
+    private static final String SEX = "sex";
     private static final String USER_ID = "userId";
-    private static final String USER_PHONE = "userPhone";
+    private static final String PHONE = "Phone";
     private static final String USER_NAME = "userName";
     private static final String LAST_PAGE = "LAST_PAGE";
-    private static final String ID_CARD = "userIdentitycard";
+    private static final String IDENTITYCARD = "identitycard";
     private static final String EMPTY = "";
     private static final int INT_EMPTY = -1;
 
@@ -26,16 +29,16 @@ public class DataManager {
         return (String) SpUtils.get(USER_ID, EMPTY);
     }
 
-    public static String getUserPhone() {
-        return (String) SpUtils.get(USER_PHONE, EMPTY);
+    public static String getPhone() {
+        return (String) SpUtils.get(PHONE, EMPTY);
     }
 
     public static String getUserName() {
         return (String) SpUtils.get(USER_NAME, EMPTY);
     }
 
-    public static String getIdCard() {
-        return (String) SpUtils.get(ID_CARD, EMPTY);
+    public static String getIdentitycard() {
+        return (String) SpUtils.get(IDENTITYCARD, EMPTY);
     }
 
     public static String getRealName() {
@@ -44,6 +47,18 @@ public class DataManager {
 
     public static Integer getLastPage() {
         return (Integer) SpUtils.get(LAST_PAGE, INT_EMPTY);
+    }
+
+    public static String getAddress() {
+        return (String) SpUtils.get(ADDRESS, EMPTY);
+    }
+
+    public static String getSex() {
+        return (String) SpUtils.get(SEX, EMPTY);
+    }
+
+    public static String getBirthday() {
+        return (String) SpUtils.get(BIRTHDAY, EMPTY);
     }
 
     /*================================PUT================================*/
@@ -56,8 +71,8 @@ public class DataManager {
         SpUtils.put(USER_ID, userId);
     }
 
-    public static void putUserPhone(String userPhone) {
-        SpUtils.put(USER_PHONE, userPhone);
+    public static void putPhone(String userPhone) {
+        SpUtils.put(PHONE, userPhone);
     }
 
     public static void putUserName(String userName) {
@@ -65,11 +80,27 @@ public class DataManager {
     }
 
     public static void putIdCard(String idCard) {
-        SpUtils.put(ID_CARD, idCard);
+        SpUtils.put(IDENTITYCARD, idCard);
     }
 
     public static void putLastPage(int pageIndex) {
         SpUtils.put(LAST_PAGE, pageIndex);
+    }
+
+    public static void putAddresse(String address) {
+        SpUtils.put(ADDRESS, address);
+    }
+
+    public static void putBirthday(String birthday) {
+        SpUtils.put(BIRTHDAY, birthday);
+    }
+
+    public static void putSex(String sex) {
+        SpUtils.put(SEX, sex);
+    }
+
+    public static void putRealName(String realName) {
+        SpUtils.put(REAL_NAME, realName);
     }
 
 
