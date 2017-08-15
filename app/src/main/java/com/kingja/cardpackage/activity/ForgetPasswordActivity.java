@@ -78,7 +78,7 @@ public class ForgetPasswordActivity extends BackTitleActivity {
             public void onNoDoubleClick(View v) {
                 phone = mMetSetPasswordPhone.getText().toString().trim();
                 if (CheckUtil.checkPhoneFormat(phone)) {
-                    startCountDownTime(5);
+                    startCountDownTime(Constants.COUNT_TIME_DOWN);
                     getCode();
                 }
             }
@@ -172,6 +172,9 @@ public class ForgetPasswordActivity extends BackTitleActivity {
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
+                        timer.cancel();
+                        mTvSetPasswordGetCode.setText("获取验证码");
+                        mTvSetPasswordGetCode.setEnabled(true);
                     }
                 }).build().execute();
     }

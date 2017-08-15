@@ -2,9 +2,13 @@ package com.kingja.cardpackage.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +25,7 @@ import com.kingja.cardpackage.entiy.Basic_PaiChuSuo_Kj;
 import com.kingja.cardpackage.entiy.Basic_XingZhengQuHua_Kj;
 import com.kingja.cardpackage.entiy.ChuZuWu_AgencySelfReportingIn;
 import com.kingja.cardpackage.entiy.ChuZuWu_AgencySelfReportingInResult;
+import com.kingja.cardpackage.entiy.ChuZuWu_LKSelfReportingInParam;
 import com.kingja.cardpackage.entiy.ErrorResult;
 import com.kingja.cardpackage.net.ThreadPoolTask;
 import com.kingja.cardpackage.net.WebServiceCallBack;
@@ -29,8 +34,10 @@ import com.kingja.cardpackage.util.CheckUtil;
 import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.DialogUtil;
+import com.kingja.cardpackage.util.StringUtil;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.kingja.ui.dialog.BaseListDialog;
+import com.pizidea.imagepicker.ImageUtil;
 import com.tdr.wisdome.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,6 +45,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 
 /**
@@ -48,6 +58,7 @@ import java.util.List;
  */
 public class UnregisteredApplyFragment extends BaseFragment implements View.OnClickListener, UnregisteredApplyActivity
         .OnSaveClickListener {
+    private static final int REQUEST_CAMARA = 1001;
     private UnregisteredApplyActivity mUnregisteredApplyActivity;
     private LinkedList<ApplyView> applyViews = new LinkedList<>();
 
@@ -73,6 +84,10 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
     private BaseListDialog areaDialog;
     private BaseListDialog policeStationsPop;
     private BaseListDialog juweihuisPop;
+    private int currentAvatarIndex;
+    private ImageView mIvBigAvatar;
+    private ChuZuWu_AgencySelfReportingIn bean;
+    private String base64Avatar;
 
     @Override
     public void initFragmentVariables() {
@@ -99,6 +114,7 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
         mTvApplyArea = (TextView) view.findViewById(R.id.tv_apply_area);
         mTvApplyPoliceStation = (TextView) view.findViewById(R.id.tv_apply_policeStation);
         mTvApplyCountry = (TextView) view.findViewById(R.id.tv_apply_country);
+        mIvBigAvatar = (ImageView) view.findViewById(R.id.iv_big_avatar);
     }
 
 
@@ -115,6 +131,7 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
         mLlApplyArea.setOnClickListener(this);
         mLlApplyPoliceStation.setOnClickListener(this);
         mLlApplyCountry.setOnClickListener(this);
+        mIvBigAvatar.setOnClickListener(this);
     }
 
     @Override
@@ -125,6 +142,9 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_big_avatar:
+                mIvBigAvatar.setVisibility(View.GONE);
+                break;
             case R.id.tv_add_more:
                 addApplyView();
                 break;
@@ -147,6 +167,8 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
     private void addApplyView() {
         ApplyView applyView = new ApplyView(getActivity(), applyViews.size());
         applyView.setOnOperatorListener(new ApplyView.OnOperatorListener() {
+
+
             @Override
             public void onCancle(int index) {
                 if (applyViews.size() > 1) {
@@ -162,6 +184,18 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
             public void onOpenOCR(int index) {
                 currentIndex = index;
                 KCamera.GoCamera(getActivity());
+            }
+
+            @Override
+            public void onTakePhone(int index) {
+                currentIndex = index;
+                takePhoto();
+            }
+
+            @Override
+            public void onShowBigPhone(int index) {
+                mIvBigAvatar.setVisibility(View.VISIBLE);
+                mIvBigAvatar.setImageDrawable(applyViews.get(index).getAvatar());
             }
         });
         mLlPersons.addView(applyView);
@@ -200,12 +234,11 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
         List<ApplyPerson> applyPerons = getApplyPerons();
         if (!CheckUtil.checkEmpty(xqcode, "请选择辖区") || !CheckUtil.checkEmpty(pcscode, "请选派出所") || !CheckUtil.checkEmpty
                 (jwhcode, "请选择居委会") || !CheckUtil.checkEmpty(address, "请输入地址") || !CheckUtil.checkEmpty(roomNo,
-                "请输入房间号") || applyPerons.size()
-                == 0) {
+                "请输入房间号") || applyPerons.size()== 0) {
             return;
         }
         setProgressDialog(true);
-        ChuZuWu_AgencySelfReportingIn bean = new ChuZuWu_AgencySelfReportingIn();
+        bean = new ChuZuWu_AgencySelfReportingIn();
         bean.setTaskID("1");
         bean.setXQCODE(xqcode);
         bean.setPCSCODE(pcscode);
@@ -215,12 +248,14 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
         bean.setPEOPLECOUNT(applyViews.size());
         bean.setPEOPLELIST(applyPerons);
         new ThreadPoolTask.Builder()
-                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_INTERMEDIARY, "ChuZuWu_AgencySelfReportingIn", bean)
+                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_INTERMEDIARY,
+                        "ChuZuWu_AgencySelfReportingIn", bean)
                 .setBeanType(ChuZuWu_AgencySelfReportingInResult.class)
                 .setCallBack(new WebServiceCallBack<ChuZuWu_AgencySelfReportingInResult>() {
                     @Override
                     public void onSuccess(ChuZuWu_AgencySelfReportingInResult bean) {
                         setProgressDialog(false);
+                        EventBus.getDefault().post(new RefreshUnregisteredList());
                         final NormalDialog doubleDialog = DialogUtil.getDoubleDialog(getActivity(), "是否要继续进行人员申报",
                                 "离开", "继续");
                         doubleDialog.show();
@@ -233,7 +268,6 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
                         }, new OnBtnClickL() {
                             @Override
                             public void onBtnClick() {
-                                EventBus.getDefault().post(new RefreshUnregisteredList());
                                 mTvApplyArea.setText("");
                                 mTvApplyPoliceStation.setText("");
                                 mTvApplyCountry.setText("");
@@ -262,7 +296,7 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case KCamera.REQUEST_CODE_KCAMERA:
-                if (Activity.RESULT_OK == resultCode) {
+                if (RESULT_OK == resultCode) {
                     String card = data.getStringExtra("card");
                     String name = data.getStringExtra("name");
                     if (card != null) {
@@ -272,6 +306,14 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
                         applyViews.get(currentIndex).setName(name);
                     }
                 }
+            case REQUEST_CAMARA:
+                if (resultCode == RESULT_OK) {
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    applyViews.get(currentIndex).setAvatar(bitmap);
+                    base64Avatar = new String(ImageUtil.bitmapToBase64(bitmap));
+                    applyViews.get(currentIndex).setAvatar(base64Avatar);
+                }
+
                 break;
         }
     }
@@ -291,7 +333,6 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
                 pcscode = "";
                 jwhcode = "";
                 xqcode = bean.getDMZM();
-
                 policeStations = DbDaoXutils3.getInstance().selectAllWhereLike(Basic_PaiChuSuo_Kj
                         .class, "SANSHIYOUDMZM", xqcode + "%");
                 initPoliceStationPop();
@@ -343,5 +384,10 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
                 break;
             }
         }
+    }
+
+    private void takePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMARA);
     }
 }

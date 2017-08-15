@@ -72,6 +72,11 @@
         <item name="android:textColor">@color/font_f</item>
         <item name="android:singleLine">true</item>
     </style>
+    <style name="font_f_10">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/font_f</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
     <style name="font_6_12">
         <item name="android:textSize">12sp</item>
@@ -111,6 +116,15 @@
         <item name="android:textCursorDrawable">@drawable/et_cursor</item>
         <item name="android:background">@null</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/font_9</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColorHint">@color/font_9</item>
+    </style>
+
+    <style name="edit_cursor_gray">
+        <item name="android:textCursorDrawable">@drawable/et_cursor</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/font_9</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColorHint">@color/font_9</item>

@@ -1,5 +1,7 @@
 package com.kingja.cardpackage.entiy;
 
+import java.util.List;
+
 /**
  * Description:TODO
  * Create Time:2017/5/10 11:18
@@ -24,12 +26,57 @@ public  class ApplyPerson {
     private String OPERATOR;
     private int TERMINAL;
     private String OPERATORPHONE;
-
     private String NAME;
     private String IDENTITYCARD;
     private String PHONE;
     private int HEIGHT;
+    private int PHOTOCOUNT;
+    private List<PHOTOLISTBean> PHOTOLIST;
+    public int getPHOTOCOUNT() {
+        return PHOTOCOUNT;
+    }
 
+    public void setPHOTOCOUNT(int PHOTOCOUNT) {
+        this.PHOTOCOUNT = PHOTOCOUNT;
+    }
+
+    public List<PHOTOLISTBean> getPHOTOLIST() {
+        return PHOTOLIST;
+    }
+
+    public void setPHOTOLIST(List<PHOTOLISTBean> PHOTOLIST) {
+        this.PHOTOLIST = PHOTOLIST;
+    }
+
+    public static class PHOTOLISTBean {
+        private String LISTID;
+        private String TAG;
+        private String IMAGE;
+
+        public String getLISTID() {
+            return LISTID;
+        }
+
+        public void setLISTID(String LISTID) {
+            this.LISTID = LISTID;
+        }
+
+        public String getTAG() {
+            return TAG;
+        }
+
+        public void setTAG(String TAG) {
+            this.TAG = TAG;
+        }
+
+        public String getIMAGE() {
+            return IMAGE;
+        }
+
+        public void setIMAGE(String IMAGE) {
+            this.IMAGE = IMAGE;
+        }
+    }
     public String getLISTID() {
         return LISTID;
     }

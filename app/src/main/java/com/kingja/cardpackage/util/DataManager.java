@@ -17,6 +17,7 @@ public class DataManager {
     private static final String USER_NAME = "userName";
     private static final String LAST_PAGE = "LAST_PAGE";
     private static final String IDENTITYCARD = "identitycard";
+    private static final String CERTIFICATION = "CERTIFICATION";
     private static final String EMPTY = "";
     private static final int INT_EMPTY = -1;
 
@@ -61,6 +62,10 @@ public class DataManager {
         return (String) SpUtils.get(BIRTHDAY, EMPTY);
     }
 
+    public static String getCertification() {
+        return (String) SpUtils.get(CERTIFICATION, EMPTY);
+    }
+
     /*================================PUT================================*/
 
     public static void putToken(String token) {
@@ -101,6 +106,10 @@ public class DataManager {
 
     public static void putRealName(String realName) {
         SpUtils.put(REAL_NAME, realName);
+    }
+
+    public static void putCertification(String certification) {
+        SpUtils.put(CERTIFICATION, certification);
     }
 
 

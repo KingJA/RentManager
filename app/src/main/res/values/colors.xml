@@ -11,10 +11,10 @@
     <color name="white">#FFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="transparent">#00000000</color>
-    <color name="transparent1">#40FFFFFF</color>
+    <color name="transparent_half">#60FFFFFF</color>
 
     <color name="colorBggray">#FFE3E3E7</color>
-    <color name="grey">#ACACAC</color>
+    <color name="gray">#ACACAC</color>
 
     <!-- 按钮的颜色 -->
     <color name="colorBtnon">#E67B08</color>

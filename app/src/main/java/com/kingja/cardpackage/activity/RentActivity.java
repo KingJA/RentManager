@@ -80,7 +80,7 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
 
     @Override
     protected void initNet() {
-        cardLogin();
+        doNet(0);
     }
 
     private void doNet(final int index) {
@@ -123,7 +123,7 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
 
     @Override
     protected void setData() {
-        setTitle("我的出租屋");
+        setTitle("房东申报");
         setTopColor(TopColor.WHITE);
     }
 
@@ -165,37 +165,4 @@ public class RentActivity extends BackTitleActivity implements SwipeRefreshLayou
         DetailRentActivity.goActivity(this, bean);
     }
 
-    private void cardLogin() {
-        setProgressDialog(true);
-        LoginInfo mInfo = new LoginInfo();
-        PhoneInfo phoneInfo = new PhoneUtil(this).getInfo();
-
-        mInfo.setTaskID("1");
-        mInfo.setREALNAME(DataManager.getRealName());
-        mInfo.setIDENTITYCARD(DataManager.getIdentitycard());
-        mInfo.setPHONENUM(DataManager.getPhone());
-        mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
-        mInfo.setSOFTTYPE(Constants.SOFTTYPE);
-        mInfo.setCARDTYPE(Constants.CARD_TYPE_RENT);
-        mInfo.setPHONEINFO(phoneInfo);
-        mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
-        mInfo.setTaskID("1");
-        new ThreadPoolTask.Builder()
-                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_RENT, Constants.User_LogInForKaBao, mInfo)
-                .setBeanType(User_LogInForKaBao.class)
-                .setCallBack(new WebServiceCallBack<User_LogInForKaBao>() {
-                    @Override
-                    public void onSuccess(User_LogInForKaBao bean) {
-                        setProgressDialog(false);
-                        doNet(0);
-                    }
-
-                    @Override
-                    public void onErrorResult(ErrorResult errorResult) {
-                        setProgressDialog(false);
-                        finish();
-                        ToastUtil.showToast("卡包登录失败");
-                    }
-                }).build().execute();
-    }
 }

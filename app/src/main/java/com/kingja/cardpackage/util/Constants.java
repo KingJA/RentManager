@@ -9,7 +9,7 @@ package com.kingja.cardpackage.util;
 public class Constants {
 
     //    public static final String WEBSERVER_URL = "http://10.1.5.233:18349/RentalEstate.asmx";// WebServices访问地址
-    public static final String WEBSERVER_URL = "http://122.228.188.212:13100/rentalestate.asmx";// WebServices访问地址
+    public static final String WEBSERVER_URL = "http://122.228.188.212:13100/rentalestate.asmx";// WebServices访问测试地址
     //    public static final String WEBSERVER_URL = "http://122.228.188.210:20043/WebCardHolder.asmx";//
     // WebServices访问地址
     public static final String WEBSERVER_NAMESPACE = "http://tempuri.org/";// 命名空间
@@ -150,5 +150,13 @@ public class Constants {
     public static final String User_ResetPasswordForShiMing = "User_ResetPasswordForShiMing";
     /*是否绑定中介*/
     public static final String User_AgencyBung = "User_AgencyBung";
+    /*获取消息*/
+    public static final String User_MessageForShiMing = "User_MessageForShiMing";
+    /*设置消息已读*/
+    public static final String User_SetMessageForShiMing = "User_SetMessageForShiMing";
+    /*获取消息数*/
+    public static final String User_MessageCountForShiMing = "User_MessageCountForShiMing";
+    /*获取用户资料*/
+    public static final String User_DetailForShiMing = "User_DetailForShiMing";
 
 }

@@ -37,6 +37,7 @@ public class PhoneManager {
         phoneInfo.setDEVICEID(imei);
         phoneInfo.setWIFIMAC(getMacAddress(applicationContext));//WIFI物理地址
         phoneInfo.setCHANNELID(JPushInterface.getRegistrationID(applicationContext));
+        Log.e("PhoneManager", "CHANNELID: "+JPushInterface.getRegistrationID(applicationContext));
         phoneInfo.setCHANNELTYPE(1);
         return phoneInfo;
     }

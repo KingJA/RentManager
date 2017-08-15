@@ -43,7 +43,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
-        android:name=".base.App"
+        android:name="com.kingja.cardpackage.base.App"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@drawable/ic_launcher"
@@ -52,7 +52,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".actvitiy.LoginActivity"
+            android:name="com.kingja.cardpackage.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
 
@@ -460,10 +460,10 @@
             android:name="com.kingja.cardpackage.activity.AlarmHouseActivity"
             android:screenOrientation="portrait"/><!--我的住房预警界面-->
         <activity
-            android:name="com.kingja.cardpackage.activity.AlarmMineActivity"
+            android:name="com.kingja.cardpackage.activity.MsgActivity"
             android:screenOrientation="portrait"/><!--我的消息-->
         <activity
-            android:name="com.kingja.cardpackage.activity.IntermediaryActivity"
+            android:name="com.kingja.cardpackage.activity.AgencyActivity"
             android:screenOrientation="portrait"/><!--出租房中介-->
         <activity
             android:name="com.kingja.cardpackage.activity.UnregisteredApplyActivity"
@@ -474,11 +474,27 @@
         <activity
             android:name="com.kingja.cardpackage.activity.NewHomeActivity"
             android:screenOrientation="portrait"/><!--新版主页面-->
-        <activity android:name="com.kingja.cardpackage.activity.PoliceSearchActivity"/><!--民警查询-->
-        <activity android:name="com.kingja.cardpackage.activity.AgencySearchActivity"/><!--中介查询-->
-        <activity android:name="com.kingja.cardpackage.activity.PerfectInfoActivity"/><!--完善资料-->
-        <activity android:name="com.kingja.cardpackage.activity.RegisterActivity"/><!--注册-->
-        <activity android:name="com.kingja.cardpackage.activity.ForgetPasswordActivity"/><!--忘记密码-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.PoliceSearchActivity"
+            android:screenOrientation="portrait"/><!--民警查询-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.AgencySearchActivity"
+            android:screenOrientation="portrait"/><!--中介查询-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.PerfectInfoActivity"
+            android:screenOrientation="portrait"/><!--完善资料-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.RegisterActivity"
+            android:screenOrientation="portrait"/><!--注册-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.ForgetPasswordActivity"
+            android:screenOrientation="portrait"/><!--忘记密码-->
+        <activity
+            android:name="com.kingja.cardpackage.activity.PropertyActivity"
+            android:screenOrientation="portrait"/><!--物业申报-->
+        <activity
+            android:name="com.kingja.cardpackage.camera.CustomCameraActivity"
+            android:screenOrientation="portrait"/><!--自定义相机-->
 
 
         <meta-data

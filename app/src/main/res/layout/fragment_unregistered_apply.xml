@@ -4,220 +4,234 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_marginTop="8dp"
-            android:id="@+id/ll_apply_area"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_white"
-            android:gravity="center_vertical"
-            android:padding="16dp">
-
-            <com.kingja.ui.RequiredTextView
-                style="@style/font_3_15"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="end"
-                android:text="辖区:"/>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_weight="9">
-
-                <TextView
-                    android:id="@+id/tv_apply_area"
-                    style="@style/edit_cursor_blue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:hint="请选择辖区"/>
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/arrow_right"/>
-            </RelativeLayout>
-
-
-        </LinearLayout>
-
-        <View style="@style/divider_nomal_horizontal"/>
-
-        <LinearLayout
-            android:id="@+id/ll_apply_policeStation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_white"
-            android:gravity="center_vertical"
-            android:padding="16dp">
-
-            <com.kingja.ui.RequiredTextView
-                style="@style/font_3_15"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="end"
-                android:text="派出所:"/>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_weight="9">
-
-                <TextView
-                    android:id="@+id/tv_apply_policeStation"
-                    style="@style/edit_cursor_blue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:hint="请选择派出所"/>
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/arrow_right"/>
-            </RelativeLayout>
-
-
-        </LinearLayout>
-
-        <View style="@style/divider_nomal_horizontal"/>
-
-        <LinearLayout
-            android:id="@+id/ll_apply_country"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_white"
-            android:gravity="center_vertical"
-            android:padding="16dp">
-
-            <com.kingja.ui.RequiredTextView
-                style="@style/font_3_15"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="end"
-                android:text="居委会:"/>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_weight="9">
-
-                <TextView
-                    android:id="@+id/tv_apply_country"
-                    style="@style/edit_cursor_blue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:hint="请选择居委会"/>
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/arrow_right"/>
-            </RelativeLayout>
-
-
-        </LinearLayout>
-
-        <View style="@style/divider_nomal_horizontal"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:background="@color/bg_white"
-            android:gravity="center_vertical"
-            android:padding="16dp">
-
-            <com.kingja.ui.RequiredTextView
-                style="@style/font_3_15"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="end"
-                android:text="地址:"/>
-
-            <EditText
-                android:id="@+id/et_apply_address"
-                style="@style/edit_cursor_blue"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_weight="9"
-                android:hint="请输入地址"/>
-
-
-        </LinearLayout>
-
-        <View style="@style/divider_nomal_horizontal"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_white"
-            android:gravity="center_vertical"
-            android:padding="16dp">
-
-            <com.kingja.ui.RequiredTextView
-                style="@style/font_3_15"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="end"
-                android:text="房间号:"/>
-
-            <EditText
-                android:id="@+id/et_apply_roomNo"
-                style="@style/edit_cursor_blue"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:inputType="number"
-                android:maxLength="5"
-                android:layout_weight="9"
-                android:hint="请输入房间号"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_persons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:id="@+id/ll_apply_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_white"
+                android:gravity="center_vertical"
+                android:padding="16dp">
 
+                <com.kingja.ui.RequiredTextView
+                    style="@style/font_3_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="end"
+                    android:text="辖区:"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="9">
+
+                    <TextView
+                        android:id="@+id/tv_apply_area"
+                        style="@style/edit_cursor_gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:hint="请选择辖区"/>
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/arrow_right"/>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <View style="@style/divider_nomal_horizontal"/>
+
+            <LinearLayout
+                android:id="@+id/ll_apply_policeStation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_white"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <com.kingja.ui.RequiredTextView
+                    style="@style/font_3_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="end"
+                    android:text="派出所:"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="9">
+
+                    <TextView
+                        android:id="@+id/tv_apply_policeStation"
+                        style="@style/edit_cursor_gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:hint="请选择派出所"/>
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/arrow_right"/>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <View style="@style/divider_nomal_horizontal"/>
+
+            <LinearLayout
+                android:id="@+id/ll_apply_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_white"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <com.kingja.ui.RequiredTextView
+                    style="@style/font_3_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="end"
+                    android:text="居委会:"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="9">
+
+                    <TextView
+                        android:id="@+id/tv_apply_country"
+                        style="@style/edit_cursor_gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:hint="请选择居委会"/>
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/arrow_right"/>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <View style="@style/divider_nomal_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@color/bg_white"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <com.kingja.ui.RequiredTextView
+                    style="@style/font_3_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="end"
+                    android:text="地址:"/>
+
+                <EditText
+                    android:id="@+id/et_apply_address"
+                    style="@style/edit_cursor_gray"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="9"
+                    android:hint="请输入地址"/>
+
+
+            </LinearLayout>
+
+            <View style="@style/divider_nomal_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_white"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <com.kingja.ui.RequiredTextView
+                    style="@style/font_3_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="end"
+                    android:text="房间号:"/>
+
+                <EditText
+                    android:id="@+id/et_apply_roomNo"
+                    style="@style/edit_cursor_gray"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:layout_weight="9"
+                    android:hint="请输入房间号"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_persons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_add_more"
+                style="@style/font_blue_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="添加更多申报人员"/>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_add_more"
-            style="@style/font_blue_15"
+        <ImageView
+            android:id="@+id/iv_big_avatar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="添加更多申报人员"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
 
 </ScrollView>

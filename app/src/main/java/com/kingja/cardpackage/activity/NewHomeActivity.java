@@ -1,6 +1,9 @@
 package com.kingja.cardpackage.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -10,11 +13,14 @@ import android.widget.Toast;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
 import com.kingja.cardpackage.Event.GetCards;
+import com.kingja.cardpackage.Event.ReadOneMsg;
+import com.kingja.cardpackage.Event.RefreshMsgEvent;
 import com.kingja.cardpackage.adapter.HomeCardAdapter;
 import com.kingja.cardpackage.base.BaseActivity;
+import com.kingja.cardpackage.camera.CustomCameraActivity;
 import com.kingja.cardpackage.entiy.ErrorResult;
-import com.kingja.cardpackage.entiy.GetUserMessage;
 import com.kingja.cardpackage.entiy.User_HomePageApplication;
+import com.kingja.cardpackage.entiy.User_MessageCountForShiMing;
 import com.kingja.cardpackage.net.ThreadPoolTask;
 import com.kingja.cardpackage.net.WebServiceCallBack;
 import com.kingja.cardpackage.ui.SystemBarTint.FixedGridView;
@@ -26,8 +32,6 @@ import com.kingja.cardpackage.util.TempConstants;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.kingja.ui.popupwindow.BottomListPop;
 import com.tdr.wisdome.R;
-import com.tdr.wisdome.actvitiy.LoginActivity;
-import com.tdr.wisdome.actvitiy.PerfectActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -135,24 +139,28 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
         }
         User_HomePageApplication.ContentBean card = (User_HomePageApplication.ContentBean) parent.getItemAtPosition
                 (position);
-        switch (card.getCARDCODE()) {
+        goCard(this, card.getCARDCODE());
+    }
+
+    public static void goCard(Activity context, String cardCode) {
+        switch (cardCode) {
             case "1001"://房东申报
-                GoUtil.goActivity(this,RentActivity.class);
+                GoUtil.goActivity(context, RentActivity.class);
                 break;
             case "1002"://中介申报
-                GoUtil.goActivity(this, AgencySearchActivity.class);
+                GoUtil.goActivity(context, AgencySearchActivity.class);
                 break;
             case "1003"://物业申报
-                ToastUtil.showToast("物业申报未开放");
+                GoUtil.goActivity(context, PropertyActivity.class);
                 break;
             case "1004"://企业申报
                 ToastUtil.showToast("企业申报未开放");
                 break;
             case "1005"://委托申报
-                GoUtil.goActivity(this, AgentActivity.class);
+                GoUtil.goActivity(context, AgentActivity.class);
                 break;
             case "1006"://我的住房
-                GoUtil.goActivity(this, HouseActivity.class);
+                GoUtil.goActivity(context, HouseActivity.class);
                 break;
             case "2001"://手环申领
                 ToastUtil.showToast("手环申领未开放");
@@ -167,7 +175,7 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
                 ToastUtil.showToast("房源登记未开放");
                 break;
             case "3001"://民警查询
-                GoUtil.goActivity(this, PoliceSearchActivity.class);
+                GoUtil.goActivity(context, PoliceSearchActivity.class);
                 break;
             case "3002"://预约办证
                 ToastUtil.showToast("预约办证未开放");
@@ -211,7 +219,10 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_home_msg:
-                GoUtil.goActivity(this, AlarmMineActivity.class);
+                if (!checkInfoCompletely()) {
+                    return;
+                }
+                GoUtil.goActivity(this, MsgActivity.class);
                 break;
             case R.id.iv_home_menu:
                 mBottomListPop.showPopupWindow();
@@ -228,7 +239,7 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
                     GoUtil.goActivityAndFinish(this, LoginActivity.class);
                     break;
                 }
-                GoUtil.goActivity(NewHomeActivity.this, PerfectActivity.class);
+                GoUtil.goActivity(NewHomeActivity.this, PerfectInfoActivity.class);
                 break;
             case 1://修改密码
                 if (TextUtils.isEmpty(DataManager.getToken())) {
@@ -258,6 +269,7 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
                 GoUtil.goActivityAndFinish(NewHomeActivity.this, LoginActivity.class);
                 loginout();
                 DataManager.putToken("");
+                DataManager.putIdCard("");
                 DataManager.putLastPage(-1);
             }
         });
@@ -287,7 +299,7 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
             @Override
             public void onBtnClick() {
                 mAddInfoDialog.dismiss();
-                GoUtil.goActivity(NewHomeActivity.this, PerfectActivity.class);
+                GoUtil.goActivity(NewHomeActivity.this, PerfectInfoActivity.class);
             }
         });
     }
@@ -297,7 +309,8 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
         param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
         param.put("USERSID", DataManager.getUserId());
         new ThreadPoolTask.Builder()
-                .setGeneralParam(DataManager.getToken(), Constants.User_LogoffForShiMing, Constants.User_LogoffForShiMing, param)
+                .setGeneralParam(DataManager.getToken(), Constants.User_LogoffForShiMing, Constants
+                        .User_LogoffForShiMing, param)
                 .setBeanType(Object.class)
                 .setCallBack(new WebServiceCallBack<Object>() {
                     @Override
@@ -313,15 +326,18 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
     private void getMsg() {
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
-        param.put(TempConstants.PageIndex, 0);
-        param.put(TempConstants.PageSize, TempConstants.DEFAULT_PAGE_SIZE);
         new ThreadPoolTask.Builder()
-                .setGeneralParam(DataManager.getToken(), "", Constants.GetUserMessage, param)
-                .setBeanType(GetUserMessage.class)
-                .setCallBack(new WebServiceCallBack<GetUserMessage>() {
+                .setGeneralParam(DataManager.getToken(), "", Constants.User_MessageCountForShiMing, param)
+                .setBeanType(User_MessageCountForShiMing.class)
+                .setCallBack(new WebServiceCallBack<User_MessageCountForShiMing>() {
                     @Override
-                    public void onSuccess(GetUserMessage bean) {
-                        mTvHomeMsgCount.setVisibility(isHasNewMsg(bean) ? View.VISIBLE : View.GONE);
+                    public void onSuccess(User_MessageCountForShiMing bean) {
+                        int unReadCount = bean.getContent().getUnReadCount();
+                        mTvHomeMsgCount.setVisibility(unReadCount > 0 ? View.VISIBLE : View.GONE);
+                        mTvHomeMsgCount.setText(String.valueOf(unReadCount));
+                        if (unReadCount > 99) {
+                            mTvHomeMsgCount.setText("..");
+                        }
                     }
 
                     @Override
@@ -330,19 +346,31 @@ public class NewHomeActivity extends BaseActivity implements AdapterView.OnItemC
                 }).build().execute();
     }
 
-    private boolean isHasNewMsg(GetUserMessage bean) {
-        List<GetUserMessage.ContentBean> msgList = bean.getContent();
-        for (GetUserMessage.ContentBean msg : msgList) {
-            if (msg.getIsRead() == 0) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Subscribe
     public void reGetCards(GetCards bean) {
         getCards();
+    }
+
+    @Subscribe
+    public void reGetMsgCount(RefreshMsgEvent bean) {
+        getMsg();
+    }
+
+    @Subscribe
+    public void readOneMsg(ReadOneMsg bean) {
+        String msgCountStr = mTvHomeMsgCount.getText().toString().trim();
+        if ("..".equals(msgCountStr)) {
+            getMsg();
+            return;
+        }
+        int msgCount = Integer.valueOf(msgCountStr);
+        if (msgCount > 1) {
+            mTvHomeMsgCount.setText(String.valueOf(--msgCount));
+        }
+        if (msgCount == 0) {
+            mTvHomeMsgCount.setVisibility(View.GONE);
+        }
     }
 
     @Override

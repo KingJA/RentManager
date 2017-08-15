@@ -3,7 +3,7 @@ package com.kingja.cardpackage.util;
 
 import android.content.SharedPreferences;
 
-import com.tdr.wisdome.base.App;
+import com.kingja.cardpackage.base.App;
 
 
 public class SpUtils {

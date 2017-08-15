@@ -28,7 +28,54 @@ public class ChuZuWu_AgencySelfReportingIn {
     private String ROOMNO;
     private int PEOPLECOUNT;
     private List<ApplyPerson> PEOPLELIST;
+    private int PHOTOCOUNT;
+    private List<PHOTOLISTBean> PHOTOLIST;
 
+    public int getPHOTOCOUNT() {
+        return PHOTOCOUNT;
+    }
+
+    public void setPHOTOCOUNT(int PHOTOCOUNT) {
+        this.PHOTOCOUNT = PHOTOCOUNT;
+    }
+
+    public List<PHOTOLISTBean> getPHOTOLIST() {
+        return PHOTOLIST;
+    }
+
+    public void setPHOTOLIST(List<PHOTOLISTBean> PHOTOLIST) {
+        this.PHOTOLIST = PHOTOLIST;
+    }
+
+    public static class PHOTOLISTBean {
+        private String LISTID;
+        private String TAG;
+        private String IMAGE;
+
+        public String getLISTID() {
+            return LISTID;
+        }
+
+        public void setLISTID(String LISTID) {
+            this.LISTID = LISTID;
+        }
+
+        public String getTAG() {
+            return TAG;
+        }
+
+        public void setTAG(String TAG) {
+            this.TAG = TAG;
+        }
+
+        public String getIMAGE() {
+            return IMAGE;
+        }
+
+        public void setIMAGE(String IMAGE) {
+            this.IMAGE = IMAGE;
+        }
+    }
     public String getTaskID() {
         return TaskID;
     }

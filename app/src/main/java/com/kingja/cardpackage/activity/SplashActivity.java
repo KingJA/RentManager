@@ -9,7 +9,6 @@ import com.kingja.cardpackage.util.AppInfoUtil;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.GoUtil;
 import com.tdr.wisdome.R;
-import com.tdr.wisdome.actvitiy.LoginActivity;
 
 import cn.jpush.android.api.JPushInterface;
 

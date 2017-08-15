@@ -1,5 +1,6 @@
 package com.kingja.cardpackage.entiy;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -115,7 +116,7 @@ public class Application_List {
             this.CARDPROPERTY = CARDPROPERTY;
         }
 
-        public static class CARDPROPERTYBean {
+        public static class CARDPROPERTYBean implements Serializable {
             /**
              * CARDCODE : 1001
              * CARDNAME : 房东申报

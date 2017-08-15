@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.Application_List;
 import com.kingja.cardpackage.entiy.User_HomePageApplication;
+import com.kingja.cardpackage.util.NoDoubleClickListener;
 import com.kingja.cardpackage.util.ResUtil;
 import com.tdr.wisdome.R;
 
@@ -50,14 +51,16 @@ public class HomeCardSettingAdapter extends BaseLvAdapter<Application_List.Conte
             viewHolder.iv_card_ishomeapp.setBackgroundResource(isHomeApp ? R.drawable
                     .card_selected : R.drawable.card_add);
             if (!isHomeApp) {
-                viewHolder.iv_card_ishomeapp.setOnClickListener(new View.OnClickListener() {
+                viewHolder.iv_card_ishomeapp.setOnClickListener(new NoDoubleClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onNoDoubleClick(View v) {
                         if (onAddHomeCardListener != null) {
                             onAddHomeCardListener.onAddHomeCard(list.get(position).getCARDCODE(),list.get(position).getCARDNAME());
                         }
                     }
                 });
+            }else{
+                viewHolder.iv_card_ishomeapp.setOnClickListener(null);
             }
 
         } else {

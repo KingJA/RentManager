@@ -95,6 +95,7 @@ public abstract class RvAdaper<T> extends RecyclerView.Adapter<RvAdaper.ViewHold
         this.notifyDataSetChanged();
     }
 
+
     public void addData(List<T> list) {
         this.list.addAll(list);
         this.notifyDataSetChanged();

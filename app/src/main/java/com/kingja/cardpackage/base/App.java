@@ -1,4 +1,4 @@
-package com.tdr.wisdome.base;
+package com.kingja.cardpackage.base;
 
 import android.app.Application;
 import android.content.Context;
@@ -18,9 +18,7 @@ import org.xutils.x;
 import cn.jpush.android.api.JPushInterface;
 
 
-/**
- * Created by Linus_Xie on 2016/8/3.
- */
+
 public class App extends Application {
     public static Context context;
 
@@ -28,7 +26,6 @@ public class App extends Application {
     private static Context mAppContext;
     private static SharedPreferences mSharedPreferences;
 
-    private boolean isWxLogin;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -39,13 +36,12 @@ public class App extends Application {
         JPushInterface.setDebugMode(true);// 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);
 
-        /*===============KingJA===============*/
 
         mAppContext = getApplicationContext();
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mAppContext);
         initXutils3();
         copyPoliceDb();
-//        new DownloadDbManager( new Handler()).startDownloadDb();
+
 
     }
 

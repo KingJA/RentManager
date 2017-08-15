@@ -8,13 +8,12 @@ import android.util.Log;
 
 import com.kingja.cardpackage.Event.RefreshMsgEvent;
 import com.kingja.cardpackage.activity.AgentActivity;
-import com.kingja.cardpackage.activity.AlarmMineActivity;
+import com.kingja.cardpackage.activity.MsgActivity;
 import com.kingja.cardpackage.activity.HouseActivity;
 import com.kingja.cardpackage.activity.RentActivity;
 import com.kingja.cardpackage.activity.ShopActivity;
 import com.kingja.cardpackage.util.GoUtil;
-import com.tdr.wisdome.actvitiy.MsgActivity;
-import com.tdr.wisdome.base.App;
+import com.kingja.cardpackage.base.App;
 import com.tdr.wisdome.util.Utils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -48,69 +47,19 @@ public class MyReceiver extends BroadcastReceiver {
 
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
-            processCustomMessage(context, bundle);
+//            processCustomMessage(context, bundle);
 
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-            processCustomMessage(context, bundle);
-            sendMsgToChild(context, bundle);
+//            processCustomMessage(context, bundle);
+//            sendMsgToChild(context, bundle);
             EventBus.getDefault().post(new RefreshMsgEvent());
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
-
-            //打开自定义的Activity
-            //i.putExtras(bundle);
-            //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            //context.startActivity(i);
-            try {
-                JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
-                String cardCode = json.getString("CardCode");
-                String data = Utils.initNullStr(json.getString("data"));
-                String sourceId = json.getString("data");
-                GoUtil.goActivityOutOfActivity(App.getContext(), AlarmMineActivity.class);
-                //  switch (cardCode) {
-                //      case "1001"://我的住房
-                //     case "1002"://我的出租房
-                //      case "1004"://我的店
-                //      case "1007"://出租屋代管
-                //          if (!AppUtil.isAppForeground()) {
-                //              goActivityOrderByCardCode(cardCode);
-                //          }
-//
-                //                      if (com.tdr.wisdome.util.Constants.getToken().equals("")) {
-                //                        GoUtil.goActivityInReceiver(context, LoginActivity.class);
-                //                      break;
-                //                }
-                //              if (com.tdr.wisdome.util.Constants.getUserIdentitycard().equals("")) {
-                //                GoUtil.goActivityInReceiver(context, PerfectActivity.class);
-                //              break;
-                //        }
-                //      JPushDispathService.goService(App.getContext(),cardCode, sourceId);
-//
-                //                      break;
-                //                default:
-                //                  break;
-//
-                //              }
-
-
-//                Log.e("卡片ID：", cardCode);
-//                if (cardCode.equals("1003")) {
-//                    Intent intent1003 = new Intent(context, MainCarActivity.class);
-//                    intent1003.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    context.startActivity(intent1003);
-//                } else if (cardCode.equals("1005")) {
-//                    Intent intent1005 = new Intent(context, MainCareActivity.class);
-//                    intent1005.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    context.startActivity(intent1005);
-//                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            GoUtil.goActivityOutOfActivity(App.getContext(), MsgActivity.class);
 
 
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction()))
@@ -130,25 +79,6 @@ public class MyReceiver extends BroadcastReceiver {
             Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
         }
 
-    }
-
-    private void goActivityOrderByCardCode(String cardCode) {
-        switch (cardCode) {
-            case "1001"://我的住房
-                GoUtil.goActivityOutOfActivity(App.getContext(), HouseActivity.class);
-                break;
-            case "1002"://我的出租房
-                GoUtil.goActivityOutOfActivity(App.getContext(), RentActivity.class);
-                break;
-            case "1004"://我的店
-                GoUtil.goActivityOutOfActivity(App.getContext(), ShopActivity.class);
-                break;
-            case "1007"://出租屋代管
-                GoUtil.goActivityOutOfActivity(App.getContext(), AgentActivity.class);
-                break;
-            default:
-                break;
-        }
     }
 
     // 打印所有的 intent extra 数据
@@ -189,13 +119,13 @@ public class MyReceiver extends BroadcastReceiver {
     private void processCustomMessage(Context context, Bundle bundle) {
         String message = bundle.getString(JPushInterface.EXTRA_ALERT);
         String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-        Intent msgIntent = new Intent(MsgActivity.MESSAGE_RECEIVED_ACTION);
-        msgIntent.putExtra(MsgActivity.KEY_MESSAGE, message);
+        Intent msgIntent = new Intent(com.tdr.wisdome.actvitiy.MsgActivity.MESSAGE_RECEIVED_ACTION);
+        msgIntent.putExtra(com.tdr.wisdome.actvitiy.MsgActivity.KEY_MESSAGE, message);
         if (!ExampleUtil.isEmpty(extras)) {
             try {
                 JSONObject extraJson = new JSONObject(extras);
                 if (null != extraJson && extraJson.length() > 0) {
-                    msgIntent.putExtra(MsgActivity.KEY_EXTRAS, extras);
+                    msgIntent.putExtra(com.tdr.wisdome.actvitiy.MsgActivity.KEY_EXTRAS, extras);
                 }
             } catch (JSONException e) {
 
@@ -223,12 +153,12 @@ public class MyReceiver extends BroadcastReceiver {
         }
         if (cardCode.equals("1001") || cardCode.equals("1002") || cardCode.equals("1004") || cardCode.equals("1007")) {
             Intent msgIntent = new Intent("com.kingja.cardpackage");
-            msgIntent.putExtra(MsgActivity.KEY_MESSAGE, message);
+            msgIntent.putExtra(com.tdr.wisdome.actvitiy.MsgActivity.KEY_MESSAGE, message);
             if (!ExampleUtil.isEmpty(extras)) {
                 try {
                     JSONObject extraJson = new JSONObject(extras);
                     if (null != extraJson && extraJson.length() > 0) {
-                        msgIntent.putExtra(MsgActivity.KEY_EXTRAS, extras);
+                        msgIntent.putExtra(com.tdr.wisdome.actvitiy.MsgActivity.KEY_EXTRAS, extras);
                     }
                 } catch (JSONException e) {
 

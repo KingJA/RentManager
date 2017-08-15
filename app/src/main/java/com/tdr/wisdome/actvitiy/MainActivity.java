@@ -39,7 +39,7 @@ import com.tdr.wisdome.adapter.ItemAdapter;
 import com.tdr.wisdome.amap.LocationTask;
 import com.tdr.wisdome.amap.OnLocationGetListener;
 import com.tdr.wisdome.amap.PositionEntity;
-import com.tdr.wisdome.base.App;
+import com.kingja.cardpackage.base.App;
 import com.tdr.wisdome.model.CardInfo;
 import com.tdr.wisdome.model.CityInfo;
 import com.tdr.wisdome.util.Constants;

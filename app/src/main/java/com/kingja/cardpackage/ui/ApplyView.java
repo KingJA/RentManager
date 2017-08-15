@@ -1,12 +1,15 @@
 package com.kingja.cardpackage.ui;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.ApplyPerson;
@@ -15,6 +18,8 @@ import com.kingja.cardpackage.util.StringUtil;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.tdr.wisdome.R;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -33,6 +38,9 @@ public class ApplyView extends FrameLayout implements View.OnClickListener {
     private TextView mTvApplyCancle;
     private int index;
     private OnOperatorListener onOperatorListener;
+    private LinearLayout mLlApplyAvatar;
+    private ImageView mIvApplyAvatar;
+
 
 
     public ApplyView(Context context, int index) {
@@ -51,12 +59,16 @@ public class ApplyView extends FrameLayout implements View.OnClickListener {
         mEtApplyCardId = (EditText) rootView.findViewById(R.id.et_apply_cardId);
         mEtApplyPhone = (EditText) rootView.findViewById(R.id.et_apply_phone);
         mEtApplyHeight = (EditText) rootView.findViewById(R.id.et_apply_height);
+        mLlApplyAvatar = (LinearLayout) rootView.findViewById(R.id.ll_apply_avatar);
+        mIvApplyAvatar = (ImageView) rootView.findViewById(R.id.iv_apply_avatar);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         addView(rootView, layoutParams);
         mTvApplyIndex.setText(index + 1 + "");
         mTvApplyCancle.setOnClickListener(this);
         mIvApplyCamera.setOnClickListener(this);
+        mLlApplyAvatar.setOnClickListener(this);
+        mIvApplyAvatar.setOnClickListener(this);
     }
 
     public void setOnOperatorListener(OnOperatorListener onOperatorListener) {
@@ -77,13 +89,36 @@ public class ApplyView extends FrameLayout implements View.OnClickListener {
                 }
                 break;
 
+            case R.id.ll_apply_avatar:
+                if (onOperatorListener != null) {
+                    onOperatorListener.onTakePhone(index);
+                }
+            case R.id.iv_apply_avatar:
+                if (onOperatorListener != null) {
+                    onOperatorListener.onShowBigPhone(index);
+                }
+                break;
+
         }
+    }
+
+    public void setAvatar(Bitmap bitmap) {
+        mIvApplyAvatar.setEnabled(true);
+        mIvApplyAvatar.setImageBitmap(bitmap);
+    }
+
+    public Drawable getAvatar() {
+        return mIvApplyAvatar.getDrawable();
     }
 
     public interface OnOperatorListener {
         void onCancle(int index);
 
         void onOpenOCR(int index);
+
+        void onTakePhone(int index);
+
+        void onShowBigPhone(int index);
     }
 
     public void setIndex(int index) {
@@ -105,11 +140,21 @@ public class ApplyView extends FrameLayout implements View.OnClickListener {
             applyPerson.setOPERATOR(DataManager.getUserId());
             applyPerson.setTERMINAL(2);
             applyPerson.setOPERATORPHONE(DataManager.getPhone());
-
             applyPerson.setNAME(applyName);
             applyPerson.setIDENTITYCARD(cardId);
             applyPerson.setPHONE(phone);
             applyPerson.setHEIGHT(Integer.valueOf(height));
+            if (!TextUtils.isEmpty(avatar)) {
+                applyPerson.setPHOTOCOUNT(1);
+                List<ApplyPerson.PHOTOLISTBean> photolist = new ArrayList<>();
+                ApplyPerson.PHOTOLISTBean photo = new ApplyPerson.PHOTOLISTBean();
+                photo.setIMAGE(avatar);
+                photo.setLISTID(StringUtil.getUUID());
+                photo.setTAG("人像");
+                photolist.add(photo);
+                applyPerson.setPHOTOLIST(photolist);
+            }
+
             return applyPerson;
         }
         return null;
@@ -195,4 +240,11 @@ public class ApplyView extends FrameLayout implements View.OnClickListener {
     public void setCardId(String cardId) {
         mEtApplyCardId.setText(cardId);
     }
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    private String avatar;
+
+
 }

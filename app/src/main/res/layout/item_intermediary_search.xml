@@ -17,26 +17,45 @@
 
 
             <TextView
+                android:layout_marginRight="8dp"
+                android:gravity="end"
                 style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="中介名称:"/>
 
+            <TextView
+                android:id="@+id/tv_agency_name"
+                style="@style/font_3_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="万象之家"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp">
+
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:gravity="end"
+                style="@style/font_9_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="联系人:"/>
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4">
 
-                <TextView
-                    android:id="@+id/tv_agency_name"
-                    style="@style/font_3_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerVertical="true"
-                    android:text="万象之家"/>
 
                 <TextView
                     android:id="@+id/tv_agency_owner"
@@ -44,8 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/tv_agency_name"
-                    android:text="(马云)"/>
+                    android:text="马云"/>
 
                 <TextView
                     android:id="@+id/tv_agency_phone"
@@ -67,6 +85,8 @@
 
 
             <TextView
+                android:layout_marginRight="8dp"
+                android:gravity="end"
                 style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -91,6 +111,8 @@
 
 
             <TextView
+                android:layout_marginRight="8dp"
+                android:gravity="end"
                 style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

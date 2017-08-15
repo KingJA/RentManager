@@ -1,188 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:focusable="true"
-              android:focusableInTouchMode="true">
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 
     <LinearLayout
-        android:id="@+id/ll_selectRoom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/bg_white"
-        android:gravity="center_vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
-        <com.kingja.ui.RequiredTextView
-            style="@style/font_3_15"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/ll_selectRoom"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="end"
-            android:text="房间号:" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/bg_white"
+            android:gravity="center_vertical"
+            android:padding="16dp">
 
-        <RelativeLayout
-            android:layout_marginLeft="12dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="9">
-
-            <TextView
-                android:id="@+id/tv_apply_roomNum"
-                style="@style/font_9_15"
-                android:layout_width="wrap_content"
+            <com.kingja.ui.RequiredTextView
+                style="@style/font_3_15"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:hint="请选择一个房间" />
+                android:layout_weight="3"
+                android:gravity="end"
+                android:text="房间号:"/>
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/arrow_right" />
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="9">
+
+                <TextView
+                    android:id="@+id/tv_apply_roomNum"
+                    style="@style/edit_cursor_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="请选择一个房间"/>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/arrow_right"/>
+            </RelativeLayout>
 
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_ocr_camera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_white"
-        android:gravity="center_vertical"
-        android:padding="16dp">
-
-        <com.kingja.ui.RequiredTextView
-            style="@style/font_3_15"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/ll_ocr_camera"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="end"
-            android:text="姓名:" />
+            android:background="@color/bg_white"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="12dp">
 
-        <RelativeLayout
-            android:layout_marginLeft="12dp"
-            android:layout_width="0dp"
+            <com.kingja.ui.RequiredTextView
+                style="@style/font_3_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:text="姓名:"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="9">
+
+                <EditText
+                    android:id="@+id/et_apply_name"
+                    style="@style/edit_cursor_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="通过相机自动获取"/>
+
+                <ImageView
+                    android:id="@+id/iv_apply_camera"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/sel_camera"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="9">
+            android:background="@color/bg_white"
+            android:gravity="center_vertical"
+            android:padding="16dp">
+
+            <com.kingja.ui.RequiredTextView
+                style="@style/font_3_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:text="身份证号:"/>
+
 
             <EditText
-                android:id="@+id/et_apply_name"
-                style="@style/edit_cursor_blue"
-                android:layout_width="wrap_content"
+                android:id="@+id/et_apply_cardId"
+                style="@style/edit_cursor_gray"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:hint="通过相机自动获取" />
-
-            <ImageView
-                android:id="@+id/iv_apply_camera"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/sel_camera" />
-        </RelativeLayout>
+                android:layout_marginLeft="12dp"
+                android:layout_weight="9"
+                android:hint="通过相机自动获取"/>
 
 
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:gravity="center_vertical"
+            android:padding="16dp">
+
+            <com.kingja.ui.RequiredTextView
+                style="@style/font_3_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:text="手机号码:"/>
+
+            <EditText
+                android:id="@+id/et_apply_phone"
+                style="@style/edit_cursor_gray"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="9"
+                android:background="@null"
+                android:hint="请输入联系电话"
+                android:inputType="number"
+                android:maxLength="11"/>
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:gravity="center_vertical"
+            android:padding="16dp">
+
+            <com.kingja.ui.RequiredTextView
+                style="@style/font_3_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:text="身高:"/>
+
+            <EditText
+                android:id="@+id/et_apply_height"
+                style="@style/edit_cursor_gray"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="9"
+                android:background="@null"
+                android:hint="请输入身高(cm)"
+                android:inputType="number"
+                android:maxLength="11"/>
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal"/>
+
+        <LinearLayout
+            android:id="@+id/ll_apply_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            >
+
+            <TextView
+                style="@style/font_3_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:text="头像:"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="9">
+                <TextView
+                    style="@style/edit_cursor_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="请拍摄头像"/>
+                <ImageView
+                    android:id="@+id/iv_arrow_avatar"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/arrow_right"/>
+
+                <ImageView
+                    android:id="@+id/iv_apply_avatar"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_toLeftOf="@id/iv_arrow_avatar"
+                    android:clickable="false"
+                    android:scaleType="centerCrop"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_idcard"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="20dp"
+            android:scaleType="centerCrop"/>
     </LinearLayout>
 
-    <View style="@style/divider_nomal_horizontal" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_white"
-        android:gravity="center_vertical"
-        android:padding="16dp">
-
-        <com.kingja.ui.RequiredTextView
-            style="@style/font_3_15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="end"
-            android:text="身份证号:" />
-
-
-        <EditText
-            style="@style/edit_cursor_blue"
-            android:layout_marginLeft="12dp"
-            android:id="@+id/et_apply_cardId"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:hint="通过相机自动获取" />
-
-
-    </LinearLayout>
-
-    <View style="@style/divider_nomal_horizontal" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_white"
-        android:gravity="center_vertical"
-        android:padding="16dp">
-
-        <com.kingja.ui.RequiredTextView
-            style="@style/font_3_15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="end"
-            android:text="手机号码:" />
-
-        <EditText
-            android:layout_marginLeft="12dp"
-            android:id="@+id/et_apply_phone"
-            style="@style/font_9_15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:background="@null"
-            android:inputType="number"
-            android:maxLength="11"
-            android:hint="请输入联系电话" />
-    </LinearLayout>
-    <View style="@style/divider_nomal_horizontal" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_white"
-        android:gravity="center_vertical"
-        android:padding="16dp">
-
-        <com.kingja.ui.RequiredTextView
-            style="@style/font_3_15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="end"
-            android:text="身高:" />
-
-        <EditText
-            android:layout_marginLeft="12dp"
-            android:id="@+id/et_apply_height"
-            style="@style/font_9_15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:background="@null"
-            android:inputType="number"
-            android:maxLength="11"
-            android:hint="请输入身高(cm)" />
-    </LinearLayout>
     <ImageView
-        android:id="@+id/iv_idcard"
-        android:padding="20dp"
-        android:scaleType="centerCrop"
+        android:id="@+id/iv_big_avatar"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+
+</RelativeLayout>

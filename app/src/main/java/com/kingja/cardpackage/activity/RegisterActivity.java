@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 
+import com.kingja.cardpackage.Event.SetLoginTab;
 import com.kingja.cardpackage.entiy.Common_SendValidCode;
 import com.kingja.cardpackage.entiy.ErrorResult;
 import com.kingja.cardpackage.entiy.RegionForShiMing;
@@ -23,6 +24,8 @@ import com.kingja.supershapeview.SuperShapeTextView;
 import com.tdr.wisdome.R;
 import com.tdr.wisdome.util.MD5;
 import com.tdr.wisdome.view.material.MaterialEditText;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -128,6 +131,7 @@ public class RegisterActivity extends BackTitleActivity {
                     @Override
                     public void onSuccess(User_RegionForShiMing bean) {
                         setProgressDialog(false);
+                        EventBus.getDefault().post(new SetLoginTab());
                         ToastUtil.showToast("注册成功");
                         finish();
                     }

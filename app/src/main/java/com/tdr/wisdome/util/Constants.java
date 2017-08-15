@@ -3,7 +3,7 @@ package com.tdr.wisdome.util;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 
-import com.tdr.wisdome.base.App;
+import com.kingja.cardpackage.base.App;
 
 /**
  * Created by Linus_Xie on 2016/6/20.

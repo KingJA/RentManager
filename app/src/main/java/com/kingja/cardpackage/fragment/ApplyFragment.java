@@ -1,9 +1,13 @@
 package com.kingja.cardpackage.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -19,6 +23,7 @@ import com.kingja.cardpackage.activity.KCamera;
 import com.kingja.cardpackage.activity.PersonApplyActivity;
 import com.kingja.cardpackage.adapter.RoomListAdapter;
 import com.kingja.cardpackage.base.BaseFragment;
+import com.kingja.cardpackage.camera.CustomCameraActivity;
 import com.kingja.cardpackage.entiy.ChuZuWu_LKSelfReportingIn;
 import com.kingja.cardpackage.entiy.ChuZuWu_LKSelfReportingInParam;
 import com.kingja.cardpackage.entiy.ErrorResult;
@@ -32,10 +37,13 @@ import com.kingja.cardpackage.util.DialogUtil;
 import com.kingja.cardpackage.util.OCRUtil;
 import com.kingja.cardpackage.util.StringUtil;
 import com.kingja.cardpackage.util.ToastUtil;
+import com.pizidea.imagepicker.ImageUtil;
 import com.tdr.wisdome.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -69,8 +77,14 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
     private String height;
     private String cardType;
     private int reporterRole;
+    private LinearLayout mLlApplyAvatar;
+    private ImageView mIvApplyAvatar;
+    private static final int REQUEST_CAMARA = 1001;
+    private String base64Avatar;
+    private ImageView mIvBigAvatar;
+    private String TAG = "ApplyFragment";
 
-    public static ApplyFragment newInstance(RentBean bean,String cardType,int reporterRole) {
+    public static ApplyFragment newInstance(RentBean bean, String cardType, int reporterRole) {
         ApplyFragment mApplyFragment = new ApplyFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("ENTIY", bean);
@@ -91,12 +105,16 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         mLlSelectRoom = (LinearLayout) view.findViewById(R.id.ll_selectRoom);
         mIvApplyCamera = (ImageView) view.findViewById(R.id.iv_apply_camera);
         mTvApplyRoomNum = (TextView) view.findViewById(R.id.tv_apply_roomNum);
+
         mTvApplyName = (EditText) view.findViewById(R.id.et_apply_name);
         mEtApplyCardId = (EditText) view.findViewById(R.id.et_apply_cardId);
         mEtApplyPhone = (EditText) view.findViewById(R.id.et_apply_phone);
         mEtApplyHeigh = (EditText) view.findViewById(R.id.et_apply_height);
         mLlOcrCamera = (LinearLayout) view.findViewById(R.id.ll_ocr_camera);
         mIvIdcard = (ImageView) view.findViewById(R.id.iv_idcard);
+        mLlApplyAvatar = (LinearLayout) view.findViewById(R.id.ll_apply_avatar);
+        mIvApplyAvatar = (ImageView) view.findViewById(R.id.iv_apply_avatar);
+        mIvBigAvatar = (ImageView) view.findViewById(R.id.iv_big_avatar);
     }
 
 
@@ -117,12 +135,20 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
     public void initFragmentData() {
         mLlOcrCamera.setOnClickListener(this);
         mLlSelectRoom.setOnClickListener(this);
+        mLlApplyAvatar.setOnClickListener(this);
+        mIvApplyAvatar.setOnClickListener(this);
+        mIvBigAvatar.setOnClickListener(this);
         mPersonApplyActivity.setOnSaveClickListener(this);
     }
 
     @Override
     public void setFragmentData() {
 
+    }
+
+    private void takePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMARA);
     }
 
     @Override
@@ -140,6 +166,16 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
                 break;
             case R.id.ll_ocr_camera:
                 KCamera.GoCamera(getActivity());
+                break;
+            case R.id.ll_apply_avatar:
+                takePhoto();
+                break;
+            case R.id.iv_apply_avatar:
+                mIvBigAvatar.setVisibility(View.VISIBLE);
+                mIvBigAvatar.setImageBitmap(ImageUtil.base64ToBitmap(base64Avatar));
+                break;
+            case R.id.iv_big_avatar:
+                mIvBigAvatar.setVisibility(View.GONE);
                 break;
 
         }
@@ -160,6 +196,8 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         }
 
     }
+
+    private int photoCount;
 
     /**
      * 自主申报
@@ -183,13 +221,24 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         bean.setPCSCODE(entiy.getPCSCODE());
         bean.setJWHCODE(entiy.getJWHCODE());
         bean.setOPERATORPHONE(DataManager.getPhone());
-        bean.setPHOTOCOUNT(1);
+        bean.setPHOTOCOUNT(photoCount);
         List<ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean> photolist = new ArrayList<>();
-        ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean photolistBean = new ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean();
-        photolistBean.setLISTID(StringUtil.getUUID());
-        photolistBean.setTAG("身份证");
-        photolistBean.setIMAGE(imgBase64);
-        photolist.add(photolistBean);
+        if (!TextUtils.isEmpty(imgBase64)) {
+            bean.setPHOTOCOUNT(++photoCount);
+            ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean idcard = new ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean();
+            idcard.setLISTID(StringUtil.getUUID());
+            idcard.setTAG("身份证");
+            idcard.setIMAGE(imgBase64);
+            photolist.add(idcard);
+        }
+        if (!TextUtils.isEmpty(base64Avatar)) {
+            bean.setPHOTOCOUNT(++photoCount);
+            ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean avatar = new ChuZuWu_LKSelfReportingInParam.PHOTOLISTBean();
+            avatar.setLISTID(StringUtil.getUUID());
+            avatar.setTAG("人像");
+            avatar.setIMAGE(base64Avatar);
+            photolist.add(avatar);
+        }
         bean.setPHOTOLIST(photolist);
         new ThreadPoolTask.Builder()
                 .setGeneralParam(DataManager.getToken(), cardType, Constants
@@ -240,9 +289,10 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e(TAG, "onActivityResult: ");
         switch (requestCode) {
             case KCamera.REQUEST_CODE_KCAMERA:
-                if (Activity.RESULT_OK == resultCode) {
+                if (RESULT_OK == resultCode) {
                     String card = data.getStringExtra("card");
                     String name = data.getStringExtra("name");
                     //身份证base64字符串
@@ -257,6 +307,33 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
                     mIvIdcard.setImageBitmap(bitmap);
                 }
                 break;
+            case REQUEST_CAMARA:
+                if (resultCode == RESULT_OK) {
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    mIvApplyAvatar.setImageBitmap(bitmap);
+                    mIvApplyAvatar.setEnabled(true);
+                    base64Avatar = new String(ImageUtil.bitmapToBase64(bitmap));
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.e(TAG, "onSaveInstanceState: ");
+        outState.putString("photo", base64Avatar);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        Log.e(TAG, "onViewStateRestored: ");
+        if (savedInstanceState != null) {
+            base64Avatar = savedInstanceState.getString("photo");
         }
     }
 }

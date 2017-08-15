@@ -39,15 +39,16 @@
                 android:layout_height="45dp">
 
                 <TextView
+                    android:text="0"
+                    android:visibility="gone"
                     android:id="@+id/tv_home_msgCount"
-                    style="@style/font_f_12"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    style="@style/font_f_10"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/shape_cycler_tip"
-                    android:gravity="center"
-                    android:text="44"/>
+                    android:gravity="center"/>
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
@@ -55,8 +56,6 @@
 
     <com.kingja.cardpackage.ui.SystemBarTint.FixedGridView
         android:layout_marginTop="8dp"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp"
         android:id="@+id/fgv_home_card"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -65,10 +64,14 @@
         android:numColumns="4"
         tools:listitem="@layout/item_card"/>
 
+    <View
+        android:background="@color/bg_gray_kj"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"/>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="114dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/bg_home_img"/>
 
 

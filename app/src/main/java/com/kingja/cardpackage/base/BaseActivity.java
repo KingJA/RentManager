@@ -1,6 +1,7 @@
 package com.kingja.cardpackage.base;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -19,7 +20,7 @@ import com.tdr.wisdome.view.ZProgressHUD;
 
 public abstract class BaseActivity extends FragmentActivity implements ZeusManager.OnPermissionCallback {
     protected String TAG = getClass().getSimpleName();
-    protected ZProgressHUD mProgressDialog;
+    protected ProgressDialog mProgressDialog;
     protected FragmentManager mSupportFragmentManager;
     protected ZeusManager mZeusManager;
     protected static final String[] permissionArr = {Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE,
@@ -52,9 +53,9 @@ public abstract class BaseActivity extends FragmentActivity implements ZeusManag
     }
 
     private void initConmonView() {
-        mProgressDialog = new ZProgressHUD(this);
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.setMessage("加载中...");
-        mProgressDialog.setSpinnerType(ZProgressHUD.SIMPLE_ROUND_SPINNER);
 
         mZeusManager = new ZeusManager(this);
         mZeusManager.setOnPermissionCallback(this);

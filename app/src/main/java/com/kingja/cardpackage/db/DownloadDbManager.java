@@ -18,6 +18,7 @@ import com.kingja.cardpackage.entiy.ErrorResult;
 import com.kingja.cardpackage.net.PoolManager;
 import com.kingja.cardpackage.net.ThreadPoolTask;
 import com.kingja.cardpackage.net.WebServiceCallBack;
+import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.SpUtils;
 import com.kingja.cardpackage.util.TimeUtil;
 
@@ -96,7 +97,7 @@ public class DownloadDbManager {
         param.put("PageSize", REQUEST_SIZE);
         param.put("PageIndex", page);
         ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
-        ThreadPoolTask task = builder.setGeneralParam("", "", method, param)
+        ThreadPoolTask task = builder.setGeneralParam(DataManager.getToken(), "", method, param)
                 .setBeanType(clazz)
                 .setCallBack(callBack).build();
         PoolManager.getInstance().execute(task);
@@ -124,7 +125,7 @@ public class DownloadDbManager {
         param.put("PageSize", REQUEST_SIZE);
         param.put("PageIndex", page);
         ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
-        ThreadPoolTask task = builder.setGeneralParam("", "", Basic_Dictionary, param)
+        ThreadPoolTask task = builder.setGeneralParam(DataManager.getToken(), "", Basic_Dictionary, param)
                 .setBeanType(Basic_Dictionary_Return.class)
                 .setCallBack(new WebServiceCallBack<Basic_Dictionary_Return>() {
                     @Override
@@ -167,7 +168,7 @@ public class DownloadDbManager {
         }
         param.setDatas(datas);
         ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
-        ThreadPoolTask task = builder.setGeneralParam("", "", "Basic_CheckUpdate", param)
+        ThreadPoolTask task = builder.setGeneralParam(DataManager.getToken(), "", "Basic_CheckUpdate", param)
                 .setBeanType(Basic_CheckUpdate.class)
                 .setCallBack(new WebServiceCallBack<Basic_CheckUpdate>() {
 

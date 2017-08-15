@@ -6,7 +6,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.cardpackage.entiy.User_HomePageApplication;
+import com.kingja.cardpackage.util.NoDoubleClickListener;
 import com.kingja.cardpackage.util.ResUtil;
+import com.kingja.cardpackage.util.ToastUtil;
 import com.kingja.recyclerviewhelper.BaseRvAdaper;
 import com.kingja.recyclerviewhelper.RecyclerViewHelper;
 import com.tdr.wisdome.R;
@@ -47,9 +49,10 @@ public class HomeCardSelectedAdapter extends BaseRvAdaper<User_HomePageApplicati
         holder.tv_card_name.setText(bean.getCARDNAME());
         holder.iv_card_img.setBackgroundResource(ResUtil.getCardRes(bean.getCARDCODE()));
         holder.iv_card_select.setBackgroundResource(R.drawable.card_remove);
-        holder.iv_card_select.setOnClickListener(new View.OnClickListener() {
+        holder.iv_card_select.setOnClickListener(new NoDoubleClickListener() {
+
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 if (onRemoveCardListener != null) {
                     onRemoveCardListener.onRemove(position, bean.getCARDCODE());
                 }
@@ -110,5 +113,21 @@ public class HomeCardSelectedAdapter extends BaseRvAdaper<User_HomePageApplicati
             }
         }
         return sb.toString();
+    }
+
+    public boolean removeable() {
+        if (list.size() == 1 ) {
+            ToastUtil.showToast("至少需要一个应用");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean addable() {
+        if (list.size() == 11) {
+            ToastUtil.showToast("首页最多添加11一个应用");
+            return false;
+        }
+        return true;
     }
 }

@@ -125,7 +125,7 @@ public class UnregisteredApplyListFragment extends BaseFragment implements Swipe
 
     @Override
     public void onRefresh() {
-        mSrlApplyList.setRefreshing(false);
+        initFragmentNet();
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.kingja.cardpackage.util;
 
 import android.widget.Toast;
 
-import com.tdr.wisdome.base.App;
+import com.kingja.cardpackage.base.App;
 
 /**
  * Description：TODO

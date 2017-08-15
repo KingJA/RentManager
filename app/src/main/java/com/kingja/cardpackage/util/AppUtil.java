@@ -5,7 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
-import com.tdr.wisdome.base.App;
+import com.kingja.cardpackage.base.App;
 
 import java.util.List;
 

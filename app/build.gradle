@@ -76,6 +76,12 @@ dependencies {
     compile project(':libk-kupdate')
     compile project(':recyclerviewhelper')
     compile 'com.kingja.supershapeview:supershapeview:1.1.1'
+
+    compile("com.github.hotchemi:permissionsdispatcher:2.4.0") {
+        // if you don't use android.app.Fragment you can exclude support for them
+        exclude module: "support-v13"
+    }
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:2.4.0"
 }
 
 def releaseTime() {

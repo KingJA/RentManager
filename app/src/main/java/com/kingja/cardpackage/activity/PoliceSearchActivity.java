@@ -26,6 +26,7 @@ import com.kingja.cardpackage.net.ThreadPoolTask;
 import com.kingja.cardpackage.net.WebServiceCallBack;
 import com.kingja.cardpackage.ui.PullToBottomRecyclerView;
 import com.kingja.cardpackage.util.AppInfoUtil;
+import com.kingja.cardpackage.util.AppUtil;
 import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.GoUtil;
@@ -119,6 +120,8 @@ public class PoliceSearchActivity extends BaseActivity implements View.OnClickLi
 //        mRv.setHasFixedSize(true);
 //        mRv.setAdapter(mPoliceSearchAdapter);
 
+        mSrl.setColorSchemeResources(R.color.bg_black);
+        mSrl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
         new RecyclerViewHelper.Builder(this)
                 .setAdapter(mPoliceSearchAdapter)
                 .setLayoutStyle(LayoutHelper.LayoutStyle.VERTICAL_LIST)

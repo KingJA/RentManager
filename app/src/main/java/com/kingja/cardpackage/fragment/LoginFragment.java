@@ -1,6 +1,7 @@
 package com.kingja.cardpackage.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,6 +9,7 @@ import com.kingja.cardpackage.activity.ForgetPasswordActivity;
 import com.kingja.cardpackage.activity.NewHomeActivity;
 import com.kingja.cardpackage.activity.PerfectInfoActivity;
 import com.kingja.cardpackage.base.BaseFragment;
+import com.kingja.cardpackage.db.DownloadDbManager;
 import com.kingja.cardpackage.entiy.ErrorResult;
 import com.kingja.cardpackage.entiy.LogInForShiMing;
 import com.kingja.cardpackage.entiy.User_LogInForShiMing;
@@ -95,6 +97,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                         setProgressDialog(false);
                         GoUtil.goActivityAndFinish(getActivity(), NewHomeActivity.class);
                         save2Local(bean.getContent());
+                        new DownloadDbManager(new Handler()).startDownloadDb();
                     }
 
                     @Override
@@ -112,6 +115,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         DataManager.putBirthday(content.getBIRTHDAY());
         DataManager.putPhone(content.getPHONE());
         DataManager.putUserId(content.getUSERID());
+        DataManager.putCertification(content.getCERTIFICATION());
     }
 
     @Override

@@ -129,7 +129,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 GoUtil.goActivity(HomeActivity.this, AgentActivity.class);
                 break;
             case 3://出租房中介
-                GoUtil.goActivity(HomeActivity.this, IntermediaryActivity.class);
+                GoUtil.goActivity(HomeActivity.this, AgencyActivity.class);
                 break;
             default:
                 break;
@@ -144,7 +144,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 mBottomListPop.showPopupWindow();
                 break;
             case R.id.rl_home_msg:
-                GoUtil.goActivity(this, AlarmMineActivity.class);
+                GoUtil.goActivity(this, MsgActivity.class);
                 break;
             default:
                 break;
@@ -172,7 +172,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 GoUtil.goActivity(HomeActivity.this, AgentActivity.class);
                 break;
             case 3://出租房中介
-                GoUtil.goActivity(HomeActivity.this, IntermediaryActivity.class);
+                GoUtil.goActivity(HomeActivity.this, AgencyActivity.class);
                 break;
         }
 

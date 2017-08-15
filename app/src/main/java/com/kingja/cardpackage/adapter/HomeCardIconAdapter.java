@@ -47,7 +47,7 @@ public class HomeCardIconAdapter extends BaseLvAdapter<User_HomePageApplication.
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (position == getCount() - 1) {
+        if (position == 7) {
             viewHolder.iv_home_card_icon.setBackgroundResource(R.drawable.card_hide);
             return convertView;
         }
@@ -72,9 +72,9 @@ public class HomeCardIconAdapter extends BaseLvAdapter<User_HomePageApplication.
     public int getCount() {
         int count = list.size();
         if (count > 7) {
-            count = 7;
+            count = 8;
         }
-        return count + 1;
+        return count ;
     }
 
     @Override

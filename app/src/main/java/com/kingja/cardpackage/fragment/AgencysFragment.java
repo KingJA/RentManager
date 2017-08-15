@@ -7,7 +7,11 @@ import android.widget.LinearLayout;
 
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
+import com.kingja.cardpackage.Event.GetBindAgencysEvent;
+import com.kingja.cardpackage.Event.GetUnbindAgencysEvent;
+import com.kingja.cardpackage.activity.AgencyActivity;
 import com.kingja.cardpackage.adapter.AgencySearchAdapter;
+import com.kingja.cardpackage.adapter.RvAdaper;
 import com.kingja.cardpackage.base.BaseFragment;
 import com.kingja.cardpackage.entiy.Agency_List;
 import com.kingja.cardpackage.entiy.ErrorResult;
@@ -16,14 +20,18 @@ import com.kingja.cardpackage.entiy.User_AgencyBung;
 import com.kingja.cardpackage.net.ThreadPoolTask;
 import com.kingja.cardpackage.net.WebServiceCallBack;
 import com.kingja.cardpackage.ui.PullToBottomRecyclerView;
+import com.kingja.cardpackage.util.AppUtil;
 import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.DialogUtil;
+import com.kingja.cardpackage.util.GoUtil;
 import com.kingja.cardpackage.util.TempConstants;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.kingja.recyclerviewhelper.LayoutHelper;
 import com.kingja.recyclerviewhelper.RecyclerViewHelper;
 import com.tdr.wisdome.R;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,6 +76,8 @@ public class AgencysFragment extends BaseFragment implements AgencySearchAdapter
         mSrl = (SwipeRefreshLayout) view.findViewById(R.id.srl);
         mRv = (PullToBottomRecyclerView) view.findViewById(R.id.rv);
         mAgencySearchAdapter = new AgencySearchAdapter(getActivity(), agencys);
+        mSrl.setColorSchemeResources(R.color.bg_black);
+        mSrl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
     }
 
     @Override
@@ -110,6 +120,34 @@ public class AgencysFragment extends BaseFragment implements AgencySearchAdapter
                 .setDividerColor(0xffbebebe)
                 .build()
                 .attachToRecyclerView(mRv);
+        mAgencySearchAdapter.setOnItemClickListener(new RvAdaper.OnItemClickListener<Agency_List.ContentBean>() {
+            @Override
+            public void onItemClick(Agency_List.ContentBean contentBean, int position) {
+                if (contentBean.getISBUNG() == 1) {
+                    GoUtil.goActivity(getActivity(), AgencyActivity.class);
+                }else{
+                    showBindDialog(position,contentBean.getAGENCYID(),contentBean.getISBUNG(),"需要绑定才能申报，是否马上绑定");
+                }
+            }
+        });
+    }
+
+    private void showBindDialog(final int position, final String agencyId, int isBind,String msg) {
+        final int bindStatus=isBind==1?0:1;
+        final NormalDialog setBindDialog = DialogUtil.getDoubleDialog(getActivity(), msg, "取消", "确定");
+        setBindDialog.setOnBtnClickL(new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                setBindDialog.dismiss();
+            }
+        }, new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                setBindDialog.dismiss();
+                doSetBind(position, agencyId, bindStatus);
+            }
+        });
+        setBindDialog.show();
     }
 
     @Override
@@ -124,7 +162,7 @@ public class AgencysFragment extends BaseFragment implements AgencySearchAdapter
         getAgencys(0);
     }
 
-    private void getAgencys(final int pageIndex) {
+    public void getAgencys(final int pageIndex) {
         mSrl.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
@@ -161,22 +199,7 @@ public class AgencysFragment extends BaseFragment implements AgencySearchAdapter
 
     @Override
     public void setBind(final int position, int isBind, final String agencyId) {
-        final int bindStatus=isBind==1?0:1;
-        final NormalDialog setBindDialog = DialogUtil.getDoubleDialog(getActivity(), "确定要进行" + (bindStatus == 1 ? "绑定?" :
-                "解绑?"), "取消", "确定");
-        setBindDialog.setOnBtnClickL(new OnBtnClickL() {
-            @Override
-            public void onBtnClick() {
-                setBindDialog.dismiss();
-            }
-        }, new OnBtnClickL() {
-            @Override
-            public void onBtnClick() {
-                setBindDialog.dismiss();
-                doSetBind(position, agencyId, bindStatus);
-            }
-        });
-        setBindDialog.show();
+        showBindDialog(position, agencyId,  isBind, "确定要进行" + (isBind == 1 ? "解绑?" :"绑定?"));
     }
 
     private void doSetBind(final int position, String agencyId, final int bindStatus) {
@@ -194,6 +217,11 @@ public class AgencysFragment extends BaseFragment implements AgencySearchAdapter
                     public void onSuccess(User_AgencyBung bean) {
                         mSrl.setRefreshing(false);
                         ToastUtil.showToast(bindStatus==1?"绑定成功":"解绑成功");
+                        if (bindStatus == 1) {
+                            EventBus.getDefault().post(new GetBindAgencysEvent());
+                        }else{
+                            EventBus.getDefault().post(new GetUnbindAgencysEvent());
+                        }
                         mAgencySearchAdapter.removeItem(position);
                     }
 

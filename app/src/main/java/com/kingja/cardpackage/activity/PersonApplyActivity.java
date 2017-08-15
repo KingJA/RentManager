@@ -2,7 +2,9 @@ package com.kingja.cardpackage.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 
 import com.kingja.cardpackage.entiy.RentBean;
@@ -145,6 +147,20 @@ public class PersonApplyActivity extends BackTitleActivity implements SwitchMult
             }
         }
     }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Log.e(TAG, "onSaveInstanceState: ");
+    }
 
+    @Override
+    protected void onCreate(Bundle arg0) {
+        Log.e(TAG, "onCreate: " );
+        super.onCreate(arg0);
+    }
 
+    @Override
+    protected void onRestart() {
+        Log.e(TAG, "onRestart: " );
+        super.onRestart();
+    }
 }

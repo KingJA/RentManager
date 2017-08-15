@@ -55,13 +55,13 @@ public class ChuZuWu_LKSelfReportingInParam {
     private String PCSCODE;
     private String JWHCODE;
     private String OPERATORPHONE;
-    private int PHOTOCOUNT;
     /**
      * LISTID : 0123456789ABCDEF0123456789ABCDEF
      * TAG : 门
      * IMAGE : base64
      */
 
+    private int PHOTOCOUNT;
     private List<PHOTOLISTBean> PHOTOLIST;
 
     public String getTaskID() {

@@ -26,33 +26,50 @@ public class CheckUtil {
         }
         return true;
     }
-    public static boolean checkHeight(String height,int min,int max) {
+
+    public static boolean checkHeight(String height, int min, int max) {
         if (TextUtils.isEmpty(height)) {
             ToastUtil.showToast("请输入身高");
             return false;
         }
-        int heightInt=Integer.valueOf(height);
+        int heightInt = Integer.valueOf(height);
 
-        if (heightInt<80||heightInt>210) {
-            ToastUtil.showToast("输入身高需在"+min+"到"+max+"cm之间");
+        if (heightInt < 80 || heightInt > 210) {
+            ToastUtil.showToast("输入身高需在" + min + "到" + max + "cm之间");
             return false;
         }
 
         return true;
     }
+
     /**
      * 未-1判断(经纬度)
+     *
      * @param d
      * @param tip
      * @return
      */
 
     public static boolean checkZero(double d, String tip) {
-        if (d==-1) {
+        if (d == -1) {
             ToastUtil.showToast(tip);
             return false;
         }
         return true;
+    }
+
+    public static boolean checkGender(String gender) {
+        ToastUtil.showToast("请输入性别");
+        if (TextUtils.isEmpty(gender)) {
+            return false;
+        }
+        if (!("男".equals(gender) || "女".equals(gender))) {
+            ToastUtil.showToast("性别格式错误");
+            return false;
+        }
+
+        return true;
+
     }
 
     /**
@@ -63,7 +80,7 @@ public class CheckUtil {
      * @return
      */
     public static boolean checkIntDefalut(int i, String tip) {
-        if (i==-1) {
+        if (i == -1) {
             ToastUtil.showToast(tip);
             return false;
         }
@@ -72,11 +89,12 @@ public class CheckUtil {
 
     /**
      * 验证是否以0开始
+     *
      * @param s
      * @return
      */
     public static boolean checkZero(String s) {
-        if ("0".equals(s) || s.startsWith("0")||s==null) {
+        if ("0".equals(s) || s.startsWith("0") || s == null) {
             ToastUtil.showToast("请输入非零数字");
             return false;
         }
@@ -86,6 +104,7 @@ public class CheckUtil {
 
     /**
      * 手机号码验证
+     *
      * @param phone
      * @return
      */
@@ -107,6 +126,7 @@ public class CheckUtil {
 
     /**
      * 密码格式验证
+     *
      * @param password
      * @return
      */
@@ -123,21 +143,23 @@ public class CheckUtil {
             return true;
         }
     }
+
     /**
      * 密码格式验证
+     *
      * @param password
      * @return
      */
-    public static boolean checkPasswordFormat(String password,int min,int max,String target) {
+    public static boolean checkPasswordFormat(String password, int min, int max, String target) {
 //        "[a-zA-Z0-9]{1,12}"
         // 判断非空
         if (TextUtils.isEmpty(password)) {
-            ToastUtil.showToast(target+"密码不能为空");
+            ToastUtil.showToast(target + "密码不能为空");
             return false;
         }
-        String reg=".{"+min+","+max+"}";
+        String reg = ".{" + min + "," + max + "}";
         if (!Pattern.matches(reg, password)) {
-            ToastUtil.showToast(target+"密码须为"+min+"-"+max+"位字母或数字组合");
+            ToastUtil.showToast(target + "密码须为" + min + "-" + max + "位字母或数字组合");
             return false;
         } else {
             return true;
@@ -146,18 +168,20 @@ public class CheckUtil {
 
     /**
      * 判断字符串是否相同
+     *
      * @param a
      * @param b
      * @param tip
      * @return
      */
-    public static boolean checkEquil(String a, String b,String tip) {
+    public static boolean checkEquil(String a, String b, String tip) {
         if (!a.equals(b)) {
             ToastUtil.showToast(tip);
             return false;
         }
         return true;
     }
+
     /**
      * 检查字符串最大长度
      *
@@ -186,7 +210,7 @@ public class CheckUtil {
 
     public static boolean checkBirthday(String input, String tip) {
 
-        if (input.length()!=11) {
+        if (input.length() != 11) {
             ToastUtil.showToast(tip);
             return false;
         }
@@ -199,13 +223,13 @@ public class CheckUtil {
      * @param value
      * @return
      */
-    public static boolean checkIdCard(final String value,String tip) {
-        if (value == null || value.length() != 18){
+    public static boolean checkIdCard(final String value, String tip) {
+        if (value == null || value.length() != 18) {
             ToastUtil.showToast(tip);
             return false;
         }
 
-        if (!value.matches("[\\d]+[X]?")){
+        if (!value.matches("[\\d]+[X]?")) {
             ToastUtil.showToast(tip);
             return false;
         }
@@ -218,11 +242,11 @@ public class CheckUtil {
         int nCheckNum = nSum % 11;
         char chrValue = value.charAt(17);
         char chrCode = code.charAt(nCheckNum);
-        if (chrValue == chrCode){
+        if (chrValue == chrCode) {
             return true;
         }
 
-        if (nCheckNum == 2 && (chrValue + ('a' - 'A') == chrCode)){
+        if (nCheckNum == 2 && (chrValue + ('a' - 'A') == chrCode)) {
             return true;
         }
         ToastUtil.showToast(tip);

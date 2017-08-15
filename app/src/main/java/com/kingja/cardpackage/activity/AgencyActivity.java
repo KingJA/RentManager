@@ -49,7 +49,7 @@ import java.util.Map;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class IntermediaryActivity extends BaseActivity implements View.OnClickListener {
+public class AgencyActivity extends BaseActivity implements View.OnClickListener {
 
     private List<Basic_XingZhengQuHua_Kj> areas = new ArrayList<>();
     private List<Basic_PaiChuSuo_Kj> policeStations = new ArrayList<>();
@@ -181,7 +181,7 @@ public class IntermediaryActivity extends BaseActivity implements View.OnClickLi
         mIntermediaryAdapter.setOnItemClickListener(new RvAdaper.OnItemClickListener<RentBean>() {
             @Override
             public void onItemClick(RentBean rentBean, int position) {
-                PersonApplyActivity.goActivity(IntermediaryActivity.this, rentBean, Constants.CARD_TYPE_INTERMEDIARY,
+                PersonApplyActivity.goActivity(AgencyActivity.this, rentBean, Constants.CARD_TYPE_INTERMEDIARY,
                         Constants.ROLE_INTERMEDIARY);
             }
         });

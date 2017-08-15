@@ -84,7 +84,7 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
 
     @Override
     protected void initNet() {
-        cardLogin();
+        doNet(0);
     }
 
     private void doNet(final int index) {
@@ -152,7 +152,7 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
 
     @Override
     protected void setData() {
-        setTitle("出租屋代管");
+        setTitle("委托申报");
         setTopColor(TopColor.WHITE);
         setOnRightClickListener(this, "加入");
     }
@@ -170,38 +170,6 @@ public class AgentActivity extends BackTitleActivity implements SwipeRefreshLayo
         DetailAgentActivity.goActivity(this, bean);
     }
 
-    private void cardLogin() {
-        setProgressDialog(true);
-        LoginInfo mInfo = new LoginInfo();
-        PhoneInfo phoneInfo = new PhoneUtil(this).getInfo();
-        mInfo.setTaskID("1");
-        mInfo.setREALNAME(DataManager.getRealName());
-        mInfo.setIDENTITYCARD(DataManager.getIdentitycard());
-        mInfo.setPHONENUM(DataManager.getPhone());
-        mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
-        mInfo.setSOFTTYPE(Constants.SOFTTYPE);
-        mInfo.setCARDTYPE(Constants.CARD_TYPE_AGENT);
-        mInfo.setPHONEINFO(phoneInfo);
-        mInfo.setSOFTVERSION(AppInfoUtil.getVersionName());
-        mInfo.setTaskID("1");
-        new ThreadPoolTask.Builder()
-                .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_AGENT, Constants.User_LogInForKaBao, mInfo)
-                .setBeanType(User_LogInForKaBao.class)
-                .setCallBack(new WebServiceCallBack<User_LogInForKaBao>() {
-                    @Override
-                    public void onSuccess(User_LogInForKaBao bean) {
-                        setProgressDialog(false);
-                        doNet(0);
-                    }
-
-                    @Override
-                    public void onErrorResult(ErrorResult errorResult) {
-                        setProgressDialog(false);
-                        finish();
-                        ToastUtil.showToast("卡包登录失败");
-                    }
-                }).build().execute();
-    }
 
     @Override
     public void onRightClick() {

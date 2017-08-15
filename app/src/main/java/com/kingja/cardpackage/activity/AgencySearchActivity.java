@@ -15,6 +15,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kingja.cardpackage.Event.GetBindAgencysEvent;
+import com.kingja.cardpackage.Event.GetUnbindAgencysEvent;
 import com.kingja.cardpackage.base.BaseActivity;
 import com.kingja.cardpackage.db.DbDaoXutils3;
 import com.kingja.cardpackage.entiy.Agency_List;
@@ -25,6 +27,9 @@ import com.kingja.cardpackage.util.GoUtil;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.kingja.ui.popupwindow.BaseTopPop;
 import com.tdr.wisdome.R;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +64,14 @@ public class AgencySearchActivity extends BaseActivity implements View.OnClickLi
     private TextView mTvPolicePcs;
     private ImageView mIvPolicePcs;
     private AppCompatCheckBox mCbBind;
-    private AgencysFragment bindedAgencys;
-    private AgencysFragment unBindedAgencys;
+    private AgencysFragment bindedAgencysFragment;
+    private AgencysFragment unBindedAgencysFragment;
     private FragmentManager mFragmentManager;
 
 
     @Override
     protected void initVariables() {
+        EventBus.getDefault().register(this);
         areas = DbDaoXutils3.getInstance().selectAll
                 (Basic_XingZhengQuHua_Kj.class);
         for (int i = 0; i < areas.size(); i++) {
@@ -154,9 +160,9 @@ public class AgencySearchActivity extends BaseActivity implements View.OnClickLi
             case R.id.tv_police_search:
                 keyword = mEtPoliceKeyword.getText().toString().trim();
                 if (mCbBind.isChecked()) {
-                    bindedAgencys.searchAgencys(xqcode, pcscode, keyword);
-                }else{
-                    unBindedAgencys.searchAgencys(xqcode, pcscode, keyword);
+                    bindedAgencysFragment.searchAgencys(xqcode, pcscode, keyword);
+                } else {
+                    unBindedAgencysFragment.searchAgencys(xqcode, pcscode, keyword);
                 }
 
                 break;
@@ -220,27 +226,47 @@ public class AgencySearchActivity extends BaseActivity implements View.OnClickLi
         int isBind = isChecked ? 1 : 0;
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         if (isChecked) {
-            if (bindedAgencys == null) {
-                bindedAgencys = AgencysFragment.newInstance(isBind);
-                fragmentTransaction.add(R.id.fl_angency_search, bindedAgencys);
+            if (bindedAgencysFragment == null) {
+                bindedAgencysFragment = AgencysFragment.newInstance(isBind);
+                fragmentTransaction.add(R.id.fl_angency_search, bindedAgencysFragment);
             }
-            if (unBindedAgencys != null) {
-                fragmentTransaction.hide(unBindedAgencys);
+            if (unBindedAgencysFragment != null) {
+                fragmentTransaction.hide(unBindedAgencysFragment);
             }
-            fragmentTransaction.show(bindedAgencys);
+            fragmentTransaction.show(bindedAgencysFragment);
 
 
         } else {
-            if (unBindedAgencys == null) {
-                unBindedAgencys = AgencysFragment.newInstance(isBind);
-                fragmentTransaction.add(R.id.fl_angency_search, unBindedAgencys);
+            if (unBindedAgencysFragment == null) {
+                unBindedAgencysFragment = AgencysFragment.newInstance(isBind);
+                fragmentTransaction.add(R.id.fl_angency_search, unBindedAgencysFragment);
             }
-            if (bindedAgencys != null) {
-                fragmentTransaction.hide(bindedAgencys);
+            if (bindedAgencysFragment != null) {
+                fragmentTransaction.hide(bindedAgencysFragment);
             }
-            fragmentTransaction.show(unBindedAgencys);
+            fragmentTransaction.show(unBindedAgencysFragment);
         }
         fragmentTransaction.commit();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void getBindAgencys(GetBindAgencysEvent event) {
+        if (bindedAgencysFragment != null) {
+            bindedAgencysFragment.getAgencys(0);
+        }
+    }
+
+    @Subscribe
+    public void getUnbindAgencys(GetUnbindAgencysEvent event) {
+        if (unBindedAgencysFragment != null) {
+            unBindedAgencysFragment.getAgencys(0);
+        }
     }
 }
