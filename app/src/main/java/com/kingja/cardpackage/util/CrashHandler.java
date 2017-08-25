@@ -8,7 +8,8 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.tdr.wisdome.actvitiy.LoginActivity;
+
+import com.kingja.cardpackage.activity.LoginActivity;
 
 import java.io.BufferedWriter;
 import java.io.File;
