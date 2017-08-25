@@ -64,7 +64,7 @@ public class DialogInput extends Dialog {
                     stationNo = mEtStationInput.getText().toString().trim();
                     if (checkIdCard(stationNo)){
                         dismiss();
-                        onInputListener.onInput(stationNo);
+                        onInputListener.onInput(stationNo.toLowerCase());
                     }
                 }
             }

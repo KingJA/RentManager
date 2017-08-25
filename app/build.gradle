@@ -7,8 +7,8 @@ android {
         applicationId "com.tdr.rentmanager"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 20170101
-        versionName "1.1.1"
+        versionCode 20170825
+        versionName "1.2.0"
 
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
@@ -26,13 +26,14 @@ android {
             storePassword "tendency2011,tdr"
             keyAlias "tendency_android.keystore"
             keyPassword "tendency2011,tdr"
+            v1SigningEnabled true
+            v2SigningEnabled true
         }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            shrinkResources true
             signingConfig signingConfigs.release
             buildApkByType("release")
         }
