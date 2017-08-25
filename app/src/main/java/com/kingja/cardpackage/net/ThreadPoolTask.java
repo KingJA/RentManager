@@ -6,12 +6,12 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.kingja.cardpackage.activity.LoginActivity;
 import com.kingja.cardpackage.entiy.ErrorResult;
 import com.kingja.cardpackage.util.ActivityManager;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.orhanobut.logger.Logger;
-import com.tdr.wisdome.actvitiy.LoginActivity;
 import com.kingja.cardpackage.base.App;
 
 import org.json.JSONObject;
