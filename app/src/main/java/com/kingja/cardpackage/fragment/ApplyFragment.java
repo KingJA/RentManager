@@ -2,7 +2,6 @@ package com.kingja.cardpackage.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -23,7 +22,6 @@ import com.kingja.cardpackage.activity.KCamera;
 import com.kingja.cardpackage.activity.PersonApplyActivity;
 import com.kingja.cardpackage.adapter.RoomListAdapter;
 import com.kingja.cardpackage.base.BaseFragment;
-import com.kingja.cardpackage.camera.CustomCameraActivity;
 import com.kingja.cardpackage.entiy.ChuZuWu_LKSelfReportingIn;
 import com.kingja.cardpackage.entiy.ChuZuWu_LKSelfReportingInParam;
 import com.kingja.cardpackage.entiy.ErrorResult;
@@ -83,13 +81,15 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
     private String base64Avatar;
     private ImageView mIvBigAvatar;
     private String TAG = "ApplyFragment";
+    private String agencyId;
 
-    public static ApplyFragment newInstance(RentBean bean, String cardType, int reporterRole) {
+    public static ApplyFragment newInstance(RentBean bean, String cardType, int reporterRole, String agencyId) {
         ApplyFragment mApplyFragment = new ApplyFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("ENTIY", bean);
         bundle.putString("cardType", cardType);
         bundle.putInt("reporterRole", reporterRole);
+        bundle.putString("agencyId", agencyId);
         mApplyFragment.setArguments(bundle);
         return mApplyFragment;
     }
@@ -122,6 +122,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
     public void initFragmentVariables() {
         entiy = (RentBean) getArguments().getSerializable("ENTIY");
         cardType = getArguments().getString("cardType");
+        agencyId = getArguments().getString("agencyId");
         reporterRole = getArguments().getInt("reporterRole");
         mRoomList = entiy.getRoomList();
     }
@@ -175,7 +176,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
                 mIvBigAvatar.setImageBitmap(ImageUtil.base64ToBitmap(base64Avatar));
                 break;
             case R.id.iv_big_avatar:
-                mIvBigAvatar.setVisibility(View.GONE);
+                mIvBigAvatar.setVisibility(View.INVISIBLE);
                 break;
 
         }
@@ -192,6 +193,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
                 && CheckUtil.checkIdCard(cardId, "身份证格式错误")
                 && CheckUtil.checkPhoneFormat(phone)
                 && CheckUtil.checkHeight(height, 50, 210)) {
+            mIvBigAvatar.setVisibility(View.GONE);
             onApply();
         }
 
@@ -215,6 +217,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
         bean.setHEIGHT(Integer.valueOf(height));
         bean.setREPORTERROLE(reporterRole);
         bean.setOPERATOR(DataManager.getUserId());
+        bean.setOPERATUNIT(agencyId);
         bean.setSTANDARDADDRCODE(entiy.getSTANDARDADDRCODE());
         bean.setTERMINAL(2);
         bean.setXQCODE(entiy.getXQCODE());
@@ -266,7 +269,9 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
                                 mEtApplyHeigh.setText("");
                                 doubleDialog.dismiss();
                                 imgBase64 = "";
+                                base64Avatar="";
                                 mIvIdcard.setImageResource(R.drawable.transparency_full);
+                                mIvApplyAvatar.setVisibility(View.INVISIBLE);
                             }
                         });
                     }
@@ -308,8 +313,9 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
                 }
                 break;
             case REQUEST_CAMARA:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK && data != null) {
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    mIvApplyAvatar.setVisibility(View.VISIBLE);
                     mIvApplyAvatar.setImageBitmap(bitmap);
                     mIvApplyAvatar.setEnabled(true);
                     base64Avatar = new String(ImageUtil.bitmapToBase64(bitmap));
@@ -336,4 +342,13 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener,
             base64Avatar = savedInstanceState.getString("photo");
         }
     }
+
+    public boolean isShowBigImg() {
+        return mIvBigAvatar.getVisibility() == View.VISIBLE;
+    }
+
+    public void hideBigImg() {
+        mIvBigAvatar.setVisibility(View.GONE);
+    }
+
 }

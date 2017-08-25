@@ -177,6 +177,7 @@
     <View style="@style/divider_nomal_horizontal"/>
 
     <LinearLayout
+        android:focusableInTouchMode="false"
         android:id="@+id/ll_apply_avatar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -185,8 +186,7 @@
         android:paddingBottom="8dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:paddingTop="8dp"
-        >
+        android:paddingTop="8dp">
 
         <TextView
             style="@style/font_3_15"
@@ -216,6 +216,7 @@
                 android:background="@drawable/arrow_right"/>
 
             <ImageView
+                android:visibility="invisible"
                 android:id="@+id/iv_apply_avatar"
                 android:layout_width="32dp"
                 android:layout_height="32dp"

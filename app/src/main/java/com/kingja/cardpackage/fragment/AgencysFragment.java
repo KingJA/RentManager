@@ -15,11 +15,11 @@ import com.kingja.cardpackage.adapter.RvAdaper;
 import com.kingja.cardpackage.base.BaseFragment;
 import com.kingja.cardpackage.entiy.Agency_List;
 import com.kingja.cardpackage.entiy.ErrorResult;
-import com.kingja.cardpackage.entiy.RentBean;
 import com.kingja.cardpackage.entiy.User_AgencyBung;
 import com.kingja.cardpackage.net.ThreadPoolTask;
 import com.kingja.cardpackage.net.WebServiceCallBack;
 import com.kingja.cardpackage.ui.PullToBottomRecyclerView;
+import com.kingja.cardpackage.ui.dialog.DialogInput;
 import com.kingja.cardpackage.util.AppUtil;
 import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
@@ -124,9 +124,9 @@ public class AgencysFragment extends BaseFragment implements AgencySearchAdapter
             @Override
             public void onItemClick(Agency_List.ContentBean contentBean, int position) {
                 if (contentBean.getISBUNG() == 1) {
-                    GoUtil.goActivity(getActivity(), AgencyActivity.class);
+                    AgencyActivity.goActivity(getContext(),contentBean.getAGENCYID());
                 }else{
-                    showBindDialog(position,contentBean.getAGENCYID(),contentBean.getISBUNG(),"需要绑定才能申报，是否马上绑定");
+                   ToastUtil.showToast("需要先绑定才能申报");
                 }
             }
         });
@@ -134,20 +134,14 @@ public class AgencysFragment extends BaseFragment implements AgencySearchAdapter
 
     private void showBindDialog(final int position, final String agencyId, int isBind,String msg) {
         final int bindStatus=isBind==1?0:1;
-        final NormalDialog setBindDialog = DialogUtil.getDoubleDialog(getActivity(), msg, "取消", "确定");
-        setBindDialog.setOnBtnClickL(new OnBtnClickL() {
+        DialogInput inputIdCardDialog = new DialogInput(getContext(),msg);
+        inputIdCardDialog.setOnInputListener(new DialogInput.OnInputListener() {
             @Override
-            public void onBtnClick() {
-                setBindDialog.dismiss();
-            }
-        }, new OnBtnClickL() {
-            @Override
-            public void onBtnClick() {
-                setBindDialog.dismiss();
-                doSetBind(position, agencyId, bindStatus);
+            public void onInput(String idCard) {
+                doSetBind(position, agencyId, bindStatus,idCard);
             }
         });
-        setBindDialog.show();
+        inputIdCardDialog.show();
     }
 
     @Override
@@ -199,15 +193,16 @@ public class AgencysFragment extends BaseFragment implements AgencySearchAdapter
 
     @Override
     public void setBind(final int position, int isBind, final String agencyId) {
-        showBindDialog(position, agencyId,  isBind, "确定要进行" + (isBind == 1 ? "解绑?" :"绑定?"));
+        showBindDialog(position, agencyId,  isBind, isBind == 1 ? "解绑" :"绑定");
     }
 
-    private void doSetBind(final int position, String agencyId, final int bindStatus) {
+    private void doSetBind(final int position, String agencyId, final int bindStatus, String idCard) {
         mSrl.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put(TempConstants.TaskID, TempConstants.DEFAULT_TASK_ID);
         param.put("AGENCYID", agencyId);
         param.put("BUNGSTATE", bindStatus);
+        param.put("BUNGMESSAGE", idCard);
         new ThreadPoolTask.Builder()
                 .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_EMPTY, Constants.User_AgencyBung,
                         param)

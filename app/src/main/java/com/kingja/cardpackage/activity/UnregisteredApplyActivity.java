@@ -1,5 +1,6 @@
 package com.kingja.cardpackage.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -18,14 +19,17 @@ import java.util.Arrays;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class UnregisteredApplyActivity extends BackTitleActivity implements SwitchMultiButton.OnSwitchListener, BackTitleActivity.OnRightClickListener {
+public class UnregisteredApplyActivity extends BackTitleActivity implements SwitchMultiButton.OnSwitchListener,
+        BackTitleActivity.OnRightClickListener {
     private OnSaveClickListener onSaveClickListener;
     private FragmentTransaction mTransaction;
     private UnregisteredApplyFragment mApplyFragment;
     private UnregisteredApplyListFragment mApplyListFragment;
+    private String agencyId;
 
     @Override
     protected void initVariables() {
+        agencyId = getIntent().getStringExtra("agencyId");
     }
 
     @Override
@@ -67,7 +71,7 @@ public class UnregisteredApplyActivity extends BackTitleActivity implements Swit
         switch (position) {
             case 0://申报
                 if (mApplyFragment == null) {
-                    mApplyFragment = new UnregisteredApplyFragment();
+                    mApplyFragment = UnregisteredApplyFragment.newInstance(agencyId);
                     mTransaction.add(R.id.fl_fragment, mApplyFragment);
                 } else {
                     mTransaction.show(mApplyFragment);
@@ -75,7 +79,7 @@ public class UnregisteredApplyActivity extends BackTitleActivity implements Swit
                 break;
             case 1://列表
                 if (mApplyListFragment == null) {
-                    mApplyListFragment =new UnregisteredApplyListFragment();
+                    mApplyListFragment = UnregisteredApplyListFragment.newInstance(agencyId);
                     mTransaction.add(R.id.fl_fragment, mApplyListFragment);
                 } else {
                     mTransaction.show(mApplyListFragment);
@@ -113,7 +117,16 @@ public class UnregisteredApplyActivity extends BackTitleActivity implements Swit
 
     @Override
     public void onBackPressed() {
-        showQuitDialog();
+        if (mApplyFragment.isShowBigImg()) {
+            mApplyFragment.hideBigImg();
+        } else {
+            showQuitDialog();
+        }
+    }
+
+    @Override
+    protected void onClickBack() {
+        onBackPressed();
     }
 
     @Override
@@ -121,13 +134,18 @@ public class UnregisteredApplyActivity extends BackTitleActivity implements Swit
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && resultCode == RESULT_OK) {
             if (requestCode == KCamera.REQUEST_CODE_KCAMERA) {
-                mApplyFragment.onActivityResult(requestCode,  resultCode,  data);
+                mApplyFragment.onActivityResult(requestCode, resultCode, data);
             }
         }
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
     }
 
-
+    public static void goActivity(Context context, String agencyId) {
+        Intent intent = new Intent(context, UnregisteredApplyActivity.class);
+        intent.putExtra("agencyId", agencyId);
+        context.startActivity(intent);
+    }
 }

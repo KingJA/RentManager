@@ -233,6 +233,7 @@
                     android:background="@drawable/arrow_right"/>
 
                 <ImageView
+                    android:visibility="invisible"
                     android:id="@+id/iv_apply_avatar"
                     android:layout_width="32dp"
                     android:layout_height="32dp"

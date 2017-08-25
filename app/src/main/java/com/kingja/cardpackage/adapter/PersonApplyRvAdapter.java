@@ -63,6 +63,9 @@ public class PersonApplyRvAdapter extends BaseRvAdaper<ChuZuWu_LKSelfReportingLi
     public void deleteItem(int position) {
         list.remove(position);
         notifyItemRemoved(position);
+        if (position != list.size()) {
+            notifyItemRangeChanged(position, list.size() - position);
+        }
     }
 
 

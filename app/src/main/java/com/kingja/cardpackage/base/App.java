@@ -12,6 +12,9 @@ import com.kingja.cardpackage.util.CrashHandler;
 
 import net.tsz.afinal.FinalDb;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.BuildConfig;
 import org.xutils.x;
 
@@ -25,12 +28,11 @@ public class App extends Application {
     public static FinalDb db;
     private static Context mAppContext;
     private static SharedPreferences mSharedPreferences;
-
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
-//        CrashHandler.getInstance().init(this);
+        CrashHandler.getInstance().init(this);
         db = FinalDb.create(context, "WisdomE.db", false);
 
         JPushInterface.setDebugMode(true);// 设置开启日志,发布时请关闭日志

@@ -1,5 +1,7 @@
 package com.kingja.cardpackage.util;
 
+import android.text.TextUtils;
+
 import java.util.UUID;
 
 /**
@@ -16,6 +18,9 @@ public class StringUtil {
      * 身份证号码，隐藏中间的出身年月日
      */
     public static final String hideID(String id) {
+        if (TextUtils.isEmpty(id)) {
+            return "";
+        }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < id.length()-4; i++) {
             sb.append("*");

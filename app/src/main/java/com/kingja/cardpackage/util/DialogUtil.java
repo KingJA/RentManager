@@ -18,6 +18,7 @@ import com.tdr.wisdome.R;
 public class DialogUtil {
     public static NormalDialog getDoubleDialog(Context context, String title, String leftText, String rightText) {
         final NormalDialog dialog = new NormalDialog(context);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.isTitleShow(false)
                 .content(title)
                 .contentTextSize(15f)
@@ -29,7 +30,8 @@ public class DialogUtil {
                 .dividerColor(ContextCompat.getColor(context, R.color.bg_divider))
                 .btnTextSize(15f, 15f)
                 .btnText(leftText, rightText)
-                .btnTextColor(ContextCompat.getColor(context, R.color.bg_blue), ContextCompat.getColor(context, R.color.bg_blue))
+                .btnTextColor(ContextCompat.getColor(context, R.color.bg_blue), ContextCompat.getColor(context, R
+                        .color.bg_blue))
                 .btnPressColor(ContextCompat.getColor(context, R.color.bg_press));
         return dialog;
     }

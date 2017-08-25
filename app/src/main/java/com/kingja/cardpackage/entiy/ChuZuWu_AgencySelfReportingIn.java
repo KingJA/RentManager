@@ -28,16 +28,7 @@ public class ChuZuWu_AgencySelfReportingIn {
     private String ROOMNO;
     private int PEOPLECOUNT;
     private List<ApplyPerson> PEOPLELIST;
-    private int PHOTOCOUNT;
     private List<PHOTOLISTBean> PHOTOLIST;
-
-    public int getPHOTOCOUNT() {
-        return PHOTOCOUNT;
-    }
-
-    public void setPHOTOCOUNT(int PHOTOCOUNT) {
-        this.PHOTOCOUNT = PHOTOCOUNT;
-    }
 
     public List<PHOTOLISTBean> getPHOTOLIST() {
         return PHOTOLIST;

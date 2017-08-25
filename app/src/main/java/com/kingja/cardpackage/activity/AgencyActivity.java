@@ -1,5 +1,7 @@
 package com.kingja.cardpackage.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -90,10 +92,12 @@ public class AgencyActivity extends BaseActivity implements View.OnClickListener
     private boolean hasMore;
     private List<RentBean> houses = new ArrayList<>();
     private ImageView mIvUnregistered;
+    private String agencyId;
 
 
     @Override
     protected void initVariables() {
+        agencyId = getIntent().getStringExtra("agencyId");
         areas = DbDaoXutils3.getInstance().selectAll
                 (Basic_XingZhengQuHua_Kj.class);
         for (int i = 0; i < areas.size(); i++) {
@@ -143,7 +147,7 @@ public class AgencyActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void initNet() {
-        cardLogin();
+//        cardLogin();
     }
 
     @Override
@@ -182,7 +186,7 @@ public class AgencyActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onItemClick(RentBean rentBean, int position) {
                 PersonApplyActivity.goActivity(AgencyActivity.this, rentBean, Constants.CARD_TYPE_INTERMEDIARY,
-                        Constants.ROLE_INTERMEDIARY);
+                        Constants.ROLE_INTERMEDIARY,agencyId);
             }
         });
     }
@@ -200,7 +204,7 @@ public class AgencyActivity extends BaseActivity implements View.OnClickListener
                 areasPop.showPopAsDropDown(mLlIntermediaryRoot);
                 break;
             case R.id.iv_unregistered:
-                GoUtil.goActivity(this,UnregisteredApplyActivity.class);
+                UnregisteredApplyActivity.goActivity(this,agencyId);
                 break;
             case R.id.ll_intermediary_pcs:
                 mIvIntermediaryPcs.setBackgroundResource(R.drawable.spinner_arow_sel);
@@ -381,6 +385,12 @@ public class AgencyActivity extends BaseActivity implements View.OnClickListener
                         ToastUtil.showToast("卡包登录失败");
                     }
                 }).build().execute();
+    }
+
+    public static void goActivity(Context context, String agencyId) {
+        Intent intent = new Intent(context, AgencyActivity.class);
+        intent.putExtra("agencyId", agencyId);
+        context.startActivity(intent);
     }
 
 }

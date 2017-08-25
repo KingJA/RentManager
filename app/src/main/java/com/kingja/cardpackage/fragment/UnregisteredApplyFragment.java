@@ -1,11 +1,9 @@
 package com.kingja.cardpackage.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,7 +23,6 @@ import com.kingja.cardpackage.entiy.Basic_PaiChuSuo_Kj;
 import com.kingja.cardpackage.entiy.Basic_XingZhengQuHua_Kj;
 import com.kingja.cardpackage.entiy.ChuZuWu_AgencySelfReportingIn;
 import com.kingja.cardpackage.entiy.ChuZuWu_AgencySelfReportingInResult;
-import com.kingja.cardpackage.entiy.ChuZuWu_LKSelfReportingInParam;
 import com.kingja.cardpackage.entiy.ErrorResult;
 import com.kingja.cardpackage.net.ThreadPoolTask;
 import com.kingja.cardpackage.net.WebServiceCallBack;
@@ -34,7 +31,6 @@ import com.kingja.cardpackage.util.CheckUtil;
 import com.kingja.cardpackage.util.Constants;
 import com.kingja.cardpackage.util.DataManager;
 import com.kingja.cardpackage.util.DialogUtil;
-import com.kingja.cardpackage.util.StringUtil;
 import com.kingja.cardpackage.util.ToastUtil;
 import com.kingja.ui.dialog.BaseListDialog;
 import com.pizidea.imagepicker.ImageUtil;
@@ -47,7 +43,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 
 /**
@@ -58,7 +53,7 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
  */
 public class UnregisteredApplyFragment extends BaseFragment implements View.OnClickListener, UnregisteredApplyActivity
         .OnSaveClickListener {
-    private static final int REQUEST_CAMARA = 1001;
+    public static final int REQUEST_CAMARA = 1001;
     private UnregisteredApplyActivity mUnregisteredApplyActivity;
     private LinkedList<ApplyView> applyViews = new LinkedList<>();
 
@@ -88,13 +83,21 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
     private ImageView mIvBigAvatar;
     private ChuZuWu_AgencySelfReportingIn bean;
     private String base64Avatar;
+    private String agencyId;
 
     @Override
     public void initFragmentVariables() {
+        agencyId = getArguments().getString("agencyId");
         initAreaData();
         initAreaDialog();
     }
-
+    public static UnregisteredApplyFragment newInstance(String  agencyId) {
+        UnregisteredApplyFragment mUnregisteredApplyFragment = new UnregisteredApplyFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("agencyId", agencyId);
+        mUnregisteredApplyFragment.setArguments(bundle);
+        return mUnregisteredApplyFragment;
+    }
     @Override
     public int getLayoutId() {
         return R.layout.fragment_unregistered_apply;
@@ -165,7 +168,12 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
     }
 
     private void addApplyView() {
+        if (applyViews.size() > 2) {
+            ToastUtil.showToast("一次最多添加3个申报人员");
+            return;
+        }
         ApplyView applyView = new ApplyView(getActivity(), applyViews.size());
+        applyView.setAgencyId(agencyId);
         applyView.setOnOperatorListener(new ApplyView.OnOperatorListener() {
 
 
@@ -210,19 +218,21 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onSaveClick() {
+       mIvBigAvatar.setVisibility(View.GONE);
         onApply();
     }
 
     private List<ApplyPerson> getApplyPerons() {
-        List<ApplyPerson> applyPerson = new ArrayList<>();
+        List<ApplyPerson> applyPersons = new ArrayList<>();
         for (ApplyView applyView : applyViews) {
-            if (applyView.getApplyPerson() != null) {
-                applyPerson.add(applyView.getApplyPerson());
+            ApplyPerson applyPerson = applyView.getApplyPerson();
+            if (applyPerson != null) {
+                applyPersons.add(applyPerson);
             } else {
                 return new ArrayList<>();
             }
         }
-        return applyPerson;
+        return applyPersons;
     }
 
     /**
@@ -234,7 +244,7 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
         List<ApplyPerson> applyPerons = getApplyPerons();
         if (!CheckUtil.checkEmpty(xqcode, "请选择辖区") || !CheckUtil.checkEmpty(pcscode, "请选派出所") || !CheckUtil.checkEmpty
                 (jwhcode, "请选择居委会") || !CheckUtil.checkEmpty(address, "请输入地址") || !CheckUtil.checkEmpty(roomNo,
-                "请输入房间号") || applyPerons.size()== 0) {
+                "请输入房间号") || applyPerons.size() == 0) {
             return;
         }
         setProgressDialog(true);
@@ -299,21 +309,25 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
                 if (RESULT_OK == resultCode) {
                     String card = data.getStringExtra("card");
                     String name = data.getStringExtra("name");
+                    String idCard = data.getStringExtra("img");
                     if (card != null) {
                         applyViews.get(currentIndex).setCardId(card);
                     }
                     if (name != null) {
                         applyViews.get(currentIndex).setName(name);
                     }
+                    if (idCard != null) {
+                        applyViews.get(currentIndex).setIdCard(idCard);
+                    }
                 }
+                break;
             case REQUEST_CAMARA:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK && data != null) {
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                     applyViews.get(currentIndex).setAvatar(bitmap);
                     base64Avatar = new String(ImageUtil.bitmapToBase64(bitmap));
                     applyViews.get(currentIndex).setAvatar(base64Avatar);
                 }
-
                 break;
         }
     }
@@ -389,5 +403,13 @@ public class UnregisteredApplyFragment extends BaseFragment implements View.OnCl
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMARA);
+    }
+
+    public boolean isShowBigImg() {
+        return mIvBigAvatar.getVisibility() == View.VISIBLE;
+    }
+
+    public void hideBigImg() {
+        mIvBigAvatar.setVisibility(View.GONE);
     }
 }

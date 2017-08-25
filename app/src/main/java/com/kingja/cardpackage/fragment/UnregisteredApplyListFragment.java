@@ -49,8 +49,15 @@ public class UnregisteredApplyListFragment extends BaseFragment implements Swipe
     private LinearLayout mLlEmpty;
     private NormalDialog makeSureDeleteDialog;
     private List<ChuZuWu_AgencySelfReportingList.ContentBean> mApplyList = new ArrayList<>();
+    private String agencyId;
 
-
+    public static UnregisteredApplyListFragment newInstance(String  agencyId) {
+        UnregisteredApplyListFragment mUnregisteredApplyListFragment = new UnregisteredApplyListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("agencyId", agencyId);
+        mUnregisteredApplyListFragment.setArguments(bundle);
+        return mUnregisteredApplyListFragment;
+    }
     @Override
     public int getLayoutId() {
         return R.layout.fragment_unregistered_apply_list;
@@ -76,6 +83,7 @@ public class UnregisteredApplyListFragment extends BaseFragment implements Swipe
 
     @Override
     public void initFragmentVariables() {
+        agencyId = getArguments().getString("agencyId");
         EventBus.getDefault().register(this);
     }
 
@@ -156,6 +164,7 @@ public class UnregisteredApplyListFragment extends BaseFragment implements Swipe
         param.put("OUTREPORTERROLE", "1");
         param.put("OUTOPERATOR", DataManager.getUserId());
         param.put("OUTOPERATORPHONE", DataManager.getPhone());
+        param.put("OUTOPERATUNIT", agencyId);
 
         new ThreadPoolTask.Builder()
                 .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_INTERMEDIARY, "ChuZuWu_AgencySelfReportingOut", param)

@@ -35,6 +35,9 @@
     <style name="font_3_16">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/font_3</item>
+    </style>  <style name="font_9_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/font_9</item>
     </style>
 
     <style name="font_3_20">
@@ -83,5 +86,16 @@
     <style name="CustomAlertDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/shape_lnull_bwhite_r8</item>
     </style>
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/shape_lnull_bwhite_r8</item>
+        <item name="android:windowNoTitle">true</item>
 
+    </style>
+    <style name="font_edit_3_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/font_3</item>
+        <item name="android:textColorHint">@color/font_edit</item>
+        <item name="android:textCursorDrawable">@drawable/et_cursor</item>
+        <item name="android:background">@null</item>
+    </style>
 </resources>

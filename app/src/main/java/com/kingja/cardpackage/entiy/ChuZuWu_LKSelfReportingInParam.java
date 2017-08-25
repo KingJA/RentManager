@@ -39,6 +39,16 @@ public class ChuZuWu_LKSelfReportingInParam {
     private String PHONE;
     private int REPORTERROLE;
     private String OPERATOR;
+
+    public String getOPERATUNIT() {
+        return OPERATUNIT;
+    }
+
+    public void setOPERATUNIT(String OPERATUNIT) {
+        this.OPERATUNIT = OPERATUNIT;
+    }
+
+    private String OPERATUNIT;
     private String STANDARDADDRCODE;
     private int TERMINAL;
 

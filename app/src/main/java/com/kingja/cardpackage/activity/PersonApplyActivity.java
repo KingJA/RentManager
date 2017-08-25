@@ -10,6 +10,7 @@ import android.view.View;
 import com.kingja.cardpackage.entiy.RentBean;
 import com.kingja.cardpackage.fragment.ApplyFragment;
 import com.kingja.cardpackage.fragment.ApplyListFragment;
+import com.kingja.cardpackage.fragment.UnregisteredApplyFragment;
 import com.kingja.ui.SwitchMultiButton;
 import com.tdr.wisdome.R;
 
@@ -29,11 +30,13 @@ public class PersonApplyActivity extends BackTitleActivity implements SwitchMult
     private ApplyListFragment mApplyListFragment;
     private String cardType;
     private int reporterRole;
+    private String agencyId;
 
     @Override
     protected void initVariables() {
         entiy = (RentBean) getIntent().getSerializableExtra("ENTIY");
         cardType = getIntent().getStringExtra("cardType");
+        agencyId = getIntent().getStringExtra("agencyId");
         reporterRole = getIntent().getIntExtra("reporterRole", 0);
     }
 
@@ -76,7 +79,7 @@ public class PersonApplyActivity extends BackTitleActivity implements SwitchMult
         switch (position) {
             case 0://申报
                 if (mApplyFragment == null) {
-                    mApplyFragment = ApplyFragment.newInstance(entiy,cardType,reporterRole);
+                    mApplyFragment = ApplyFragment.newInstance(entiy,cardType,reporterRole,agencyId);
                     mTransaction.add(R.id.fl_fragment, mApplyFragment);
                 } else {
                     mTransaction.show(mApplyFragment);
@@ -84,7 +87,7 @@ public class PersonApplyActivity extends BackTitleActivity implements SwitchMult
                 break;
             case 1://列表
                 if (mApplyListFragment == null) {
-                    mApplyListFragment = ApplyListFragment.newInstance(entiy);
+                    mApplyListFragment = ApplyListFragment.newInstance(entiy,agencyId);
                     mTransaction.add(R.id.fl_fragment, mApplyListFragment);
                 } else {
                     mTransaction.show(mApplyListFragment);
@@ -120,11 +123,12 @@ public class PersonApplyActivity extends BackTitleActivity implements SwitchMult
         this.onSaveClickListener = onSaveClickListener;
     }
 
-    public static void goActivity(Context context, RentBean entiy,String cardType,int reporterRole) {
+    public static void goActivity(Context context, RentBean entiy, String cardType, int reporterRole, String agencyId) {
         Intent intent = new Intent(context, PersonApplyActivity.class);
         intent.putExtra("ENTIY", entiy);
         intent.putExtra("cardType", cardType);
         intent.putExtra("reporterRole", reporterRole);
+        intent.putExtra("agencyId", agencyId);
         context.startActivity(intent);
     }
   public static void goActivity(Context context, RentBean entiy) {
@@ -133,16 +137,12 @@ public class PersonApplyActivity extends BackTitleActivity implements SwitchMult
         context.startActivity(intent);
     }
 
-    @Override
-    public void onBackPressed() {
-        showQuitDialog();
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && resultCode == RESULT_OK) {
-            if (requestCode == KCamera.REQUEST_CODE_KCAMERA) {
+            if (requestCode == KCamera.REQUEST_CODE_KCAMERA||requestCode == UnregisteredApplyFragment.REQUEST_CAMARA) {
                 mApplyFragment.onActivityResult(requestCode,  resultCode,  data);
             }
         }
@@ -162,5 +162,18 @@ public class PersonApplyActivity extends BackTitleActivity implements SwitchMult
     protected void onRestart() {
         Log.e(TAG, "onRestart: " );
         super.onRestart();
+    }
+    @Override
+    public void onBackPressed() {
+        if (mApplyFragment.isShowBigImg()) {
+            mApplyFragment.hideBigImg();
+        }else{
+            showQuitDialog();
+        }
+    }
+
+    @Override
+    protected void onClickBack() {
+        onBackPressed();
     }
 }

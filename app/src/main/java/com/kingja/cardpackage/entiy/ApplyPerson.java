@@ -29,6 +29,16 @@ public  class ApplyPerson {
     private String NAME;
     private String IDENTITYCARD;
     private String PHONE;
+
+    public String getOPERATUNIT() {
+        return OPERATUNIT;
+    }
+
+    public void setOPERATUNIT(String OPERATUNIT) {
+        this.OPERATUNIT = OPERATUNIT;
+    }
+
+    private String OPERATUNIT;
     private int HEIGHT;
     private int PHOTOCOUNT;
     private List<PHOTOLISTBean> PHOTOLIST;

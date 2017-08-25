@@ -64,6 +64,7 @@ public abstract class BaseFragment extends Fragment {
     private void initConmonView() {
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
         mProgressDialog.setMessage("加载中...");
     }
 

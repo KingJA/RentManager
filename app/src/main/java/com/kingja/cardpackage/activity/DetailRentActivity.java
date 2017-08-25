@@ -160,7 +160,7 @@ public class DetailRentActivity extends BackTitleActivity implements View.OnClic
             //人员申报
             case R.id.rl_apply:
                 if (checkRoomEmpty()) break;
-                PersonApplyActivity.goActivity(this, entiy, Constants.CARD_TYPE_AGENT,Constants.ROLE_RENT);
+                PersonApplyActivity.goActivity(this, entiy, Constants.CARD_TYPE_AGENT,Constants.ROLE_RENT, "");
                 break;
             //管理员管理
             case R.id.rl_admin:

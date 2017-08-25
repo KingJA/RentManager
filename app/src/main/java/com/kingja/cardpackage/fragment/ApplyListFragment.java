@@ -52,11 +52,13 @@ public class ApplyListFragment extends BaseFragment implements OnOperItemClickL,
     private PersonApplyRvAdapter mPersonApplyRvAdapter;
     private LinearLayout mLlEmpty;
     private List<RentBean.RoomListBean> mRoomList;
+    private String agencyId;
 
-    public static ApplyListFragment newInstance(RentBean bean) {
+    public static ApplyListFragment newInstance(RentBean bean, String agencyId) {
         ApplyListFragment mApplyListFragment = new ApplyListFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("ENTIY", bean);
+        bundle.putString("agencyId", agencyId);
         mApplyListFragment.setArguments(bundle);
         return mApplyListFragment;
     }
@@ -81,6 +83,7 @@ public class ApplyListFragment extends BaseFragment implements OnOperItemClickL,
     @Override
     public void initFragmentVariables() {
         entiy = (RentBean) getArguments().getSerializable("ENTIY");
+        agencyId = getArguments().getString("agencyId");
         mRoomList = entiy.getRoomList();
     }
 
@@ -184,6 +187,7 @@ public class ApplyListFragment extends BaseFragment implements OnOperItemClickL,
         param.put("OUTREPORTERROLE", "1");
         param.put("OUTOPERATOR",  DataManager.getUserId());
         param.put("OUTOPERATORPHONE", DataManager.getPhone());
+        param.put("OUTOPERATUNIT", agencyId);
 
         new ThreadPoolTask.Builder()
                 .setGeneralParam(DataManager.getToken(), Constants.CARD_TYPE_HOUSE, Constants.ChuZuWu_LKSelfReportingOut, param)

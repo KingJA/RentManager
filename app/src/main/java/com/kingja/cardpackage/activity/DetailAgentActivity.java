@@ -163,7 +163,7 @@ public class DetailAgentActivity extends BackTitleActivity implements View.OnCli
             //人员申报
             case R.id.rl_apply:
                 if (checkRoomEmpty()) break;
-                PersonApplyActivity.goActivity(this, entiy, Constants.CARD_TYPE_AGENT,Constants.ROLE_RENT);
+                PersonApplyActivity.goActivity(this, entiy, Constants.CARD_TYPE_AGENT,Constants.ROLE_RENT, "");
                 break;
             default:
                 break;
