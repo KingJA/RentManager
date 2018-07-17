@@ -4,8 +4,8 @@ ext {
     minSdkVersion = 17
     targetSdkVersion = 22
 
-    versionCode = 1
-    versionName = "1.0.0"
+    versionCode = 20170828
+    versionName = "1.2.0"
     appName = "市民智慧防范APP"
 
     supportVersion = '25.3.1'

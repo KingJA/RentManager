@@ -502,7 +502,7 @@
             android:value="developer-default"/>
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="24ffdda01813c5207f7c654e"/> <!--  </>值来自开发者平台取得的AppKey-->
+            android:value="1a0b06a8c86e81890561c3c7"/> <!--  </>值来自开发者平台取得的AppKey-->
         <service android:name="com.kingja.cardpackage.service.JPushDispathService"/><!--推送分发服务-->
 
     </application>

@@ -1,6 +1,10 @@
 #已发布版本
 ### versionCode 5           versionName "1.1.1"    2016-09-29
 ### versionCode 20161017    versionName "1.1.5"    2016-10-17
+
 ===
 ###计划发布版本
 ### versionCode X   versionName "1.1.8"    2016-xx-xx
+
+### 1.2.0   20170828
+添加中介申报等功能，添加上传头像

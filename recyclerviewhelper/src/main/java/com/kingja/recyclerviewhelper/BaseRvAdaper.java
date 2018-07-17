@@ -42,8 +42,9 @@ public abstract class BaseRvAdaper<T> extends RecyclerView.Adapter<BaseRvAdaper.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onItemClickListener != null)
+                if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(list.get(position), position);
+                }
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {

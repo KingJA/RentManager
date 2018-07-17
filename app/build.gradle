@@ -7,8 +7,8 @@ android {
         applicationId "com.tdr.rentmanager"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 20170828
-        versionName "1.2.0"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
@@ -16,7 +16,7 @@ android {
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "24ffdda01813c5207f7c654e", //JPush上注册的包名对应的appkey. 卡包97ccdb4a376dd6a4d8cfe102
+                JPUSH_APPKEY : "1a0b06a8c86e81890561c3c7", //JPush上注册的包名对应的appkey. 卡包97ccdb4a376dd6a4d8cfe102
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }

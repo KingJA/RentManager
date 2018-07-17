@@ -8,11 +8,10 @@ package com.kingja.cardpackage.util;
  */
 public class Constants {
 
-    //    public static final String WEBSERVER_URL = "http://10.1.5.233:18349/RentalEstate.asmx";// WebServices访问地址
-//    public static final String WEBSERVER_URL = "http://122.228.188.212:13100/rentalestate.asmx";// WebServices访问测试地址
-    //    public static final String WEBSERVER_URL = "http://122.228.188.210:20043/WebCardHolder.asmx";//
-//        public static final String WEBSERVER_URL = "http://122.228.89.70:6666/rentalestate.asmx";//正式
-        public static final String WEBSERVER_URL = "http://appservice.wzga.tdr-cn.com/rentalestate.asmx";//
+    //    public static final String WEBSERVER_URL = "http://122.228.188.210:20043/WebCardHolder.asmx";// 卡包，测试
+//        public static final String WEBSERVER_URL = "http://116.255.205.110:1001/WEBCARDHOLDER.asmx";// 卡包，正式
+    public static final String WEBSERVER_URL = "http://122.228.188.212:13100/RentalEstate.asmx";// 市民智慧防范，测试
+//    public static final String WEBSERVER_URL = "http://appservice.wzga.tdr-cn.com/rentalestate.asmx";//市民智慧防范，正式
     // WebServices访问地址
     public static final String WEBSERVER_NAMESPACE = "http://tempuri.org/";// 命名空间
     //            public static final String WEBSERVER_REREQUEST = "CardHolder";

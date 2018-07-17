@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 import com.kingja.cardpackage.base.App;
 
+import static android.R.attr.type;
+
 
 public class SpUtils {
     private static SharedPreferences sharedPreferences = App.getSP();
@@ -16,6 +18,9 @@ public class SpUtils {
      * @param object
      */
     public static void put(String key, Object object) {
+        if (object == null) {
+            return;
+        }
 
         String type = object.getClass().getSimpleName();
         SharedPreferences.Editor editor = sharedPreferences.edit();
